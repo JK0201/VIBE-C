@@ -125,6 +125,7 @@
   padding: 2.5rem 2rem 3rem;
   position: relative;
   overflow: hidden;
+  background: #FAFBFC;
 }
 
 .heroPattern {
@@ -340,14 +341,23 @@
 
 /* Category Navigation */
 .categoryNav {
-  padding: 2rem;
-  background: #FAFBFC;
+  padding: 3rem 2rem;
+  background: white;
+  border-top: 1px solid #E2E8F0;
   border-bottom: 1px solid #E2E8F0;
 }
 
 .categoryNavContent {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.categoryTitle {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1A202C;
+  margin-bottom: 2rem;
 }
 
 .categoryNavGrid {

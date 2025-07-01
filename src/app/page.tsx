@@ -76,6 +76,9 @@ export default function Home() {
       {/* Category Navigation */}
       <section className={styles.categoryNav}>
         <div className={styles.categoryNavContent}>
+          <h2 className={styles.categoryTitle}>
+            어떤 서비스를 찾으시나요?
+          </h2>
           <div className={styles.categoryNavGrid}>
             <a href="#" className={styles.categoryNavItem}>
               <div className={styles.categoryNavIcon}>
