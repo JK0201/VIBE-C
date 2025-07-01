@@ -1,25 +1,26 @@
+import Link from 'next/link';
 import styles from '@/styles/Home.module.css';
 
 export default function Header() {
   return (
     <nav className={styles.nav}>
       <div className={styles.navContent}>
-        <a href="/" className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           <div className={styles.logoShape}>
             <div className={styles.logoInner}></div>
           </div>
           <span className={styles.logoText}>VIBE-C</span>
-        </a>
+        </Link>
         <div className={styles.navLinks}>
-          <a href="#" className={styles.navLink}>
+          <Link href="/requests" className={styles.navLink}>
             개발 요청
-          </a>
-          <a href="#" className={styles.navLink}>
+          </Link>
+          <Link href="/marketplace" className={styles.navLink}>
             모듈 스토어
-          </a>
-          <a href="#" className={styles.navLink}>
+          </Link>
+          <Link href="/developers" className={styles.navLink}>
             개발자 찾기
-          </a>
+          </Link>
         </div>
         <div className={styles.navActions}>
           <button className={styles.loginBtn}>
