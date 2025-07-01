@@ -27,6 +27,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  text-decoration: none;
 }
 
 .logoShape {
@@ -35,12 +36,6 @@
   background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   border-radius: 12px;
   position: relative;
-  animation: logoRotate 10s linear infinite;
-}
-
-@keyframes logoRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .logoInner {
@@ -95,61 +90,39 @@
   gap: 1rem;
 }
 
-.notificationBtn {
-  position: relative;
-  width: 44px;
-  height: 44px;
+.loginBtn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: #667EEA;
+  border: 2px solid #667EEA;
   border-radius: 12px;
-  background: #F7FAFC;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-weight: 600;
   transition: all 0.2s;
 }
 
-.notificationBtn:hover {
-  background: #EDF2F7;
-  transform: scale(1.05);
-}
-
-.notificationIcon {
-  font-size: 1.2rem;
-}
-
-.notificationBadge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 20px;
-  height: 20px;
-  background: #FF6B6B;
+.loginBtn:hover {
+  background: #667EEA;
   color: white;
-  border-radius: 10px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transform: translateY(-2px);
 }
 
-.startBtn {
+.signupBtn {
   padding: 0.75rem 1.5rem;
   background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   color: white;
   border-radius: 12px;
   font-weight: 600;
   transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  border: 2px solid #667EEA;
 }
 
-.startBtn:hover {
+.signupBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
 /* Hero Section */
 .hero {
-  padding: 4rem 2rem;
+  padding: 2.5rem 2rem 3rem;
   position: relative;
   overflow: hidden;
 }
@@ -222,7 +195,7 @@
   font-weight: 800;
   line-height: 1.2;
   color: #1A202C;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .titleHighlight {
@@ -233,24 +206,24 @@
   background-clip: text;
   animation: shimmer 3s linear infinite;
 }
-
+/* 
 @keyframes shimmer {
   0% { background-position: 0% center; }
   100% { background-position: 200% center; }
-}
+} */
 
 .heroDescription {
   font-size: 1.25rem;
   color: #718096;
   line-height: 1.8;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .heroActions {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .primaryAction, .secondaryAction {
@@ -296,7 +269,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .userAvatars {

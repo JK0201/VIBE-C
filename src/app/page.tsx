@@ -6,33 +6,29 @@ export default function Home() {
       {/* Navigation */}
       <nav className={styles.nav}>
         <div className={styles.navContent}>
-          <div className={styles.logo}>
+          <a href="/" className={styles.logo}>
             <div className={styles.logoShape}>
               <div className={styles.logoInner}></div>
             </div>
             <span className={styles.logoText}>Vibe Market</span>
-          </div>
+          </a>
           <div className={styles.navLinks}>
             <a href="#" className={styles.navLink}>
-              <div className={styles.navIcon}>🎯</div>
               요청하기
             </a>
             <a href="#" className={styles.navLink}>
-              <div className={styles.navIcon}>🎨</div>
               컴포넌트
             </a>
             <a href="#" className={styles.navLink}>
-              <div className={styles.navIcon}>🚀</div>
               개발자
             </a>
           </div>
           <div className={styles.navActions}>
-            <button className={styles.notificationBtn}>
-              <span className={styles.notificationIcon}>🔔</span>
-              <span className={styles.notificationBadge}>3</span>
+            <button className={styles.loginBtn}>
+              로그인
             </button>
-            <button className={styles.startBtn}>
-              무료로 시작하기 ✨
+            <button className={styles.signupBtn}>
+              회원가입
             </button>
           </div>
         </div>
@@ -46,27 +42,23 @@ export default function Home() {
           <div className={styles.patternDot}></div>
         </div>
         <div className={styles.heroContent}>
-          <div className={styles.heroTag}>
-            <span className={styles.tagIcon}>🎉</span>
-            오픈 베타 진행중!
-          </div>
           <h1 className={styles.heroTitle}>
             당신의 아이디어를
             <br />
             <span className={styles.titleHighlight}>현실로 만들어드립니다</span>
           </h1>
           <p className={styles.heroDescription}>
-            전문 개발자들이 당신의 프로젝트를 위한<br />
-            맞춤형 컴포넌트를 제작해드립니다
+            AI, 백엔드, 모바일, 블록체인 등<br />
+            모든 개발 영역의 전문 솔루션을 만나보세요
           </p>
           <div className={styles.heroActions}>
             <button className={styles.primaryAction}>
               <span className={styles.actionIcon}>🛍️</span>
-              컴포넌트 둘러보기
+              개발 모듈 둘러보기
             </button>
             <button className={styles.secondaryAction}>
               <span className={styles.actionIcon}>💡</span>
-              요청 등록하기
+              개발 요청하기
             </button>
           </div>
           <div className={styles.heroUsers}>
@@ -81,20 +73,6 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <div className={styles.heroIllustration}>
-          <div className={styles.floatingCard} style={{top: '20%', left: '10%'}}>
-            <span className={styles.cardIcon}>⚛️</span>
-            <span className={styles.cardText}>React</span>
-          </div>
-          <div className={styles.floatingCard} style={{top: '60%', right: '15%'}}>
-            <span className={styles.cardIcon}>💎</span>
-            <span className={styles.cardText}>Vue</span>
-          </div>
-          <div className={styles.floatingCard} style={{bottom: '30%', left: '20%'}}>
-            <span className={styles.cardIcon}>🅰️</span>
-            <span className={styles.cardText}>Angular</span>
-          </div>
-        </div>
       </section>
 
       {/* Categories */}
@@ -105,40 +83,40 @@ export default function Home() {
             인기 카테고리
           </h2>
           <div className={styles.categoryGrid}>
-            <div className={styles.categoryCard} style={{backgroundColor: '#FFE8E8'}}>
-              <div className={styles.categoryIcon}>🔐</div>
-              <h3 className={styles.categoryName}>인증 & 보안</h3>
-              <p className={styles.categoryCount}>234개 컴포넌트</p>
+            <div className={styles.categoryCard} style={{backgroundColor: '#FFF0E8'}}>
+              <div className={styles.categoryIcon}>🤖</div>
+              <h3 className={styles.categoryName}>AI/머신러닝</h3>
+              <p className={styles.categoryCount}>312개 모듈</p>
               <div className={styles.categoryTrend}>
                 <span className={styles.trendIcon}>📈</span>
-                <span className={styles.trendText}>+12%</span>
+                <span className={styles.trendText}>+32%</span>
               </div>
             </div>
             <div className={styles.categoryCard} style={{backgroundColor: '#E8F4FF'}}>
-              <div className={styles.categoryIcon}>📊</div>
-              <h3 className={styles.categoryName}>데이터 시각화</h3>
-              <p className={styles.categoryCount}>189개 컴포넌트</p>
+              <div className={styles.categoryIcon}>🔧</div>
+              <h3 className={styles.categoryName}>백엔드/API</h3>
+              <p className={styles.categoryCount}>478개 모듈</p>
               <div className={styles.categoryTrend}>
                 <span className={styles.trendIcon}>📈</span>
-                <span className={styles.trendText}>+8%</span>
+                <span className={styles.trendText}>+18%</span>
               </div>
             </div>
             <div className={styles.categoryCard} style={{backgroundColor: '#F0E8FF'}}>
-              <div className={styles.categoryIcon}>🛒</div>
-              <h3 className={styles.categoryName}>이커머스</h3>
-              <p className={styles.categoryCount}>156개 컴포넌트</p>
+              <div className={styles.categoryIcon}>📱</div>
+              <h3 className={styles.categoryName}>모바일</h3>
+              <p className={styles.categoryCount}>256개 모듈</p>
               <div className={styles.categoryTrend}>
                 <span className={styles.trendIcon}>📈</span>
                 <span className={styles.trendText}>+15%</span>
               </div>
             </div>
             <div className={styles.categoryCard} style={{backgroundColor: '#E8FFE8'}}>
-              <div className={styles.categoryIcon}>💬</div>
-              <h3 className={styles.categoryName}>커뮤니케이션</h3>
-              <p className={styles.categoryCount}>142개 컴포넌트</p>
+              <div className={styles.categoryIcon}>⛓️</div>
+              <h3 className={styles.categoryName}>블록체인</h3>
+              <p className={styles.categoryCount}>142개 모듈</p>
               <div className={styles.categoryTrend}>
                 <span className={styles.trendIcon}>📈</span>
-                <span className={styles.trendText}>+5%</span>
+                <span className={styles.trendText}>+45%</span>
               </div>
             </div>
           </div>
