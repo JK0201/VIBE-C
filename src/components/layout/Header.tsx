@@ -15,7 +15,7 @@ export default function Header() {
             개발 요청
           </a>
           <a href="#" className={styles.navLink}>
-            마켓플레이스
+            모듈 스토어
           </a>
           <a href="#" className={styles.navLink}>
             개발자 찾기

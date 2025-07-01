@@ -31,6 +31,36 @@ const requests = [
     type: '고정가',
     budget: 85000,
     deadline: '12시간 남음'
+  },
+  {
+    id: 4,
+    isUrgent: false,
+    category: '웹사이트',
+    title: 'React 기반 관리자 대시보드 개발',
+    description: '실시간 데이터 시각화, 사용자 관리, 통계 분석 기능이 필요합니다.',
+    type: '경매',
+    bids: 5,
+    deadline: '3일 남음'
+  },
+  {
+    id: 5,
+    isUrgent: true,
+    category: '블록체인',
+    title: 'NFT 마켓플레이스 스마트 컨트랙트 개발',
+    description: 'ERC-721 기반 NFT 민팅, 거래, 로열티 시스템 구현이 필요합니다.',
+    type: '고정가',
+    budget: 200000,
+    deadline: '18시간 남음'
+  },
+  {
+    id: 6,
+    isUrgent: false,
+    category: '데이터 분석',
+    title: 'Python 기반 매출 예측 모델 개발',
+    description: '과거 판매 데이터를 기반으로 한 머신러닝 예측 모델이 필요합니다.',
+    type: '고정가',
+    budget: 120000,
+    deadline: '7일 남음'
   }
 ];
 
@@ -43,7 +73,7 @@ export default function RecentRequests() {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
             <span className={styles.titleIcon}>💼</span>
-            최신 개발 요청
+            개발 요청
           </h2>
           <div className={styles.requestTabs}>
             <button 

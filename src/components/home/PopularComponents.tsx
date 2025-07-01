@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import styles from '@/styles/Home.module.css';
+import ModuleCarousel from '@/components/common/ModuleCarousel';
 
 const popularComponents = [
   {
@@ -101,18 +101,6 @@ const popularComponents = [
 ];
 
 export default function PopularComponents() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const itemsPerPage = 4;
-  const totalPages = Math.ceil(popularComponents.length / itemsPerPage);
-  
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalPages);
-  };
-  
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
-  };
-
   return (
     <section className={styles.popularComponents}>
       <div className={styles.popularContent}>
@@ -125,83 +113,11 @@ export default function PopularComponents() {
             고객이 가장 많이 찾는 검증된 솔루션
           </p>
         </div>
-        <div className={styles.carouselWrapper}>
-          <button 
-            className={styles.carouselBtn} 
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <div className={styles.componentCarousel}>
-            <div 
-              className={styles.componentSlider}
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
-              {popularComponents.map((component) => (
-            <div key={component.id} className={styles.componentCard}>
-              <div className={styles.componentImage}>
-                <div className={styles.imagePlaceholder} style={{background: component.gradient}}>
-                  <span className={styles.imageIcon}>{component.icon}</span>
-                </div>
-                <div className={styles.componentCategory}>{component.category}</div>
-              </div>
-              <div className={styles.componentContent}>
-                <h3 className={styles.componentTitle}>{component.title}</h3>
-                <p className={styles.componentDesc}>{component.description}</p>
-                <div className={styles.componentTags}>
-                  {component.tags.map((tag, index) => (
-                    <span key={index} className={styles.tag}>{tag}</span>
-                  ))}
-                </div>
-                <div className={styles.componentFooter}>
-                  <div className={styles.componentPrice}>
-                    <span className={styles.priceAmount}>{component.price.toLocaleString()}</span>
-                    <span className={styles.priceUnit}>P</span>
-                  </div>
-                  <div className={styles.componentStats}>
-                    <span className={styles.stat}>
-                      <span className={styles.statIcon}>⭐</span>
-                      {component.rating}
-                    </span>
-                    <span className={styles.stat}>
-                      <span className={styles.statIcon}>💾</span>
-                      {component.downloads}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-              ))}
-            </div>
-          </div>
-          <button 
-            className={styles.carouselBtn} 
-            onClick={nextSlide}
-            disabled={currentSlide === totalPages - 1}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-        </div>
-        <div className={styles.carouselDots}>
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.dot} ${currentSlide === index ? styles.activeDot : ''}`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
-        </div>
-        <div className={styles.viewMore}>
-          <a href="#" className={styles.viewMoreLink}>
-            모든 모듈 둘러보기
-            <span className={styles.moreArrow}>→</span>
-          </a>
-        </div>
+        <ModuleCarousel 
+          modules={popularComponents}
+          showCategory={true}
+          itemsPerPage={4}
+        />
       </div>
     </section>
   );
