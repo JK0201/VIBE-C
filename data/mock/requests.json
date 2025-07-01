@@ -1,0 +1,100 @@
+{
+  "requests": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Need responsive login component with social auth",
+      "description": "Looking for a modern login component that supports email/password and social authentication (Google, GitHub). Must be fully responsive and include form validation.",
+      "type": "FIXED_PRICE",
+      "budget": 50000,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "authentication",
+      "deadline": "2024-03-15T00:00:00Z",
+      "createdAt": "2024-03-01T10:00:00Z",
+      "applications": [
+        {
+          "id": 1,
+          "userId": 2,
+          "requestId": 1,
+          "message": "I can deliver this within 3 days. Check my portfolio for similar work.",
+          "createdAt": "2024-03-01T12:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "userId": 3,
+      "title": "Dashboard component with charts",
+      "description": "Need a dashboard component with various chart types (line, bar, pie) using a modern charting library. Should be customizable and support dark mode.",
+      "type": "AUCTION",
+      "budget": null,
+      "isUrgent": true,
+      "status": "OPEN",
+      "category": "data-visualization",
+      "deadline": "2024-03-03T00:00:00Z",
+      "createdAt": "2024-03-02T08:00:00Z",
+      "bids": [
+        {
+          "id": 1,
+          "userId": 2,
+          "requestId": 2,
+          "amount": 80000,
+          "message": "I can use Chart.js or D3.js based on your preference",
+          "createdAt": "2024-03-02T09:00:00Z"
+        },
+        {
+          "id": 2,
+          "userId": 4,
+          "requestId": 2,
+          "amount": 65000,
+          "message": "Experienced with Recharts and can deliver in 2 days",
+          "createdAt": "2024-03-02T10:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "userId": 4,
+      "title": "E-commerce product card component",
+      "description": "Looking for a reusable product card component with image gallery, price display, add to cart functionality, and wishlist button.",
+      "type": "FIXED_PRICE",
+      "budget": 35000,
+      "isUrgent": false,
+      "status": "IN_PROGRESS",
+      "category": "e-commerce",
+      "deadline": "2024-03-20T00:00:00Z",
+      "createdAt": "2024-02-28T15:00:00Z",
+      "assignedTo": 1
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "title": "Real-time chat component",
+      "description": "Need a chat component with real-time messaging, typing indicators, and message history. WebSocket integration required.",
+      "type": "AUCTION",
+      "budget": null,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "communication",
+      "deadline": "2024-03-25T00:00:00Z",
+      "createdAt": "2024-03-01T14:00:00Z",
+      "bids": []
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "title": "Payment form with Stripe integration",
+      "description": "Secure payment form component with Stripe Elements integration, supporting card payments and saving payment methods.",
+      "type": "FIXED_PRICE",
+      "budget": 70000,
+      "isUrgent": true,
+      "status": "COMPLETED",
+      "category": "payment",
+      "deadline": "2024-02-25T00:00:00Z",
+      "createdAt": "2024-02-20T11:00:00Z",
+      "assignedTo": 3,
+      "completedAt": "2024-02-24T16:00:00Z"
+    }
+  ]
+}

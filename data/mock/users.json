@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "john.dev@example.com",
+      "name": "John Developer",
+      "githubId": "johndev",
+      "balance": 50000,
+      "profileImage": "https://github.com/johndev.png",
+      "bio": "Full-stack developer specialized in React and Node.js",
+      "createdAt": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "email": "sarah.coder@example.com",
+      "name": "Sarah Coder",
+      "githubId": "sarahcoder",
+      "balance": 75000,
+      "profileImage": "https://github.com/sarahcoder.png",
+      "bio": "Frontend specialist with expertise in modern UI/UX",
+      "createdAt": "2024-01-20T14:30:00Z"
+    },
+    {
+      "id": 3,
+      "email": "mike.builder@example.com",
+      "name": "Mike Builder",
+      "githubId": "mikebuilder",
+      "balance": 30000,
+      "profileImage": "https://github.com/mikebuilder.png",
+      "bio": "Backend developer focused on scalable APIs",
+      "createdAt": "2024-02-01T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "email": "anna.design@example.com",
+      "name": "Anna Designer",
+      "githubId": "annadesign",
+      "balance": 100000,
+      "profileImage": "https://github.com/annadesign.png",
+      "bio": "UI/UX designer and frontend developer",
+      "createdAt": "2024-02-10T16:45:00Z"
+    }
+  ]
+}

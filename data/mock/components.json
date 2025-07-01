@@ -1,0 +1,184 @@
+{
+  "components": [
+    {
+      "id": 1,
+      "name": "Modern Auth Component",
+      "description": "Complete authentication solution with login, signup, password reset, and social auth integration. Includes form validation and error handling.",
+      "price": 45000,
+      "category": "authentication",
+      "tags": ["react", "nextjs", "auth", "forms"],
+      "githubUrl": "https://github.com/example/modern-auth-component",
+      "demoUrl": "https://demo.example.com/auth",
+      "sellerId": 2,
+      "features": [
+        "Email/Password authentication",
+        "Social login (Google, GitHub, Facebook)",
+        "Password reset flow",
+        "Form validation",
+        "Responsive design",
+        "TypeScript support"
+      ],
+      "purchases": 23,
+      "rating": 4.8,
+      "createdAt": "2024-01-15T10:00:00Z",
+      "updatedAt": "2024-02-28T14:30:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Advanced Data Table",
+      "description": "Feature-rich data table with sorting, filtering, pagination, and export functionality. Highly customizable and performant.",
+      "price": 60000,
+      "category": "data-display",
+      "tags": ["react", "table", "data", "typescript"],
+      "githubUrl": "https://github.com/example/advanced-data-table",
+      "demoUrl": "https://demo.example.com/table",
+      "sellerId": 3,
+      "features": [
+        "Column sorting",
+        "Advanced filtering",
+        "Pagination",
+        "Row selection",
+        "Export to CSV/Excel",
+        "Virtualization for large datasets",
+        "Custom cell renderers"
+      ],
+      "purchases": 45,
+      "rating": 4.9,
+      "createdAt": "2024-01-20T12:00:00Z",
+      "updatedAt": "2024-03-01T09:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "E-commerce Cart System",
+      "description": "Complete shopping cart solution with product management, quantity controls, and checkout flow. Includes persistent storage.",
+      "price": 75000,
+      "category": "e-commerce",
+      "tags": ["react", "ecommerce", "cart", "checkout"],
+      "githubUrl": "https://github.com/example/ecommerce-cart",
+      "demoUrl": "https://demo.example.com/cart",
+      "sellerId": 1,
+      "features": [
+        "Add/Remove products",
+        "Quantity management",
+        "Price calculations",
+        "Discount/Coupon system",
+        "Persistent cart storage",
+        "Checkout flow",
+        "Order summary"
+      ],
+      "purchases": 34,
+      "rating": 4.7,
+      "createdAt": "2024-01-25T15:00:00Z",
+      "updatedAt": "2024-02-20T11:00:00Z"
+    },
+    {
+      "id": 4,
+      "name": "Dashboard Analytics Kit",
+      "description": "Comprehensive dashboard components with various chart types, KPI cards, and data visualization tools. Dark mode included.",
+      "price": 90000,
+      "category": "data-visualization",
+      "tags": ["react", "charts", "dashboard", "analytics"],
+      "githubUrl": "https://github.com/example/dashboard-kit",
+      "demoUrl": "https://demo.example.com/dashboard",
+      "sellerId": 4,
+      "features": [
+        "Line, Bar, Pie charts",
+        "KPI cards",
+        "Real-time updates",
+        "Dark mode support",
+        "Responsive grid layout",
+        "Export functionality",
+        "Customizable themes"
+      ],
+      "purchases": 56,
+      "rating": 4.9,
+      "createdAt": "2024-02-01T10:00:00Z",
+      "updatedAt": "2024-03-02T16:00:00Z"
+    },
+    {
+      "id": 5,
+      "name": "File Upload Component",
+      "description": "Drag-and-drop file upload with preview, progress tracking, and multiple file support. Includes image optimization.",
+      "price": 35000,
+      "category": "forms",
+      "tags": ["react", "upload", "files", "drag-drop"],
+      "githubUrl": "https://github.com/example/file-upload",
+      "demoUrl": "https://demo.example.com/upload",
+      "sellerId": 2,
+      "features": [
+        "Drag and drop",
+        "Multiple file upload",
+        "File type validation",
+        "Progress tracking",
+        "Image preview",
+        "Size limits",
+        "Chunked uploads"
+      ],
+      "purchases": 67,
+      "rating": 4.6,
+      "createdAt": "2024-02-05T13:00:00Z",
+      "updatedAt": "2024-02-25T10:00:00Z"
+    },
+    {
+      "id": 6,
+      "name": "Comment System",
+      "description": "Nested comment system with replies, likes, and real-time updates. Includes moderation tools and user mentions.",
+      "price": 55000,
+      "category": "communication",
+      "tags": ["react", "comments", "social", "realtime"],
+      "githubUrl": "https://github.com/example/comment-system",
+      "demoUrl": "https://demo.example.com/comments",
+      "sellerId": 3,
+      "features": [
+        "Nested replies",
+        "Like/Unlike",
+        "Real-time updates",
+        "User mentions",
+        "Markdown support",
+        "Moderation tools",
+        "Pagination"
+      ],
+      "purchases": 28,
+      "rating": 4.5,
+      "createdAt": "2024-02-10T14:00:00Z",
+      "updatedAt": "2024-03-01T12:00:00Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "authentication",
+      "name": "Authentication",
+      "description": "Login, signup, and auth-related components"
+    },
+    {
+      "id": "data-display",
+      "name": "Data Display",
+      "description": "Tables, lists, and data presentation components"
+    },
+    {
+      "id": "e-commerce",
+      "name": "E-commerce",
+      "description": "Shopping cart, product displays, and checkout components"
+    },
+    {
+      "id": "data-visualization",
+      "name": "Data Visualization",
+      "description": "Charts, graphs, and analytics components"
+    },
+    {
+      "id": "forms",
+      "name": "Forms",
+      "description": "Input components, file uploads, and form utilities"
+    },
+    {
+      "id": "communication",
+      "name": "Communication",
+      "description": "Chat, comments, and messaging components"
+    },
+    {
+      "id": "payment",
+      "name": "Payment",
+      "description": "Payment forms and transaction components"
+    }
+  ]
+}
