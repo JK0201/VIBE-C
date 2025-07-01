@@ -48,16 +48,14 @@ export default function Home() {
             <span className={styles.titleHighlight}>현실로 만들어드립니다</span>
           </h1>
           <p className={styles.heroDescription}>
-            AI, 백엔드, 모바일, 블록체인 등<br />
+            웹사이트부터 AI, 블록체인까지<br />
             모든 개발 영역의 전문 솔루션을 만나보세요
           </p>
           <div className={styles.heroActions}>
             <button className={styles.primaryAction}>
-              <span className={styles.actionIcon}>🛍️</span>
               개발 모듈 둘러보기
             </button>
             <button className={styles.secondaryAction}>
-              <span className={styles.actionIcon}>💡</span>
               개발 요청하기
             </button>
           </div>
@@ -75,6 +73,166 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Category Navigation */}
+      <section className={styles.categoryNav}>
+        <div className={styles.categoryNavContent}>
+          <div className={styles.categoryNavGrid}>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>🌐</span>
+              </div>
+              <span className={styles.categoryNavName}>웹사이트</span>
+            </a>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>📱</span>
+              </div>
+              <span className={styles.categoryNavName}>모바일 앱</span>
+            </a>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>🛒</span>
+              </div>
+              <span className={styles.categoryNavName}>이커머스</span>
+            </a>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>🤖</span>
+              </div>
+              <span className={styles.categoryNavName}>AI/ML</span>
+            </a>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>⚙️</span>
+              </div>
+              <span className={styles.categoryNavName}>백엔드/API</span>
+            </a>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>⛓️</span>
+              </div>
+              <span className={styles.categoryNavName}>블록체인</span>
+            </a>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>📊</span>
+              </div>
+              <span className={styles.categoryNavName}>데이터 분석</span>
+            </a>
+            <a href="#" className={styles.categoryNavItem}>
+              <div className={styles.categoryNavIcon}>
+                <span className={styles.iconEmoji}>🔧</span>
+              </div>
+              <span className={styles.categoryNavName}>DevOps</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Urgent Requests */}
+      <section className={styles.urgentRequests}>
+        <div className={styles.urgentRequestsContent}>
+          <div className={styles.urgentHeader}>
+            <h2 className={styles.sectionTitle}>
+              <span className={styles.titleIcon}>🔥</span>
+              긴급 요청
+              <span className={styles.titleIcon}>🔥</span>
+            </h2>
+            <p className={styles.urgentSubtitle}>
+              24-48시간 내 빠른 매칭이 필요한 프로젝트
+            </p>
+          </div>
+          <div className={styles.urgentGrid}>
+            <div className={styles.urgentCard}>
+              <div className={styles.urgentBadge}>
+                <span className={styles.urgentIcon}>🚨</span>
+                긴급
+              </div>
+              <div className={styles.urgentCategory}>백엔드/API</div>
+              <h3 className={styles.urgentTitle}>
+                실시간 암호화폐 거래소 백엔드 API 개발
+              </h3>
+              <p className={styles.urgentDesc}>
+                실시간 호가 처리, 주문 매칭 엔진, WebSocket API 구현
+              </p>
+              <div className={styles.urgentMeta}>
+                <div className={styles.urgentBudget}>
+                  <span className={styles.budgetType}>경매</span>
+                  <span className={styles.bidCount}>입찰 2건</span>
+                </div>
+                <div className={styles.urgentDeadline}>
+                  <span className={styles.deadlineIcon}>⏱️</span>
+                  <span className={styles.deadlineText}>23시간 남음</span>
+                </div>
+              </div>
+              <div className={styles.urgentFooter}>
+                <button className={styles.urgentApply}>바로 지원하기</button>
+              </div>
+            </div>
+            
+            <div className={styles.urgentCard}>
+              <div className={styles.urgentBadge}>
+                <span className={styles.urgentIcon}>🚨</span>
+                긴급
+              </div>
+              <div className={styles.urgentCategory}>DevOps</div>
+              <h3 className={styles.urgentTitle}>
+                쿠버네티스 모니터링 대시보드 구축
+              </h3>
+              <p className={styles.urgentDesc}>
+                Grafana 대시보드와 Prometheus 설정, 알림 시스템 구축
+              </p>
+              <div className={styles.urgentMeta}>
+                <div className={styles.urgentBudget}>
+                  <span className={styles.budgetType}>고정가</span>
+                  <span className={styles.budgetAmount}>120,000P</span>
+                </div>
+                <div className={styles.urgentDeadline}>
+                  <span className={styles.deadlineIcon}>⏱️</span>
+                  <span className={styles.deadlineText}>36시간 남음</span>
+                </div>
+              </div>
+              <div className={styles.urgentFooter}>
+                <button className={styles.urgentApply}>바로 지원하기</button>
+              </div>
+            </div>
+            
+            <div className={styles.urgentCard}>
+              <div className={styles.urgentBadge}>
+                <span className={styles.urgentIcon}>🚨</span>
+                긴급
+              </div>
+              <div className={styles.urgentCategory}>모바일 앱</div>
+              <h3 className={styles.urgentTitle}>
+                Flutter 쇼핑몰 앱 결제 모듈 개발
+              </h3>
+              <p className={styles.urgentDesc}>
+                토스페이먼츠, 카카오페이, 네이버페이 연동 필요
+              </p>
+              <div className={styles.urgentMeta}>
+                <div className={styles.urgentBudget}>
+                  <span className={styles.budgetType}>고정가</span>
+                  <span className={styles.budgetAmount}>85,000P</span>
+                </div>
+                <div className={styles.urgentDeadline}>
+                  <span className={styles.deadlineIcon}>⏱️</span>
+                  <span className={styles.deadlineText}>12시간 남음</span>
+                </div>
+              </div>
+              <div className={styles.urgentFooter}>
+                <button className={styles.urgentApply}>바로 지원하기</button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.urgentMore}>
+            <a href="#" className={styles.moreLink}>
+              긴급 요청 모두 보기
+              <span className={styles.moreArrow}>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Categories */}
       <section className={styles.categories}>
         <div className={styles.categoriesContent}>
@@ -83,25 +241,25 @@ export default function Home() {
             인기 카테고리
           </h2>
           <div className={styles.categoryGrid}>
-            <div className={styles.categoryCard} style={{backgroundColor: '#FFF0E8'}}>
-              <div className={styles.categoryIcon}>🤖</div>
-              <h3 className={styles.categoryName}>AI/머신러닝</h3>
-              <p className={styles.categoryCount}>312개 모듈</p>
+            <div className={styles.categoryCard} style={{backgroundColor: '#E8F4FF'}}>
+              <div className={styles.categoryIcon}>💻</div>
+              <h3 className={styles.categoryName}>프론트엔드</h3>
+              <p className={styles.categoryCount}>523개 모듈</p>
               <div className={styles.categoryTrend}>
                 <span className={styles.trendIcon}>📈</span>
-                <span className={styles.trendText}>+32%</span>
+                <span className={styles.trendText}>+28%</span>
               </div>
             </div>
-            <div className={styles.categoryCard} style={{backgroundColor: '#E8F4FF'}}>
-              <div className={styles.categoryIcon}>🔧</div>
-              <h3 className={styles.categoryName}>백엔드/API</h3>
+            <div className={styles.categoryCard} style={{backgroundColor: '#F0E8FF'}}>
+              <div className={styles.categoryIcon}>⚙️</div>
+              <h3 className={styles.categoryName}>백엔드</h3>
               <p className={styles.categoryCount}>478개 모듈</p>
               <div className={styles.categoryTrend}>
                 <span className={styles.trendIcon}>📈</span>
                 <span className={styles.trendText}>+18%</span>
               </div>
             </div>
-            <div className={styles.categoryCard} style={{backgroundColor: '#F0E8FF'}}>
+            <div className={styles.categoryCard} style={{backgroundColor: '#E8FFE8'}}>
               <div className={styles.categoryIcon}>📱</div>
               <h3 className={styles.categoryName}>모바일</h3>
               <p className={styles.categoryCount}>256개 모듈</p>
@@ -110,10 +268,10 @@ export default function Home() {
                 <span className={styles.trendText}>+15%</span>
               </div>
             </div>
-            <div className={styles.categoryCard} style={{backgroundColor: '#E8FFE8'}}>
-              <div className={styles.categoryIcon}>⛓️</div>
-              <h3 className={styles.categoryName}>블록체인</h3>
-              <p className={styles.categoryCount}>142개 모듈</p>
+            <div className={styles.categoryCard} style={{backgroundColor: '#FFF0E8'}}>
+              <div className={styles.categoryIcon}>🤖</div>
+              <h3 className={styles.categoryName}>AI</h3>
+              <p className={styles.categoryCount}>312개 모듈</p>
               <div className={styles.categoryTrend}>
                 <span className={styles.trendIcon}>📈</span>
                 <span className={styles.trendText}>+45%</span>

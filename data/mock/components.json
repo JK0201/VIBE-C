@@ -5,7 +5,7 @@
       "name": "AI 챗봇 엔진",
       "description": "GPT 기반 고급 챗봇 시스템. 한국어 특화, 컨텍스트 관리, 멀티턴 대화 지원. RAG(Retrieval-Augmented Generation) 구현 포함.",
       "price": 120000,
-      "category": "ai-ml",
+      "category": "ai",
       "tags": ["python", "gpt", "langchain", "fastapi", "ai"],
       "language": "Python",
       "framework": "FastAPI, LangChain",
@@ -32,7 +32,7 @@
       "name": "실시간 주식 데이터 크롤러",
       "description": "한국/미국 주식시장 실시간 데이터 수집 및 분석 모듈. 증권사 API 연동, 기술적 지표 계산, 알림 시스템 포함.",
       "price": 85000,
-      "category": "data-analytics",
+      "category": "data",
       "tags": ["python", "crawler", "stock", "pandas", "redis"],
       "language": "Python",
       "framework": "Scrapy, Pandas, Celery",
@@ -59,7 +59,7 @@
       "name": "마이크로서비스 인증 게이트웨이",
       "description": "MSA 환경을 위한 통합 인증/인가 시스템. JWT, OAuth2, API 게이트웨이, 율속 제한 기능 포함.",
       "price": 95000,
-      "category": "backend-api",
+      "category": "backend",
       "tags": ["nodejs", "jwt", "oauth", "microservices", "kong"],
       "language": "Node.js",
       "framework": "Express, Kong Gateway",
@@ -113,7 +113,7 @@
       "name": "이미지 처리 AI 모듈",
       "description": "딥러닝 기반 이미지 처리 종합 솔루션. 객체 인식, 배경 제거, 스타일 변환, 품질 향상 기능 제공.",
       "price": 75000,
-      "category": "ai-ml",
+      "category": "ai",
       "tags": ["python", "tensorflow", "opencv", "ai", "image"],
       "language": "Python",
       "framework": "TensorFlow, OpenCV",
@@ -194,7 +194,7 @@
       "name": "Unity 멀티플레이어 게임 서버",
       "description": "Unity 게임용 실시간 멀티플레이어 서버. 매치메이킹, 룸 관리, 상태 동기화, 리더보드 시스템 구현.",
       "price": 98000,
-      "category": "game",
+      "category": "backend",
       "tags": ["unity", "csharp", "multiplayer", "photon", "game"],
       "language": "C#",
       "framework": "Unity, Photon",
@@ -219,49 +219,52 @@
   ],
   "categories": [
     {
-      "id": "ai-ml",
-      "name": "AI/머신러닝",
-      "description": "인공지능, 머신러닝, 딥러닝 관련 모듈"
-    },
-    {
-      "id": "backend-api",
-      "name": "백엔드/API",
-      "description": "서버 개발, REST API, GraphQL, 마이크로서비스"
-    },
-    {
-      "id": "frontend",
-      "name": "프론트엔드",
-      "description": "UI 컴포넌트, 웹 애플리케이션 템플릿"
+      "id": "website",
+      "name": "웹사이트",
+      "description": "기업 홈페이지, 랜딩 페이지, 포트폴리오 사이트",
+      "icon": "🌐"
     },
     {
       "id": "mobile",
-      "name": "모바일",
-      "description": "iOS, Android, React Native, Flutter 모듈"
+      "name": "모바일 앱",
+      "description": "iOS, Android, 크로스플랫폼 앱 개발",
+      "icon": "📱"
     },
     {
-      "id": "data-analytics",
-      "name": "데이터/분석",
-      "description": "데이터 수집, 처리, 분석, 시각화 도구"
+      "id": "ecommerce",
+      "name": "이커머스",
+      "description": "온라인 쇼핑몰, 결제 시스템, 주문 관리",
+      "icon": "🛒"
     },
     {
-      "id": "devops",
-      "name": "DevOps/인프라",
-      "description": "CI/CD, 컨테이너, 모니터링, 자동화 도구"
+      "id": "ai",
+      "name": "AI/ML",
+      "description": "챗봇, 추천 시스템, 이미지 인식, 자연어 처리",
+      "icon": "🤖"
+    },
+    {
+      "id": "backend",
+      "name": "백엔드/API",
+      "description": "서버 개발, REST API, 마이크로서비스",
+      "icon": "⚙️"
     },
     {
       "id": "blockchain",
       "name": "블록체인",
-      "description": "스마트 컨트랙트, DeFi, NFT, Web3 솔루션"
+      "description": "스마트 컨트랙트, DeFi, NFT, Web3",
+      "icon": "⛓️"
     },
     {
-      "id": "game",
-      "name": "게임 개발",
-      "description": "게임 엔진, 멀티플레이어, 게임 로직 모듈"
+      "id": "data",
+      "name": "데이터 분석",
+      "description": "대시보드, 데이터 수집, 시각화, BI",
+      "icon": "📊"
     },
     {
-      "id": "security",
-      "name": "보안",
-      "description": "보안 도구, 암호화, 인증, 취약점 스캐닝"
+      "id": "devops",
+      "name": "DevOps",
+      "description": "CI/CD, 클라우드, 모니터링, 자동화",
+      "icon": "🔧"
     }
   ]
 }

@@ -9,7 +9,7 @@
       "budget": 150000,
       "isUrgent": false,
       "status": "OPEN",
-      "category": "ai-ml",
+      "category": "ai",
       "deadline": "2024-03-15T00:00:00Z",
       "createdAt": "2024-03-01T10:00:00Z",
       "applications": [
@@ -31,7 +31,7 @@
       "budget": null,
       "isUrgent": true,
       "status": "OPEN",
-      "category": "backend-api",
+      "category": "backend",
       "deadline": "2024-03-03T00:00:00Z",
       "createdAt": "2024-03-02T08:00:00Z",
       "bids": [
