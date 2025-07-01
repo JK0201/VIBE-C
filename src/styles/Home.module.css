@@ -61,6 +61,9 @@
 .navLinks {
   display: flex;
   gap: 1rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .navLink {
@@ -447,6 +450,26 @@
   margin-bottom: 2rem;
 }
 
+/* Component Carousel Styles */
+.componentCarousel {
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  padding: 5px 0 15px 0;
+}
+
+.componentSlider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 1.5rem;
+  padding: 0 0.75rem;
+}
+
+.componentSlider .componentCard {
+  flex: 0 0 calc(25% - 1.125rem);
+  min-width: 0;
+}
+
 .componentCard {
   background: white;
   border: 1px solid #E2E8F0;
@@ -467,7 +490,7 @@
 .componentImage {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 220px;
 }
 
 .imagePlaceholder {
@@ -499,18 +522,18 @@
 }
 
 .componentContent {
-  padding: 1.25rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .componentTitle {
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #1A202C;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -519,9 +542,9 @@
 
 .componentDesc {
   color: #718096;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -785,6 +808,142 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
+}
+
+/* Carousel Styles */
+.carouselWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.carouselBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carouselBtn:first-child {
+  left: -80px;
+}
+
+.carouselBtn:last-child {
+  right: -80px;
+}
+
+.carouselBtn {
+  color: #4A5568;
+}
+
+.carouselBtn:hover:not(:disabled) {
+  background: #667EEA;
+  border-color: #667EEA;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.carouselBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  color: #CBD5E0;
+}
+
+.categoryCarousel {
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.categorySlider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 1.5rem;
+}
+
+.categorySlider .categoryCard {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: 0;
+}
+
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dot:hover {
+  background: #CBD5E0;
+}
+
+.activeDot {
+  width: 24px;
+  border-radius: 4px;
+  background: #667EEA;
+}
+
+/* Responsive Carousel */
+@media (max-width: 768px) {
+  .categorySlider .categoryCard {
+    flex: 0 0 calc(100% - 0.5rem);
+  }
+  
+  .componentSlider .componentCard {
+    flex: 0 0 calc(100% - 0.5rem);
+  }
+  
+  .carouselWrapper {
+    margin: 0 -1rem;
+    padding: 0 1rem;
+  }
+  
+  .carouselBtn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .carouselBtn:first-child {
+    left: 0;
+  }
+  
+  .carouselBtn:last-child {
+    right: 0;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .categorySlider .categoryCard {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+  
+  .componentSlider .componentCard {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
 }
 
 .categoryCard {
