@@ -129,104 +129,247 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Urgent Requests */}
-      <section className={styles.urgentRequests}>
-        <div className={styles.urgentRequestsContent}>
-          <div className={styles.urgentHeader}>
+      {/* Popular Components */}
+      <section className={styles.popularComponents}>
+        <div className={styles.popularContent}>
+          <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>
               <span className={styles.titleIcon}>🔥</span>
-              긴급 요청
-              <span className={styles.titleIcon}>🔥</span>
+              인기 모듈
             </h2>
-            <p className={styles.urgentSubtitle}>
-              24-48시간 내 빠른 매칭이 필요한 프로젝트
+            <p className={styles.sectionSubtitle}>
+              고객이 가장 많이 찾는 검증된 솔루션
             </p>
           </div>
-          <div className={styles.urgentGrid}>
-            <div className={styles.urgentCard}>
-              <div className={styles.urgentBadge}>
-                <span className={styles.urgentIcon}>🚨</span>
-                긴급
-              </div>
-              <div className={styles.urgentCategory}>백엔드/API</div>
-              <h3 className={styles.urgentTitle}>
-                실시간 암호화폐 거래소 백엔드 API 개발
-              </h3>
-              <p className={styles.urgentDesc}>
-                실시간 호가 처리, 주문 매칭 엔진, WebSocket API 구현
-              </p>
-              <div className={styles.urgentMeta}>
-                <div className={styles.urgentBudget}>
-                  <span className={styles.budgetType}>경매</span>
-                  <span className={styles.bidCount}>입찰 2건</span>
+          <div className={styles.componentsGrid}>
+            <div className={styles.componentCard}>
+              <div className={styles.componentImage}>
+                <div className={styles.imagePlaceholder} style={{background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)'}}>
+                  <span className={styles.imageIcon}>🤖</span>
                 </div>
-                <div className={styles.urgentDeadline}>
-                  <span className={styles.deadlineIcon}>⏱️</span>
-                  <span className={styles.deadlineText}>23시간 남음</span>
-                </div>
+                <div className={styles.componentCategory}>AI/ML</div>
               </div>
-              <div className={styles.urgentFooter}>
-                <button className={styles.urgentApply}>바로 지원하기</button>
+              <div className={styles.componentContent}>
+                <h3 className={styles.componentTitle}>AI 챗봇 엔진</h3>
+                <p className={styles.componentDesc}>
+                  GPT 기반 고급 챗봇 시스템. 한국어 특화, 컨텍스트 관리...
+                </p>
+                <div className={styles.componentTags}>
+                  <span className={styles.tag}>Python</span>
+                  <span className={styles.tag}>LangChain</span>
+                  <span className={styles.tag}>GPT-4</span>
+                </div>
+                <div className={styles.componentFooter}>
+                  <div className={styles.componentPrice}>
+                    <span className={styles.priceAmount}>120,000</span>
+                    <span className={styles.priceUnit}>P</span>
+                  </div>
+                  <div className={styles.componentStats}>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>⭐</span>
+                      4.9
+                    </span>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>💾</span>
+                      89
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <div className={styles.urgentCard}>
-              <div className={styles.urgentBadge}>
-                <span className={styles.urgentIcon}>🚨</span>
-                긴급
-              </div>
-              <div className={styles.urgentCategory}>DevOps</div>
-              <h3 className={styles.urgentTitle}>
-                쿠버네티스 모니터링 대시보드 구축
-              </h3>
-              <p className={styles.urgentDesc}>
-                Grafana 대시보드와 Prometheus 설정, 알림 시스템 구축
-              </p>
-              <div className={styles.urgentMeta}>
-                <div className={styles.urgentBudget}>
-                  <span className={styles.budgetType}>고정가</span>
-                  <span className={styles.budgetAmount}>120,000P</span>
+
+            <div className={styles.componentCard}>
+              <div className={styles.componentImage}>
+                <div className={styles.imagePlaceholder} style={{background: 'linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%)'}}>
+                  <span className={styles.imageIcon}>⚙️</span>
                 </div>
-                <div className={styles.urgentDeadline}>
-                  <span className={styles.deadlineIcon}>⏱️</span>
-                  <span className={styles.deadlineText}>36시간 남음</span>
-                </div>
+                <div className={styles.componentCategory}>백엔드/API</div>
               </div>
-              <div className={styles.urgentFooter}>
-                <button className={styles.urgentApply}>바로 지원하기</button>
+              <div className={styles.componentContent}>
+                <h3 className={styles.componentTitle}>마이크로서비스 인증 게이트웨이</h3>
+                <p className={styles.componentDesc}>
+                  MSA 환경을 위한 통합 인증/인가 시스템. JWT, OAuth2...
+                </p>
+                <div className={styles.componentTags}>
+                  <span className={styles.tag}>Node.js</span>
+                  <span className={styles.tag}>JWT</span>
+                  <span className={styles.tag}>Kong</span>
+                </div>
+                <div className={styles.componentFooter}>
+                  <div className={styles.componentPrice}>
+                    <span className={styles.priceAmount}>95,000</span>
+                    <span className={styles.priceUnit}>P</span>
+                  </div>
+                  <div className={styles.componentStats}>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>⭐</span>
+                      4.9
+                    </span>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>💾</span>
+                      234
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <div className={styles.urgentCard}>
-              <div className={styles.urgentBadge}>
-                <span className={styles.urgentIcon}>🚨</span>
-                긴급
-              </div>
-              <div className={styles.urgentCategory}>모바일 앱</div>
-              <h3 className={styles.urgentTitle}>
-                Flutter 쇼핑몰 앱 결제 모듈 개발
-              </h3>
-              <p className={styles.urgentDesc}>
-                토스페이먼츠, 카카오페이, 네이버페이 연동 필요
-              </p>
-              <div className={styles.urgentMeta}>
-                <div className={styles.urgentBudget}>
-                  <span className={styles.budgetType}>고정가</span>
-                  <span className={styles.budgetAmount}>85,000P</span>
+
+            <div className={styles.componentCard}>
+              <div className={styles.componentImage}>
+                <div className={styles.imagePlaceholder} style={{background: 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)'}}>
+                  <span className={styles.imageIcon}>📱</span>
                 </div>
-                <div className={styles.urgentDeadline}>
-                  <span className={styles.deadlineIcon}>⏱️</span>
-                  <span className={styles.deadlineText}>12시간 남음</span>
+                <div className={styles.componentCategory}>모바일 앱</div>
+              </div>
+              <div className={styles.componentContent}>
+                <h3 className={styles.componentTitle}>React Native 푸시알림 시스템</h3>
+                <p className={styles.componentDesc}>
+                  크로스플랫폼 푸시 알림 통합 솔루션. FCM, APNs 연동...
+                </p>
+                <div className={styles.componentTags}>
+                  <span className={styles.tag}>React Native</span>
+                  <span className={styles.tag}>FCM</span>
+                  <span className={styles.tag}>TypeScript</span>
+                </div>
+                <div className={styles.componentFooter}>
+                  <div className={styles.componentPrice}>
+                    <span className={styles.priceAmount}>65,000</span>
+                    <span className={styles.priceUnit}>P</span>
+                  </div>
+                  <div className={styles.componentStats}>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>⭐</span>
+                      4.7
+                    </span>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>💾</span>
+                      145
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className={styles.urgentFooter}>
-                <button className={styles.urgentApply}>바로 지원하기</button>
+            </div>
+
+            <div className={styles.componentCard}>
+              <div className={styles.componentImage}>
+                <div className={styles.imagePlaceholder} style={{background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'}}>
+                  <span className={styles.imageIcon}>⛓️</span>
+                </div>
+                <div className={styles.componentCategory}>블록체인</div>
+              </div>
+              <div className={styles.componentContent}>
+                <h3 className={styles.componentTitle}>DeFi 스마트 컨트랙트 템플릿</h3>
+                <p className={styles.componentDesc}>
+                  이더리움/폴리곤용 DeFi 컨트랙트. 스테이킹, 스왑...
+                </p>
+                <div className={styles.componentTags}>
+                  <span className={styles.tag}>Solidity</span>
+                  <span className={styles.tag}>Hardhat</span>
+                  <span className={styles.tag}>Web3</span>
+                </div>
+                <div className={styles.componentFooter}>
+                  <div className={styles.componentPrice}>
+                    <span className={styles.priceAmount}>150,000</span>
+                    <span className={styles.priceUnit}>P</span>
+                  </div>
+                  <div className={styles.componentStats}>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>⭐</span>
+                      4.9
+                    </span>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>💾</span>
+                      89
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className={styles.urgentMore}>
-            <a href="#" className={styles.moreLink}>
-              긴급 요청 모두 보기
+          <div className={styles.viewMore}>
+            <a href="#" className={styles.viewMoreLink}>
+              모든 모듈 둘러보기
+              <span className={styles.moreArrow}>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Recent Requests */}
+      <section className={styles.recentRequests}>
+        <div className={styles.requestsContent}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>
+              <span className={styles.titleIcon}>💼</span>
+              최신 개발 요청
+            </h2>
+            <div className={styles.requestTabs}>
+              <button className={`${styles.tabBtn} ${styles.active}`}>전체</button>
+              <button className={styles.tabBtn}>
+                <span className={styles.urgentDot}></span>
+                긴급
+              </button>
+              <button className={styles.tabBtn}>고정가</button>
+              <button className={styles.tabBtn}>경매</button>
+            </div>
+          </div>
+          <div className={styles.requestsList}>
+            <div className={styles.requestItem}>
+              <div className={styles.requestBadges}>
+                <span className={styles.urgentBadge}>긴급</span>
+                <span className={styles.categoryBadge}>백엔드/API</span>
+              </div>
+              <h3 className={styles.requestTitle}>
+                실시간 암호화폐 거래소 백엔드 API 개발
+              </h3>
+              <p className={styles.requestDesc}>
+                실시간 호가 처리, 주문 매칭 엔진, WebSocket API 구현이 필요합니다.
+              </p>
+              <div className={styles.requestMeta}>
+                <span className={styles.requestType}>경매</span>
+                <span className={styles.requestBids}>입찰 2건</span>
+                <span className={styles.requestDeadline}>23시간 남음</span>
+              </div>
+            </div>
+
+            <div className={styles.requestItem}>
+              <div className={styles.requestBadges}>
+                <span className={styles.categoryBadge}>AI/ML</span>
+              </div>
+              <h3 className={styles.requestTitle}>
+                AI 기반 고객 상담 챗봇 개발 필요
+              </h3>
+              <p className={styles.requestDesc}>
+                자사 쇼핑몰용 AI 챗봇 시스템이 필요합니다. 상품 추천, 주문 조회, FAQ 응답 기능 포함.
+              </p>
+              <div className={styles.requestMeta}>
+                <span className={styles.requestType}>고정가</span>
+                <span className={styles.requestBudget}>150,000P</span>
+                <span className={styles.requestDeadline}>5일 남음</span>
+              </div>
+            </div>
+
+            <div className={styles.requestItem}>
+              <div className={styles.requestBadges}>
+                <span className={styles.urgentBadge}>긴급</span>
+                <span className={styles.categoryBadge}>모바일 앱</span>
+              </div>
+              <h3 className={styles.requestTitle}>
+                Flutter 쇼핑몰 앱 결제 모듈 개발
+              </h3>
+              <p className={styles.requestDesc}>
+                토스페이먼츠, 카카오페이, 네이버페이 연동이 필요합니다.
+              </p>
+              <div className={styles.requestMeta}>
+                <span className={styles.requestType}>고정가</span>
+                <span className={styles.requestBudget}>85,000P</span>
+                <span className={styles.requestDeadline}>12시간 남음</span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.viewMore}>
+            <a href="#" className={styles.viewMoreLink}>
+              모든 요청 보기
               <span className={styles.moreArrow}>→</span>
             </a>
           </div>

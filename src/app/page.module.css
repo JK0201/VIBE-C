@@ -408,218 +408,335 @@
   color: #667EEA;
 }
 
-/* Urgent Requests Section */
-.urgentRequests {
+/* Popular Components Section */
+.popularComponents {
   padding: 3rem 2rem;
-  background: linear-gradient(135deg, #FFF5F5 0%, #FFF0E8 100%);
-  position: relative;
+  background: white;
 }
 
-.urgentRequests::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #FF6B6B, #FFE66D, #FF6B6B);
-  background-size: 200% auto;
-  animation: shimmer 3s linear infinite;
-}
-
-.urgentRequestsContent {
+.popularContent {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.urgentHeader {
+.sectionHeader {
   text-align: center;
   margin-bottom: 3rem;
 }
 
-.urgentSubtitle {
+.sectionSubtitle {
   font-size: 1.1rem;
   color: #718096;
   margin-top: 0.5rem;
 }
 
-.urgentGrid {
+.componentsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.urgentCard {
+.componentCard {
   background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  position: relative;
-  border: 2px solid transparent;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
   transition: all 0.3s;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
-.urgentCard:hover {
+.componentCard:hover {
   transform: translateY(-4px);
-  border-color: #FF6B6B;
-  box-shadow: 0 12px 24px rgba(255, 107, 107, 0.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-color: #CBD5E0;
 }
 
-.urgentBadge {
-  position: absolute;
-  top: -12px;
-  right: 20px;
-  background: #FF4444;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 700;
+.componentImage {
+  position: relative;
+  width: 100%;
+  height: 180px;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+  justify-content: center;
+  position: relative;
 }
 
-.urgentIcon {
-  font-size: 1rem;
-  animation: pulse 1.5s infinite;
+.imageIcon {
+  font-size: 3rem;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
-
-.urgentCategory {
-  display: inline-block;
-  background: #F7FAFC;
+.componentCategory {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: white;
   color: #4A5568;
   padding: 0.3rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.componentContent {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.componentTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A202C;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.componentDesc {
+  color: #718096;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.componentTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
   margin-bottom: 1rem;
 }
 
-.urgentTitle {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1A202C;
-  margin-bottom: 0.8rem;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.tag {
+  background: #F7FAFC;
+  color: #4A5568;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
-.urgentDesc {
-  color: #718096;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 1.2rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 3rem;
-}
-
-.urgentMeta {
+.componentFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.2rem;
-  padding-top: 1rem;
+  padding-top: 0.75rem;
+  margin-top: auto;
   border-top: 1px solid #E2E8F0;
 }
 
-.urgentBudget {
+.componentPrice {
   display: flex;
-  align-items: center;
-  gap: 0.8rem;
+  align-items: baseline;
+  gap: 0.2rem;
 }
 
-.budgetType {
-  background: #EDF2F7;
-  color: #4A5568;
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
+.priceAmount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #667EEA;
+}
+
+.priceUnit {
+  font-size: 0.875rem;
+  color: #667EEA;
   font-weight: 600;
 }
 
-.budgetAmount {
+.componentStats {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: #718096;
+  font-size: 0.8rem;
+}
+
+.statIcon {
+  font-size: 0.875rem;
+}
+
+/* Recent Requests Section */
+.recentRequests {
+  padding: 3rem 2rem;
+  background: #FAFBFC;
+}
+
+.requestsContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.requestTabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tabBtn {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  color: #718096;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tabBtn:hover {
+  background: #F7FAFC;
+  color: #4A5568;
+}
+
+.tabBtn.active {
+  background: #667EEA;
+  color: white;
+  border-color: #667EEA;
+}
+
+.urgentDot {
+  width: 8px;
+  height: 8px;
+  background: #FF4444;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.requestsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.requestItem {
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.requestItem:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #CBD5E0;
+}
+
+.requestBadges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.urgentBadge {
+  background: #FF4444;
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.categoryBadge {
+  background: #F7FAFC;
+  color: #4A5568;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.requestTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1A202C;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.requestDesc {
+  color: #718096;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.requestMeta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.requestType {
+  font-weight: 600;
+  color: #4A5568;
+}
+
+.requestBudget {
   color: #667EEA;
   font-weight: 700;
-  font-size: 1.1rem;
 }
 
-.bidCount {
+.requestBids {
   color: #667EEA;
-  font-weight: 600;
-  font-size: 0.9rem;
 }
 
-.urgentDeadline {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
+.requestDeadline {
   color: #E53E3E;
   font-weight: 600;
 }
 
-.deadlineIcon {
-  font-size: 1.1rem;
-}
-
-.deadlineText {
-  font-size: 0.9rem;
-}
-
-.urgentFooter {
-  margin-top: auto;
-  padding-top: 1rem;
-}
-
-.urgentApply {
-  width: 100%;
-  padding: 0.8rem;
-  background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
-  color: white;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.2s;
-}
-
-.urgentApply:hover {
-  transform: scale(1.02);
-  background: linear-gradient(135deg, #FF5252 0%, #FFD93D 100%);
-}
-
-.urgentMore {
+.viewMore {
   text-align: center;
   margin-top: 2rem;
 }
 
-.moreLink {
+.viewMoreLink {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #FF6B6B;
+  color: #667EEA;
   font-weight: 600;
   font-size: 1.1rem;
   transition: all 0.2s;
 }
 
-.moreLink:hover {
-  color: #FF5252;
+.viewMoreLink:hover {
+  color: #5A67D8;
   gap: 0.8rem;
 }
 
