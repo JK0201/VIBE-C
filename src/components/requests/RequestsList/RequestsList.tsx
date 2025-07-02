@@ -5,15 +5,30 @@ interface Request {
   userId: number;
   title: string;
   description: string;
-  type: 'FIXED_PRICE' | 'AUCTION';
+  type: string;
   budget: number | null;
   isUrgent: boolean;
-  status: 'OPEN' | 'IN_PROGRESS' | 'COMPLETED';
+  status: string;
   category: string;
   deadline: string;
   createdAt: string;
-  bids?: any[];
-  applications?: any[];
+  assignedTo?: number;
+  completedAt?: string;
+  bids?: Array<{
+    id: number;
+    userId: number;
+    requestId: number;
+    amount: number;
+    message: string;
+    createdAt: string;
+  }>;
+  applications?: Array<{
+    id: number;
+    userId: number;
+    requestId: number;
+    message: string;
+    createdAt: string;
+  }>;
 }
 
 interface RequestsListProps {
