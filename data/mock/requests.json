@@ -10,15 +10,22 @@
       "isUrgent": false,
       "status": "OPEN",
       "category": "ai",
-      "deadline": "2024-03-15T00:00:00Z",
-      "createdAt": "2024-03-01T10:00:00Z",
+      "deadline": "2025-07-15T00:00:00Z",
+      "createdAt": "2025-07-01T10:00:00Z",
       "applications": [
         {
           "id": 1,
           "userId": 2,
           "requestId": 1,
-          "message": "I can deliver this within 3 days. Check my portfolio for similar work.",
-          "createdAt": "2024-03-01T12:30:00Z"
+          "message": "AI 챗봇 개발 경험이 풍부합니다. 포트폴리오 확인 부탁드립니다.",
+          "createdAt": "2025-07-01T12:30:00Z"
+        },
+        {
+          "id": 2,
+          "userId": 5,
+          "requestId": 1,
+          "message": "LangChain과 GPT-4를 활용한 챗봇 개발 가능합니다.",
+          "createdAt": "2025-07-01T14:00:00Z"
         }
       ]
     },
@@ -32,24 +39,32 @@
       "isUrgent": true,
       "status": "OPEN",
       "category": "backend",
-      "deadline": "2024-03-03T00:00:00Z",
-      "createdAt": "2024-03-02T08:00:00Z",
+      "deadline": "2025-07-03T12:00:00Z",
+      "createdAt": "2025-07-02T08:00:00Z",
       "bids": [
         {
           "id": 1,
           "userId": 2,
           "requestId": 2,
-          "amount": 80000,
-          "message": "I can use Chart.js or D3.js based on your preference",
-          "createdAt": "2024-03-02T09:00:00Z"
+          "amount": 280000,
+          "message": "거래소 시스템 개발 경험 있습니다. Node.js + Redis로 구현 가능합니다.",
+          "createdAt": "2025-07-02T09:00:00Z"
         },
         {
           "id": 2,
           "userId": 4,
           "requestId": 2,
-          "amount": 65000,
-          "message": "Experienced with Recharts and can deliver in 2 days",
-          "createdAt": "2024-03-02T10:30:00Z"
+          "amount": 265000,
+          "message": "Go 언어로 고성능 매칭 엔진 구현 가능합니다.",
+          "createdAt": "2025-07-02T10:30:00Z"
+        },
+        {
+          "id": 3,
+          "userId": 6,
+          "requestId": 2,
+          "amount": 250000,
+          "message": "실시간 처리 전문가입니다. 빠른 개발 가능합니다.",
+          "createdAt": "2025-07-02T11:00:00Z"
         }
       ]
     },
@@ -60,12 +75,13 @@
       "description": "Flutter 기반 쇼핑몰 앱에 통합할 결제 모듈이 필요합니다. 토스페이먼츠, 카카오페이, 네이버페이 연동과 정기결제 기능이 필요합니다.",
       "type": "FIXED_PRICE",
       "budget": 85000,
-      "isUrgent": false,
+      "isUrgent": true,
       "status": "IN_PROGRESS",
       "category": "mobile",
-      "deadline": "2024-03-20T00:00:00Z",
-      "createdAt": "2024-02-28T15:00:00Z",
-      "assignedTo": 1
+      "deadline": "2025-08-01T00:00:00Z",
+      "createdAt": "2024-12-28T15:00:00Z",
+      "assignedTo": 1,
+      "applications": []
     },
     {
       "id": 4,
@@ -77,8 +93,8 @@
       "isUrgent": false,
       "status": "OPEN",
       "category": "blockchain",
-      "deadline": "2024-03-25T00:00:00Z",
-      "createdAt": "2024-03-01T14:00:00Z",
+      "deadline": "2025-07-25T00:00:00Z",
+      "createdAt": "2025-06-25T14:00:00Z",
       "bids": []
     },
     {
@@ -94,7 +110,390 @@
       "deadline": "2024-02-25T00:00:00Z",
       "createdAt": "2024-02-20T11:00:00Z",
       "assignedTo": 3,
-      "completedAt": "2024-02-24T16:00:00Z"
+      "completedAt": "2024-02-24T16:00:00Z",
+      "applications": []
+    },
+    {
+      "id": 6,
+      "userId": 5,
+      "title": "React Native 소셜 미디어 앱 개발",
+      "description": "인스타그램 클론 앱을 React Native로 개발해주실 분을 찾습니다. 피드, 스토리, DM, 알림 기능이 필요합니다.",
+      "type": "FIXED_PRICE",
+      "budget": 180000,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "mobile",
+      "deadline": "2025-08-30T00:00:00Z",
+      "createdAt": "2025-06-30T09:00:00Z",
+      "applications": [
+        {
+          "id": 3,
+          "userId": 7,
+          "requestId": 6,
+          "message": "React Native 전문가입니다. 유사 프로젝트 경험 있습니다.",
+          "createdAt": "2025-06-30T10:00:00Z"
+        },
+        {
+          "id": 4,
+          "userId": 8,
+          "requestId": 6,
+          "message": "SNS 앱 개발 경험 다수 보유하고 있습니다.",
+          "createdAt": "2025-06-30T11:30:00Z"
+        },
+        {
+          "id": 5,
+          "userId": 9,
+          "requestId": 6,
+          "message": "Firebase와 연동한 실시간 채팅 구현 가능합니다.",
+          "createdAt": "2025-06-30T13:00:00Z"
+        },
+        {
+          "id": 6,
+          "userId": 10,
+          "requestId": 6,
+          "message": "UI/UX 디자인까지 함께 진행 가능합니다.",
+          "createdAt": "2025-06-30T14:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "userId": 6,
+      "title": "Vue.js 관리자 대시보드 개발",
+      "description": "B2B SaaS 제품의 관리자 대시보드 개발이 필요합니다. 차트, 테이블, 실시간 알림 기능이 포함되어야 합니다.",
+      "type": "AUCTION",
+      "budget": null,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "website",
+      "deadline": "2025-07-20T00:00:00Z",
+      "createdAt": "2025-07-01T14:00:00Z",
+      "bids": [
+        {
+          "id": 4,
+          "userId": 11,
+          "requestId": 7,
+          "amount": 95000,
+          "message": "Vue.js 3년 경력, Vuetify 활용 가능합니다.",
+          "createdAt": "2025-07-01T15:00:00Z"
+        },
+        {
+          "id": 5,
+          "userId": 12,
+          "requestId": 7,
+          "amount": 88000,
+          "message": "Chart.js와 함께 대시보드 구현 경험 있습니다.",
+          "createdAt": "2025-07-01T16:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "userId": 7,
+      "title": "Python 웹 크롤러 개발",
+      "description": "이커머스 사이트의 상품 정보를 수집하는 크롤러가 필요합니다. Selenium, BeautifulSoup 활용하여 안정적인 크롤링이 필요합니다.",
+      "type": "FIXED_PRICE",
+      "budget": 45000,
+      "isUrgent": true,
+      "status": "OPEN",
+      "category": "data",
+      "deadline": "2025-07-02T22:00:00Z",
+      "createdAt": "2025-07-02T10:00:00Z",
+      "applications": [
+        {
+          "id": 7,
+          "userId": 13,
+          "requestId": 8,
+          "message": "크롤링 전문가입니다. 반크롤링 우회 경험도 있습니다.",
+          "createdAt": "2025-07-02T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "userId": 8,
+      "title": "AWS 인프라 마이그레이션",
+      "description": "온프레미스 서버를 AWS로 마이그레이션하는 작업이 필요합니다. EC2, RDS, S3, CloudFront 설정이 포함됩니다.",
+      "type": "FIXED_PRICE",
+      "budget": 200000,
+      "isUrgent": false,
+      "status": "IN_PROGRESS",
+      "category": "devops",
+      "deadline": "2025-12-31T00:00:00Z",
+      "createdAt": "2024-12-25T09:00:00Z",
+      "assignedTo": 14,
+      "applications": []
+    },
+    {
+      "id": 10,
+      "userId": 9,
+      "title": "Node.js REST API 서버 개발",
+      "description": "모바일 앱을 위한 REST API 서버 개발이 필요합니다. JWT 인증, 파일 업로드, 푸시 알림 기능이 필요합니다.",
+      "type": "AUCTION",
+      "budget": null,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "backend",
+      "deadline": "2025-07-18T00:00:00Z",
+      "createdAt": "2025-06-18T16:00:00Z",
+      "bids": [
+        {
+          "id": 6,
+          "userId": 15,
+          "requestId": 10,
+          "amount": 110000,
+          "message": "Express.js + MongoDB 조합으로 개발 가능합니다.",
+          "createdAt": "2025-06-18T17:00:00Z"
+        },
+        {
+          "id": 7,
+          "userId": 16,
+          "requestId": 10,
+          "amount": 105000,
+          "message": "NestJS로 더 구조화된 API 개발 가능합니다.",
+          "createdAt": "2025-06-18T18:30:00Z"
+        },
+        {
+          "id": 8,
+          "userId": 17,
+          "requestId": 10,
+          "amount": 98000,
+          "message": "빠른 개발과 문서화까지 제공합니다.",
+          "createdAt": "2025-06-18T19:00:00Z"
+        },
+        {
+          "id": 9,
+          "userId": 18,
+          "requestId": 10,
+          "amount": 95000,
+          "message": "테스트 코드 작성까지 포함하여 개발합니다.",
+          "createdAt": "2025-06-18T20:00:00Z"
+        },
+        {
+          "id": 10,
+          "userId": 19,
+          "requestId": 10,
+          "amount": 92000,
+          "message": "Docker 컨테이너화까지 진행합니다.",
+          "createdAt": "2025-06-18T21:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "userId": 10,
+      "title": "WordPress 쇼핑몰 사이트 구축",
+      "description": "WooCommerce를 활용한 쇼핑몰 사이트 구축이 필요합니다. 결제 연동, 배송 추적, 쿠폰 시스템이 필요합니다.",
+      "type": "FIXED_PRICE",
+      "budget": 55000,
+      "isUrgent": false,
+      "status": "COMPLETED",
+      "category": "ecommerce",
+      "deadline": "2024-02-28T00:00:00Z",
+      "createdAt": "2024-02-15T10:00:00Z",
+      "assignedTo": 20,
+      "completedAt": "2024-02-27T14:00:00Z",
+      "applications": []
+    },
+    {
+      "id": 12,
+      "userId": 11,
+      "title": "딥러닝 이미지 분류 모델 개발",
+      "description": "제품 이미지를 자동으로 분류하는 딥러닝 모델이 필요합니다. TensorFlow 또는 PyTorch를 사용하여 정확도 95% 이상을 목표로 합니다.",
+      "type": "AUCTION",
+      "budget": null,
+      "isUrgent": true,
+      "status": "OPEN",
+      "category": "ai",
+      "deadline": "2025-07-05T00:00:00Z",
+      "createdAt": "2025-07-01T12:00:00Z",
+      "bids": [
+        {
+          "id": 11,
+          "userId": 21,
+          "requestId": 12,
+          "amount": 220000,
+          "message": "CNN 모델 전문가입니다. 유사 프로젝트 다수 경험.",
+          "createdAt": "2025-07-01T13:00:00Z"
+        },
+        {
+          "id": 12,
+          "userId": 22,
+          "requestId": 12,
+          "amount": 210000,
+          "message": "Transfer Learning으로 빠른 개발 가능합니다.",
+          "createdAt": "2025-07-01T14:30:00Z"
+        },
+        {
+          "id": 13,
+          "userId": 23,
+          "requestId": 12,
+          "amount": 195000,
+          "message": "데이터 전처리부터 배포까지 전체 파이프라인 구축 가능.",
+          "createdAt": "2025-07-01T15:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "userId": 12,
+      "title": "Android 네이티브 날씨 앱 개발",
+      "description": "Kotlin으로 개발하는 날씨 앱이 필요합니다. 위치 기반 날씨, 주간 예보, 위젯 기능이 필요합니다.",
+      "type": "FIXED_PRICE",
+      "budget": 75000,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "mobile",
+      "deadline": "2025-07-09T00:00:00Z",
+      "createdAt": "2025-07-02T08:00:00Z",
+      "applications": []
+    },
+    {
+      "id": 14,
+      "userId": 13,
+      "title": "Solidity DeFi 프로토콜 개발",
+      "description": "탈중앙화 금융 프로토콜 개발이 필요합니다. 스테이킹, 유동성 풀, 거버넌스 토큰 기능이 포함되어야 합니다.",
+      "type": "FIXED_PRICE",
+      "budget": 350000,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "blockchain",
+      "deadline": "2025-07-10T00:00:00Z",
+      "createdAt": "2025-06-01T18:00:00Z",
+      "applications": [
+        {
+          "id": 8,
+          "userId": 24,
+          "requestId": 14,
+          "message": "DeFi 프로토콜 개발 경험 3년, 감사 통과 경험 있음.",
+          "createdAt": "2025-06-01T19:00:00Z"
+        },
+        {
+          "id": 9,
+          "userId": 25,
+          "requestId": 14,
+          "message": "Uniswap, Compound 포크 경험 있습니다.",
+          "createdAt": "2025-06-01T20:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "userId": 14,
+      "title": "데이터 파이프라인 구축",
+      "description": "Apache Airflow를 사용한 데이터 파이프라인 구축이 필요합니다. ETL 작업 자동화와 모니터링 대시보드가 필요합니다.",
+      "type": "AUCTION",
+      "budget": null,
+      "isUrgent": true,
+      "status": "OPEN",
+      "category": "data",
+      "deadline": "2025-07-04T00:00:00Z",
+      "createdAt": "2025-07-02T15:00:00Z",
+      "bids": []
+    },
+    {
+      "id": 16,
+      "userId": 15,
+      "title": "Next.js 포트폴리오 웹사이트 제작",
+      "description": "개인 포트폴리오 웹사이트를 Next.js로 제작해주실 분을 찾습니다. 반응형, 다크모드, 애니메이션이 필요합니다.",
+      "type": "FIXED_PRICE",
+      "budget": 35000,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "website",
+      "deadline": "2025-08-28T00:00:00Z",
+      "createdAt": "2025-06-03T11:00:00Z",
+      "applications": [
+        {
+          "id": 10,
+          "userId": 26,
+          "requestId": 16,
+          "message": "포트폴리오 사이트 전문으로 제작합니다.",
+          "createdAt": "2025-06-03T12:00:00Z"
+        },
+        {
+          "id": 11,
+          "userId": 27,
+          "requestId": 16,
+          "message": "Framer Motion으로 멋진 애니메이션 구현 가능.",
+          "createdAt": "2025-06-03T13:30:00Z"
+        },
+        {
+          "id": 12,
+          "userId": 28,
+          "requestId": 16,
+          "message": "SEO 최적화까지 완벽하게 처리합니다.",
+          "createdAt": "2025-06-03T15:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "userId": 16,
+      "title": "Django 온라인 교육 플랫폼 개발",
+      "description": "온라인 강의 플랫폼 백엔드 개발이 필요합니다. 회원 관리, 강의 스트리밍, 결제 시스템이 필요합니다.",
+      "type": "FIXED_PRICE",
+      "budget": 165000,
+      "isUrgent": false,
+      "status": "IN_PROGRESS",
+      "category": "backend",
+      "deadline": "2025-09-15T00:00:00Z",
+      "createdAt": "2024-12-20T14:00:00Z",
+      "assignedTo": 29,
+      "applications": []
+    },
+    {
+      "id": 18,
+      "userId": 17,
+      "title": "Unity 모바일 게임 개발",
+      "description": "캐주얼 퍼즐 게임 개발이 필요합니다. 100개 스테이지, 인앱 결제, 광고 시스템이 필요합니다.",
+      "type": "AUCTION",
+      "budget": null,
+      "isUrgent": false,
+      "status": "OPEN",
+      "category": "mobile",
+      "deadline": "2026-01-15T00:00:00Z",
+      "createdAt": "2025-06-02T10:00:00Z",
+      "bids": [
+        {
+          "id": 14,
+          "userId": 30,
+          "requestId": 18,
+          "amount": 280000,
+          "message": "Unity 게임 개발 5년 경력, 출시 경험 다수.",
+          "createdAt": "2025-06-02T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "userId": 18,
+      "title": "Shopify 커스텀 테마 개발",
+      "description": "브랜드에 맞는 Shopify 커스텀 테마 개발이 필요합니다. Liquid 템플릿 활용, 반응형 디자인이 필수입니다.",
+      "type": "FIXED_PRICE",
+      "budget": 68000,
+      "isUrgent": true,
+      "status": "OPEN",
+      "category": "ecommerce",
+      "deadline": "2025-07-03T00:00:00Z",
+      "createdAt": "2025-07-02T16:00:00Z",
+      "applications": []
+    },
+    {
+      "id": 20,
+      "userId": 19,
+      "title": "머신러닝 추천 시스템 개발",
+      "description": "콘텐츠 기반 추천 시스템 개발이 필요합니다. 협업 필터링, 콘텐츠 기반 필터링을 혼합한 하이브리드 방식으로 구현해주세요.",
+      "type": "FIXED_PRICE",
+      "budget": 190000,
+      "isUrgent": false,
+      "status": "COMPLETED",
+      "category": "ai",
+      "deadline": "2024-02-20T00:00:00Z",
+      "createdAt": "2024-02-01T10:00:00Z",
+      "assignedTo": 31,
+      "completedAt": "2024-02-19T16:00:00Z",
+      "applications": []
     }
   ]
 }

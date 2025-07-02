@@ -1,0 +1,259 @@
+.filterSidebar {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: sticky;
+  top: calc(64px + 2rem); /* Header height + gap */
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.filterTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+h3.filterTitle {
+  margin-bottom: 0;
+}
+
+.resetBtn {
+  padding: 0.375rem 0.75rem;
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.resetBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.resetBtn:disabled:hover {
+  background: none;
+  color: #6b7280;
+  border-color: #e5e7eb;
+}
+
+.urgentSection {
+  padding: 1rem;
+  background: #FEF3C7;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #FCD34D;
+}
+
+.urgentLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.75rem;
+  user-select: none;
+}
+
+.urgentCustomCheckbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #F59E0B;
+  border-radius: 4px;
+  background: white;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.hiddenCheckbox:checked + .urgentCustomCheckbox {
+  background: #FEF3C7;
+  border-color: #F59E0B;
+}
+
+.urgentLabel:hover .urgentCustomCheckbox {
+  background: #FEF3C7;
+  border-color: #D97706;
+}
+
+.urgentText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #92400E;
+  font-size: 0.9375rem;
+  line-height: 1;
+}
+
+.urgentIcon {
+  font-size: 1.125rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.filterSection {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filterSection:last-of-type {
+  border-bottom: none;
+  margin-bottom: 1rem;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filterOption {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hiddenCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.customCheckbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 4px;
+  background: white;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.hiddenCheckbox:checked + .customCheckbox {
+  background: #667EEA;
+  border-color: #667EEA;
+}
+
+.hiddenCheckbox:focus + .customCheckbox {
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filterOption:hover .customCheckbox {
+  border-color: #667EEA;
+}
+
+.checkboxLabel {
+  font-size: 0.875rem;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.filterOption:hover .checkboxLabel {
+  color: #667EEA;
+}
+
+.showMoreBtn {
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  color: #667EEA;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: opacity 0.2s ease;
+}
+
+.showMoreBtn:hover {
+  opacity: 0.8;
+}
+
+.ratingOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ratingOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.ratingOption:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.ratingOption:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.ratingOption.active {
+  background: #ede9fe;
+  border-color: #667EEA;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.stars {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.ratingText {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.ratingOption.active .ratingText {
+  color: #667EEA;
+  font-weight: 500;
+}
+
+
+/* Scrollbar styling removed */
+
+/* Tablet and Mobile - Hidden */
+@media (max-width: 1024px) {
+  .filterSidebar {
+    display: none;
+  }
+}

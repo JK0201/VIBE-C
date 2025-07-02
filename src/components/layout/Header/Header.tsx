@@ -19,7 +19,7 @@ export default function Header() {
             모듈 스토어
           </Link>
           <Link href="/developers" className={styles.navLink}>
-            개발자 찾기
+            테스터 모집
           </Link>
         </div>
         <div className={styles.navActions}>
