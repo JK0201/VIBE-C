@@ -317,6 +317,7 @@ export default function Component({ props }: ComponentProps) {
 - Mock data structure
 - Component modularization
 - CSS Modules setup
+- Marketplace page
 
 ### 🔄 In Progress
 - Context API implementation
@@ -324,7 +325,7 @@ export default function Component({ props }: ComponentProps) {
 - Authentication flow
 
 ### 📋 To Do
-- Marketplace page
+- Log-in / Register
 - Request board page
 - User profile page
 - Payment flow

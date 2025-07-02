@@ -9,7 +9,6 @@ interface FiltersState {
 interface FilterSidebarProps {
   filters: FiltersState;
   onFiltersChange: (filters: FiltersState) => void;
-  totalCount: number;
 }
 
 const priceRanges = [
@@ -31,7 +30,7 @@ const languages = [
   { id: 'csharp', label: 'C#' },
 ];
 
-export default function FilterSidebar({ filters, onFiltersChange, totalCount }: FilterSidebarProps) {
+export default function FilterSidebar({ filters, onFiltersChange }: FilterSidebarProps) {
   const handlePriceChange = (value: string, checked: boolean) => {
     const newPriceRange = checked
       ? [...filters.priceRange, value]
