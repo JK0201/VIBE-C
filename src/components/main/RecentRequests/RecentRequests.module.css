@@ -1,0 +1,196 @@
+/* Recent Requests Section */
+.recentRequests {
+  padding: 3rem 2rem;
+  background: white;
+}
+
+.requestsContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1A202C;
+  margin-bottom: 0;
+}
+
+.titleIcon {
+  font-size: 2.5rem;
+}
+
+.requestTabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tabBtn {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  color: #718096;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tabBtn:hover {
+  background: #F7FAFC;
+  color: #4A5568;
+}
+
+.tabBtn.active {
+  background: #667EEA;
+  color: white;
+  border-color: #667EEA;
+}
+
+.urgentDot {
+  width: 8px;
+  height: 8px;
+  background: #FF4444;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.requestsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.requestItem {
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.requestItem:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #CBD5E0;
+}
+
+.requestBadges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.urgentBadge {
+  background: #FF4444;
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.categoryBadge {
+  background: #F7FAFC;
+  color: #4A5568;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.requestTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1A202C;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.requestDesc {
+  color: #718096;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.requestMeta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.requestType {
+  font-weight: 600;
+  color: #4A5568;
+}
+
+.requestBudget {
+  color: #667EEA;
+  font-weight: 700;
+}
+
+.requestBids {
+  color: #667EEA;
+  font-weight: 700;
+}
+
+.requestDeadline {
+  color: #E53E3E;
+  font-weight: 600;
+}
+
+.viewMore {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.viewMoreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #667EEA;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+
+.viewMoreLink:hover {
+  color: #5A67D8;
+  gap: 0.8rem;
+}
+
+.moreArrow {
+  font-size: 1.2rem;
+  transition: all 0.2s;
+}

@@ -1,4 +1,4 @@
-import styles from '@/styles/Home.module.css';
+import styles from './Trust.module.css';
 
 export default function Trust() {
   return (

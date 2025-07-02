@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import styles from '@/styles/Home.module.css';
-import ModuleCarousel from '@/components/common/ModuleCarousel';
+import styles from './CategoryModules.module.css';
+import ModuleCarousel from '@/components/common/ModuleCarousel/ModuleCarousel';
 
 const categories = [
   { id: 'website', name: '웹사이트', icon: '🌐' },

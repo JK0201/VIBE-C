@@ -1,7 +1,7 @@
 'use client';
 
-import styles from '@/styles/Home.module.css';
-import ModuleCarousel from '@/components/common/ModuleCarousel';
+import styles from './PopularComponents.module.css';
+import ModuleCarousel from '@/components/common/ModuleCarousel/ModuleCarousel';
 
 const popularComponents = [
   {

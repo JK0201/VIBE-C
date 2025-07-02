@@ -1,0 +1,46 @@
+/* Trust Section */
+.trust {
+  padding: 4rem 2rem;
+  background: white;
+}
+
+.trustContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.trustGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.trustItem {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 20px;
+  background: #F7FAFC;
+  transition: all 0.3s;
+}
+
+.trustItem:hover {
+  background: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+}
+
+.trustIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.trustTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1A202C;
+  margin-bottom: 0.5rem;
+}
+
+.trustDesc {
+  color: #718096;
+}

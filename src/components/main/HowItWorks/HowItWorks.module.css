@@ -1,0 +1,109 @@
+/* How It Works */
+.howItWorks {
+  padding: 4rem 2rem;
+}
+
+.howItWorksContent {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1A202C;
+  margin-bottom: 3rem;
+}
+
+.titleIcon {
+  font-size: 2.5rem;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+}
+
+.stepIcon {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1.5rem;
+}
+
+.stepIconBg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #FFE8E8, #E8F4FF);
+  border-radius: 30px;
+  transform: rotate(45deg);
+  transition: all 0.3s;
+}
+
+.step:hover .stepIconBg {
+  transform: rotate(45deg) scale(1.1);
+}
+
+.stepEmoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  z-index: 1;
+}
+
+.stepTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1A202C;
+  margin-bottom: 0.5rem;
+}
+
+.stepDesc {
+  color: #718096;
+  line-height: 1.6;
+}
+
+.stepConnector {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: -120px;
+}
+
+.connectorLine {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(to right, #E2E8F0 0%, #CBD5E0 70%, transparent 100%);
+  position: relative;
+}
+
+.connectorLine::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid #CBD5E0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.connectorArrow {
+  display: none;
+}

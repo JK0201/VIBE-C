@@ -1,4 +1,4 @@
-import styles from '@/styles/Home.module.css';
+import styles from './CategoryNav.module.css';
 
 const categories = [
   { id: 'website', name: '웹사이트', icon: '🌐' },
