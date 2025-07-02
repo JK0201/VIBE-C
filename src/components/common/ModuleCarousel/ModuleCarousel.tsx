@@ -11,7 +11,8 @@ interface Module {
   tags: string[];
   price: number;
   rating: number;
-  downloads: number;
+  downloads?: number;
+  purchases?: number;
   gradient: string;
   icon: string;
 }
@@ -104,7 +105,7 @@ export default function ModuleCarousel({
                       </span>
                       <span className={styles.stat}>
                         <span className={styles.statIcon}>💾</span>
-                        {module.downloads}
+                        {module.downloads || module.purchases || 0}
                       </span>
                     </div>
                   </div>
