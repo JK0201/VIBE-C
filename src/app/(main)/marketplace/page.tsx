@@ -133,7 +133,6 @@ export default function MarketplacePage() {
             <FilterSidebar 
               filters={filters}
               onFiltersChange={setFilters}
-              totalCount={filteredComponents.length}
             />
           </aside>
           
