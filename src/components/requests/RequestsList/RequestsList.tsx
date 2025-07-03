@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './RequestsList.module.css';
 
 interface Request {
@@ -88,7 +89,7 @@ export default function RequestsList({ requests }: RequestsListProps) {
   return (
     <div className={styles.requestsList}>
       {requests.map((request) => (
-        <div key={request.id} className={styles.requestItem}>
+        <Link key={request.id} href={`/requests/${request.id}`} className={styles.requestItem}>
           <div className={styles.requestBadges}>
             {request.isUrgent && (
               <span className={styles.urgentBadge}>긴급</span>
@@ -113,7 +114,7 @@ export default function RequestsList({ requests }: RequestsListProps) {
               {getDeadlineText(request.deadline)}
             </span>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

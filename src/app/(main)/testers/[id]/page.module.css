@@ -1,0 +1,531 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: calc(100vh - 64px);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.breadcrumb a {
+  color: #667EEA;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.breadcrumb a:hover {
+  opacity: 0.8;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.mainSection {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.header {
+  padding: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.company {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.companyAvatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.company span {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.urgentBadge {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  background: #ef4444;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.meta {
+  display: flex;
+  gap: 2rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metaItem svg {
+  stroke-width: 2;
+}
+
+.description {
+  padding: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.description h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.description p {
+  color: #4b5563;
+  line-height: 1.75;
+}
+
+.requirements {
+  padding: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.requirements h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.requirementGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.requirementItem h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 0.75rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  padding: 0.375rem 0.75rem;
+  background: #f3f4f6;
+  color: #4b5563;
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+.progress {
+  padding: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.progress h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.progressInfo {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.progressNumbers {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.current {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667EEA;
+}
+
+.divider {
+  font-size: 1.5rem;
+  color: #d1d5db;
+}
+
+.required {
+  font-size: 1.5rem;
+  color: #6b7280;
+}
+
+.progressBar {
+  width: 100%;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+.timeline {
+  padding: 2rem;
+}
+
+.timeline h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.timelineItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timelineItems::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: #e5e7eb;
+}
+
+.timelineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+.timelineIcon {
+  position: absolute;
+  left: -2rem;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border: 2px solid #667EEA;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timelineIcon svg {
+  width: 14px;
+  height: 14px;
+  stroke: #667EEA;
+  stroke-width: 2;
+}
+
+.timelineContent h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.timelineContent p {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rewardCard,
+.infoCard,
+.noticeCard {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+}
+
+.rewardCard h3,
+.infoCard h3,
+.noticeCard h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.reward {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.rewardLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.rewardAmount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.rewardNote {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.applyButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.applyButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.applyButton:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.infoItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.infoValue {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.statusOpen {
+  color: #10b981;
+}
+
+.noticeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.noticeList li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.noticeList li::before {
+  content: '•';
+  position: absolute;
+  left: 0.5rem;
+  color: #667EEA;
+}
+
+.noticeList li:last-child {
+  margin-bottom: 0;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.modal p {
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+.modal button {
+  padding: 0.75rem 1.5rem;
+  background: #667EEA;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal button:hover {
+  background: #5a5fdb;
+  transform: translateY(-2px);
+}
+
+.notFound {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.notFound h2 {
+  font-size: 1.5rem;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.backLink {
+  color: #667EEA;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.backLink:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    order: -1;
+  }
+
+  .requirementGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .description,
+  .requirements,
+  .progress,
+  .timeline {
+    padding: 1.5rem;
+  }
+
+  .progressNumbers {
+    justify-content: center;
+  }
+}

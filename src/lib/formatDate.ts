@@ -1,4 +1,18 @@
 /**
+ * Formats a date string to Korean date format
+ * @param dateString - ISO date string
+ * @returns Formatted date string (e.g., "2025년 7월 3일")
+ */
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  
+  return `${year}년 ${month}월 ${day}일`;
+}
+
+/**
  * Formats a date string to relative time format in Korean
  * @param dateString - ISO date string
  * @returns Relative time string (e.g., "3일 전", "2주 전")

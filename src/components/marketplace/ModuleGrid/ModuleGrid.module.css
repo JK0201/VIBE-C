@@ -8,6 +8,9 @@
   position: relative;
   transition: transform 0.3s ease;
   cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .moduleCard:hover {

@@ -7,12 +7,15 @@
 
 
 .testerItem {
+  display: block;
   background: white;
   border: 1px solid #E2E8F0;
   border-radius: 12px;
   padding: 1.5rem;
   transition: all 0.3s;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .testerItem:hover {

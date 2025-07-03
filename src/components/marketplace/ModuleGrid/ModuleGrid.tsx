@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import styles from './ModuleGrid.module.css';
 import carouselStyles from '@/components/common/ModuleCarousel/ModuleCarousel.module.css';
 import { formatRelativeTime } from '@/lib/formatDate';
@@ -57,8 +58,7 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
   };
 
   const handleCardClick = (componentId: number) => {
-    // TODO: Navigate to detail page
-    console.log(`Navigate to /marketplace/${componentId}`);
+    // Navigation is handled by Link component
   };
 
 
@@ -72,10 +72,10 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
         };
 
         return (
-          <div 
-            key={component.id} 
+          <Link
+            key={component.id}
+            href={`/marketplace/${component.id}`}
             className={styles.moduleCard}
-            onClick={() => handleCardClick(component.id)}
           >
             <button
               className={`${styles.favoriteBtn} ${favorites.has(component.id) ? styles.active : ''}`}
@@ -129,7 +129,7 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>

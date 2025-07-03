@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './TestersList.module.css';
 
 interface Tester {
@@ -77,7 +78,7 @@ export default function TestersList({ testers }: TestersListProps) {
   return (
     <div className={styles.testersList}>
       {testers.map((tester) => (
-        <div key={tester.id} className={styles.testerItem}>
+        <Link key={tester.id} href={`/testers/${tester.id}`} className={styles.testerItem}>
           <div className={styles.testerBadges}>
             {tester.isUrgent && (
               <span className={styles.urgentBadge}>긴급</span>
@@ -104,7 +105,7 @@ export default function TestersList({ testers }: TestersListProps) {
             <span className={styles.requirementsLabel}>필요:</span>
             <span className={styles.requirementsList}>{getRequirementsText(tester.requirements)}</span>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
