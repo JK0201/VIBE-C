@@ -84,9 +84,6 @@ export default function RequestsFilter({ filters, onFiltersChange, totalCount }:
     <aside className={styles.filterSidebar}>
       <div className={styles.filterHeader}>
         <h3 className={styles.filterTitle}>필터</h3>
-        {totalCount !== undefined && (
-          <span className={styles.totalCount}>{totalCount}개</span>
-        )}
         <button 
           className={styles.resetBtn}
           onClick={resetFilters}
@@ -119,24 +116,24 @@ export default function RequestsFilter({ filters, onFiltersChange, totalCount }:
       </div>
 
       <div className={styles.filterSection}>
-        <h4 className={styles.sectionTitle}>가격 범위</h4>
+        <h4 className={styles.sectionTitle}>상태</h4>
         <div className={styles.filterOptions}>
-          {budgetRanges.map((range) => (
-            <label key={range.id} className={styles.filterOption}>
+          {statuses.map((status) => (
+            <label key={status.id} className={styles.filterOption}>
               <input
                 type="checkbox"
                 className={styles.hiddenCheckbox}
-                checked={filters.budgetRange.includes(range.value)}
-                onChange={(e) => handleBudgetChange(range.value, e.target.checked)}
+                checked={filters.status.includes(status.id)}
+                onChange={(e) => handleStatusChange(status.id, e.target.checked)}
               />
               <span className={styles.customCheckbox}>
-                {filters.budgetRange.includes(range.value) && (
+                {filters.status.includes(status.id) && (
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 )}
               </span>
-              <span className={styles.checkboxLabel}>{range.label}</span>
+              <span className={styles.checkboxLabel}>{status.label}</span>
             </label>
           ))}
         </div>
@@ -167,24 +164,24 @@ export default function RequestsFilter({ filters, onFiltersChange, totalCount }:
       </div>
 
       <div className={styles.filterSection}>
-        <h4 className={styles.sectionTitle}>상태</h4>
+        <h4 className={styles.sectionTitle}>가격 범위</h4>
         <div className={styles.filterOptions}>
-          {statuses.map((status) => (
-            <label key={status.id} className={styles.filterOption}>
+          {budgetRanges.map((range) => (
+            <label key={range.id} className={styles.filterOption}>
               <input
                 type="checkbox"
                 className={styles.hiddenCheckbox}
-                checked={filters.status.includes(status.id)}
-                onChange={(e) => handleStatusChange(status.id, e.target.checked)}
+                checked={filters.budgetRange.includes(range.value)}
+                onChange={(e) => handleBudgetChange(range.value, e.target.checked)}
               />
               <span className={styles.customCheckbox}>
-                {filters.status.includes(status.id) && (
+                {filters.budgetRange.includes(range.value) && (
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 )}
               </span>
-              <span className={styles.checkboxLabel}>{status.label}</span>
+              <span className={styles.checkboxLabel}>{range.label}</span>
             </label>
           ))}
         </div>

@@ -372,18 +372,29 @@
   color: white;
   font-size: 1.25rem;
   font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sellerDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .sellerDetails h4 {
   font-size: 1rem;
   font-weight: 600;
   color: #111827;
+  margin: 0;
   margin-bottom: 0.25rem;
+  line-height: 1.2;
 }
 
 .sellerDetails p {
   font-size: 0.875rem;
   color: #6b7280;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .sellerBio {

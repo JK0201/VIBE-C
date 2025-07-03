@@ -70,6 +70,13 @@ export default function RequestsList({ requests }: RequestsListProps) {
     if (diffDays < 7) return `${diffDays}일 남음`;
     return deadlineDate.toLocaleDateString('ko-KR');
   };
+  
+  // 마감 여부 확인
+  const isExpired = (deadline: string) => {
+    const now = new Date();
+    const deadlineDate = new Date(deadline);
+    return deadlineDate.getTime() < now.getTime();
+  };
 
   // 카테고리 매핑
   const getCategoryText = (category: string) => {
@@ -95,9 +102,11 @@ export default function RequestsList({ requests }: RequestsListProps) {
               <span className={styles.urgentBadge}>긴급</span>
             )}
             <span className={styles.categoryBadge}>{getCategoryText(request.category)}</span>
-            <span className={`${styles.statusBadge} ${styles[`status${request.status}`]}`}>
-              {getStatusText(request.status)}
-            </span>
+            {request.status !== 'COMPLETED' && !isExpired(request.deadline) && (
+              <span className={`${styles.statusBadge} ${styles[`status${request.status}`]}`}>
+                {getStatusText(request.status)}
+              </span>
+            )}
           </div>
           <h3 className={styles.requestTitle}>{request.title}</h3>
           <p className={styles.requestDesc}>{request.description}</p>

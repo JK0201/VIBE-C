@@ -40,10 +40,10 @@ export default function TestersHero({ searchQuery, onSearchChange }: TestersHero
       
       <div className={styles.heroContent}>
         <h1 className={styles.heroTitle}>
-          테스터를 모집해보세요
+          더 나은 제품을 함께 만들어요
         </h1>
         <p className={styles.heroSubtitle}>
-          다양한 테스트 프로젝트를 확인하고 지원해보세요
+          기업과 테스터가 만나는 베타 테스팅 커뮤니티
         </p>
         
         <div className={styles.searchWrapper}>

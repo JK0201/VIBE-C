@@ -188,6 +188,14 @@
   justify-content: center;
   color: white;
   font-weight: 600;
+  flex-shrink: 0;
+}
+
+.applicantDetails,
+.bidderDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .applicantDetails h4,
@@ -195,13 +203,17 @@
   font-size: 1rem;
   font-weight: 600;
   color: #111827;
+  margin: 0;
   margin-bottom: 0.25rem;
+  line-height: 1.2;
 }
 
 .applicantDetails p,
 .bidderDetails p {
   font-size: 0.875rem;
   color: #6b7280;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .applicationMessage,
@@ -211,56 +223,22 @@
   margin-bottom: 0.75rem;
 }
 
-.applicationDate,
+.applicationDate {
+  font-size: 0.813rem;
+  color: #9ca3af;
+}
+
 .bidDate {
   font-size: 0.813rem;
   color: #9ca3af;
 }
 
-.bidItem.lowestBid {
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-.bidItem.lowestBid .bidderAvatar {
-  background: white;
-  color: #667EEA;
-}
-
-.bidItem.lowestBid .bidderDetails h4,
-.bidItem.lowestBid .bidMessage,
-.bidItem.lowestBid .bidDate {
-  color: white;
-}
-
-.bidItem.lowestBid .bidderDetails p {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.bidRank {
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.crown {
-  font-size: 1.25rem;
-}
 
 .bidContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
-}
-
-.bidAmount {
-  font-size: 1.5rem;
-  font-weight: 800;
 }
 
 .sidebar {
@@ -386,18 +364,29 @@
   color: white;
   font-size: 1.25rem;
   font-weight: 600;
+  flex-shrink: 0;
+}
+
+.requesterDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .requesterDetails h4 {
   font-size: 1rem;
   font-weight: 600;
   color: #111827;
+  margin: 0;
   margin-bottom: 0.25rem;
+  line-height: 1.2;
 }
 
 .requesterDetails p {
   font-size: 0.875rem;
   color: #6b7280;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .requesterBio {

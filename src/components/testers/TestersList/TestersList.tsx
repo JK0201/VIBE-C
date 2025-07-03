@@ -25,11 +25,18 @@ interface TestersListProps {
 export default function TestersList({ testers }: TestersListProps) {
 
   // 상태에 따른 표시 텍스트
-  const getStatusText = (status: string) => {
+  const getStatusText = (status: string, applicants: number, required: number, deadline: string) => {
+    // 마감일이 지났거나 COMPLETED 상태면 '완료'만 표시
+    if (isExpired(deadline) || status === 'COMPLETED') {
+      return '완료';
+    }
+    
     switch (status) {
-      case 'OPEN': return '모집중';
+      case 'OPEN': 
+        // 모집 인원이 다 찼어도 완료
+        if (applicants >= required) return '완료';
+        return `모집중 ${applicants}/${required}`;
       case 'IN_PROGRESS': return '진행중';
-      case 'COMPLETED': return '완료';
       default: return status;
     }
   };
@@ -58,6 +65,13 @@ export default function TestersList({ testers }: TestersListProps) {
     if (diffDays < 7) return `${diffDays}일 남음`;
     return deadlineDate.toLocaleDateString('ko-KR');
   };
+  
+  // 마감 여부 확인
+  const isExpired = (deadline: string) => {
+    const now = new Date();
+    const deadlineDate = new Date(deadline);
+    return deadlineDate.getTime() < now.getTime();
+  };
 
   // 테스트 기간 표시
   const getDurationText = (duration: string) => {
@@ -84,19 +98,18 @@ export default function TestersList({ testers }: TestersListProps) {
               <span className={styles.urgentBadge}>긴급</span>
             )}
             <span className={styles.typeBadge}>{getTestTypeText(tester.testType)}</span>
-            <span className={`${styles.statusBadge} ${styles[`status${tester.status}`]}`}>
-              {getStatusText(tester.status)}
-            </span>
+            {tester.status !== 'COMPLETED' && !isExpired(tester.deadline) && (
+              <span className={`${styles.statusBadge} ${styles[`status${tester.status}`]}`}>
+                {getStatusText(tester.status, tester.applicants, tester.requiredTesters, tester.deadline)}
+              </span>
+            )}
           </div>
           <h3 className={styles.testerTitle}>{tester.title}</h3>
           <p className={styles.testerCompany}>{tester.company}</p>
           <p className={styles.testerDesc}>{tester.description}</p>
           <div className={styles.testerMeta}>
             <span className={styles.testerDuration}>테스트 기간: {getDurationText(tester.duration)}</span>
-            <span className={styles.testerReward}>{tester.reward.toLocaleString()}P/명</span>
-            <span className={styles.testerApplicants}>
-              {tester.applicants}/{tester.requiredTesters}명 지원
-            </span>
+            <span className={styles.testerReward}>{tester.reward.toLocaleString()}P</span>
             <span className={styles.testerDeadline}>
               {getDeadlineText(tester.deadline)}
             </span>

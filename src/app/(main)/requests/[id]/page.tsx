@@ -196,31 +196,22 @@ export default function RequestDetailPage() {
               {request.bids.length === 0 ? (
                 <p className={styles.noBids}>아직 입찰이 없습니다.</p>
               ) : (
-                <div className={styles.bidList}>
-                  {request.bids.sort((a, b) => a.amount - b.amount).map((bid, index) => {
+                <div className={styles.applicationList}>
+                  {request.bids.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()).map((bid, index) => {
                     const bidder = applicants[bid.userId];
                     return bidder ? (
-                      <div key={bid.id} className={`${styles.bidItem} ${index === 0 ? styles.lowestBid : ''}`}>
-                        <div className={styles.bidRank}>
-                          {index === 0 && <span className={styles.crown}>👑</span>}
-                          #{index + 1}
-                        </div>
-                        <div className={styles.bidContent}>
-                          <div className={styles.bidderInfo}>
-                            <div className={styles.bidderAvatar}>
-                              {bidder.name.charAt(0)}
-                            </div>
-                            <div className={styles.bidderDetails}>
-                              <h4>{bidder.name}</h4>
-                              <p>@{bidder.githubId}</p>
-                            </div>
+                      <div key={bid.id} className={styles.applicationItem}>
+                        <div className={styles.applicantInfo}>
+                          <div className={styles.applicantAvatar}>
+                            {bidder.name.charAt(0)}
                           </div>
-                          <div className={styles.bidAmount}>
-                            {bid.amount.toLocaleString()}P
+                          <div className={styles.applicantDetails}>
+                            <h4>{index + 1}번째 입찰자</h4>
+                            <p>익명</p>
                           </div>
                         </div>
-                        <p className={styles.bidMessage}>{bid.message}</p>
-                        <span className={styles.bidDate}>
+                        <p className={styles.applicationMessage}>{bid.message}</p>
+                        <span className={styles.applicationDate}>
                           {formatDate(bid.createdAt)}
                         </span>
                       </div>

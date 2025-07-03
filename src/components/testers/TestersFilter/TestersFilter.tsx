@@ -88,9 +88,6 @@ export default function TestersFilter({ filters, onFiltersChange, totalCount }: 
     <aside className={styles.filterSidebar}>
       <div className={styles.filterHeader}>
         <h3 className={styles.filterTitle}>필터</h3>
-        {totalCount !== undefined && (
-          <span className={styles.totalCount}>{totalCount}개</span>
-        )}
         <button 
           className={styles.resetBtn}
           onClick={resetFilters}

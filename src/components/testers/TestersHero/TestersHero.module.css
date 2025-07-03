@@ -85,13 +85,13 @@
   flex: 1;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  transition: border-color 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .searchBox:focus-within {
-  border-color: #e5e7eb;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: #667EEA;
+  box-shadow: 0 1px 3px rgba(102, 126, 234, 0.2);
 }
 
 .searchIcon {
@@ -128,13 +128,14 @@
   border: none;
   font-size: 1rem;
   background: transparent !important;
-  outline: none;
+  outline: none !important;
   color: #111827;
+  box-shadow: none !important;
 }
 
 .searchInput:focus {
-  outline: none;
-  border: none;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .searchInput::placeholder {
