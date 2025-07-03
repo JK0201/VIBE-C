@@ -106,6 +106,8 @@ export default function RequestDetailPage() {
   const daysUntilDeadline = Math.ceil(
     (new Date(request.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
   );
+  
+  const isExpired = daysUntilDeadline < 0 || request.status !== 'OPEN';
 
   return (
     <div className={styles.container}>
@@ -121,14 +123,11 @@ export default function RequestDetailPage() {
         <div className={styles.mainSection}>
           <div className={styles.header}>
             <div className={styles.badges}>
-              <span className={styles.categoryBadge}>
-                {categoryKorean[request.category]}
-              </span>
               {request.isUrgent && (
                 <span className={styles.urgentBadge}>긴급</span>
               )}
-              <span className={`${styles.typeBadge} ${request.type === 'AUCTION' ? styles.auction : ''}`}>
-                {request.type === 'FIXED_PRICE' ? '고정가' : '경매'}
+              <span className={styles.categoryBadge}>
+                {categoryKorean[request.category]}
               </span>
             </div>
             
@@ -235,11 +234,15 @@ export default function RequestDetailPage() {
 
         <div className={styles.sidebar}>
           <div className={styles.budgetCard}>
-            <h3>가격 정보</h3>
+            <div className={styles.budgetHeader}>
+              <h3>가격 정보</h3>
+              <span className={styles.priceType}>
+                {request.type === 'FIXED_PRICE' ? '고정가' : '경매'}
+              </span>
+            </div>
             {request.type === 'FIXED_PRICE' ? (
               <>
                 <div className={styles.budget}>
-                  <span className={styles.budgetLabel}>가격</span>
                   <span className={styles.budgetAmount}>
                     {request.budget?.toLocaleString()}P
                   </span>
@@ -251,15 +254,14 @@ export default function RequestDetailPage() {
             ) : (
               <>
                 <div className={styles.budget}>
-                  <span className={styles.budgetLabel}>현재 최저가</span>
                   <span className={styles.budgetAmount}>
                     {request.bids && request.bids.length > 0
-                      ? `${Math.min(...request.bids.map(b => b.amount)).toLocaleString()}P`
+                      ? `${request.bids.length}명 입찰`
                       : '입찰 없음'}
                   </span>
                 </div>
                 <p className={styles.budgetNote}>
-                  경매 방식으로 진행되며, 최저가 입찰자가 선정됩니다.
+                  블라인드 경매 방식으로 진행되며, 의뢰자가 적합한 개발자를 선택합니다.
                 </p>
               </>
             )}
@@ -267,8 +269,11 @@ export default function RequestDetailPage() {
             <button 
               className={styles.applyButton}
               onClick={() => setShowApplyModal(true)}
+              disabled={isExpired}
             >
-              {request.type === 'FIXED_PRICE' ? '지원하기' : '입찰하기'}
+              {isExpired 
+                ? (request.type === 'FIXED_PRICE' ? '지원마감' : '경매마감')
+                : (request.type === 'FIXED_PRICE' ? '지원하기' : '입찰하기')}
             </button>
           </div>
 
@@ -295,8 +300,8 @@ export default function RequestDetailPage() {
             <div className={styles.statusInfo}>
               <div className={styles.statusItem}>
                 <span className={styles.statusLabel}>상태</span>
-                <span className={`${styles.statusValue} ${styles.open}`}>
-                  {request.status === 'OPEN' ? '모집중' : '마감'}
+                <span className={`${styles.statusValue} ${isExpired ? styles.closed : styles.open}`}>
+                  {isExpired ? '마감' : '모집중'}
                 </span>
               </div>
               <div className={styles.statusItem}>

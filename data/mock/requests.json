@@ -37,9 +37,9 @@
       "type": "AUCTION",
       "budget": null,
       "isUrgent": true,
-      "status": "OPEN",
+      "status": "COMPLETED",
       "category": "backend",
-      "deadline": "2025-07-03T12:00:00Z",
+      "deadline": "2025-07-03T03:00:00Z",
       "createdAt": "2025-07-02T08:00:00Z",
       "bids": [
         {
@@ -81,7 +81,22 @@
       "deadline": "2025-08-01T00:00:00Z",
       "createdAt": "2024-12-28T15:00:00Z",
       "assignedTo": 1,
-      "applications": []
+      "applications": [
+        {
+          "id": 13,
+          "userId": 1,
+          "requestId": 3,
+          "message": "Flutter 결제 모듈 개발 경험이 풍부합니다. 토스페이먼츠 연동 경험 있습니다.",
+          "createdAt": "2024-12-28T16:00:00Z"
+        },
+        {
+          "id": 14,
+          "userId": 7,
+          "requestId": 3,
+          "message": "정기결제 시스템 구현 경험이 있습니다.",
+          "createdAt": "2024-12-28T17:30:00Z"
+        }
+      ]
     },
     {
       "id": 4,
@@ -95,7 +110,24 @@
       "category": "blockchain",
       "deadline": "2025-07-25T00:00:00Z",
       "createdAt": "2025-06-25T14:00:00Z",
-      "bids": []
+      "bids": [
+        {
+          "id": 15,
+          "userId": 24,
+          "requestId": 4,
+          "amount": 180000,
+          "message": "NFT 마켓플레이스 스마트 컨트랙트 개발 경험 있습니다.",
+          "createdAt": "2025-06-25T15:00:00Z"
+        },
+        {
+          "id": 16,
+          "userId": 25,
+          "requestId": 4,
+          "amount": 175000,
+          "message": "가스 최적화에 특화되어 있습니다.",
+          "createdAt": "2025-06-25T16:30:00Z"
+        }
+      ]
     },
     {
       "id": 5,
@@ -111,7 +143,22 @@
       "createdAt": "2024-02-20T11:00:00Z",
       "assignedTo": 3,
       "completedAt": "2024-02-24T16:00:00Z",
-      "applications": []
+      "applications": [
+        {
+          "id": 17,
+          "userId": 3,
+          "requestId": 5,
+          "message": "Kubernetes 모니터링 전문가입니다.",
+          "createdAt": "2024-02-20T12:00:00Z"
+        },
+        {
+          "id": 18,
+          "userId": 9,
+          "requestId": 5,
+          "message": "Prometheus와 Grafana 설정 경험 다수입니다.",
+          "createdAt": "2024-02-20T13:30:00Z"
+        }
+      ]
     },
     {
       "id": 6,
@@ -222,7 +269,22 @@
       "deadline": "2025-12-31T00:00:00Z",
       "createdAt": "2024-12-25T09:00:00Z",
       "assignedTo": 14,
-      "applications": []
+      "applications": [
+        {
+          "id": 19,
+          "userId": 14,
+          "requestId": 9,
+          "message": "AWS 마이그레이션 전문가입니다. 대규모 프로젝트 경험 있습니다.",
+          "createdAt": "2024-12-25T10:00:00Z"
+        },
+        {
+          "id": 20,
+          "userId": 9,
+          "requestId": 9,
+          "message": "CloudFormation과 Terraform 활용 가능합니다.",
+          "createdAt": "2024-12-25T11:30:00Z"
+        }
+      ]
     },
     {
       "id": 10,
@@ -293,7 +355,15 @@
       "createdAt": "2024-02-15T10:00:00Z",
       "assignedTo": 20,
       "completedAt": "2024-02-27T14:00:00Z",
-      "applications": []
+      "applications": [
+        {
+          "id": 21,
+          "userId": 20,
+          "requestId": 11,
+          "message": "WooCommerce 전문가입니다. 결제 연동 경험 풍부합니다.",
+          "createdAt": "2024-02-15T11:00:00Z"
+        }
+      ]
     },
     {
       "id": 12,
@@ -346,7 +416,22 @@
       "category": "mobile",
       "deadline": "2025-07-09T00:00:00Z",
       "createdAt": "2025-07-02T08:00:00Z",
-      "applications": []
+      "applications": [
+        {
+          "id": 22,
+          "userId": 1,
+          "requestId": 13,
+          "message": "Kotlin 네이티브 앱 개발 경험이 있습니다.",
+          "createdAt": "2025-07-02T09:00:00Z"
+        },
+        {
+          "id": 23,
+          "userId": 7,
+          "requestId": 13,
+          "message": "날씨 API 연동 및 위젯 개발 가능합니다.",
+          "createdAt": "2025-07-02T10:30:00Z"
+        }
+      ]
     },
     {
       "id": 14,
@@ -389,7 +474,24 @@
       "category": "data",
       "deadline": "2025-07-04T00:00:00Z",
       "createdAt": "2025-07-02T15:00:00Z",
-      "bids": []
+      "bids": [
+        {
+          "id": 24,
+          "userId": 12,
+          "requestId": 15,
+          "amount": 140000,
+          "message": "Airflow 파이프라인 구축 전문가입니다.",
+          "createdAt": "2025-07-02T16:00:00Z"
+        },
+        {
+          "id": 25,
+          "userId": 23,
+          "requestId": 15,
+          "amount": 135000,
+          "message": "ETL 자동화 경험이 풍부합니다.",
+          "createdAt": "2025-07-02T17:30:00Z"
+        }
+      ]
     },
     {
       "id": 16,
@@ -440,7 +542,22 @@
       "deadline": "2025-09-15T00:00:00Z",
       "createdAt": "2024-12-20T14:00:00Z",
       "assignedTo": 29,
-      "applications": []
+      "applications": [
+        {
+          "id": 26,
+          "userId": 29,
+          "requestId": 17,
+          "message": "Django로 여러 교육 플랫폼을 개발했습니다.",
+          "createdAt": "2024-12-20T15:00:00Z"
+        },
+        {
+          "id": 27,
+          "userId": 2,
+          "requestId": 17,
+          "message": "스트리밍 서버 구축 경험이 있습니다.",
+          "createdAt": "2024-12-20T16:30:00Z"
+        }
+      ]
     },
     {
       "id": 18,
@@ -477,7 +594,15 @@
       "category": "ecommerce",
       "deadline": "2025-07-03T00:00:00Z",
       "createdAt": "2025-07-02T16:00:00Z",
-      "applications": []
+      "applications": [
+        {
+          "id": 28,
+          "userId": 20,
+          "requestId": 19,
+          "message": "Shopify 테마 커스터마이징 전문입니다.",
+          "createdAt": "2025-07-02T17:00:00Z"
+        }
+      ]
     },
     {
       "id": 20,
@@ -493,7 +618,22 @@
       "createdAt": "2024-02-01T10:00:00Z",
       "assignedTo": 31,
       "completedAt": "2024-02-19T16:00:00Z",
-      "applications": []
+      "applications": [
+        {
+          "id": 29,
+          "userId": 31,
+          "requestId": 20,
+          "message": "추천 시스템 전문가입니다. 협업 필터링 구현 경험 풍부합니다.",
+          "createdAt": "2024-02-01T11:00:00Z"
+        },
+        {
+          "id": 30,
+          "userId": 21,
+          "requestId": 20,
+          "message": "하이브리드 추천 시스템 구축 경험이 있습니다.",
+          "createdAt": "2024-02-01T12:30:00Z"
+        }
+      ]
     }
   ]
 }

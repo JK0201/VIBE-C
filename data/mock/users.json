@@ -39,6 +39,276 @@
       "profileImage": "https://github.com/annadesign.png",
       "bio": "UI/UX designer and frontend developer",
       "createdAt": "2024-02-10T16:45:00Z"
+    },
+    {
+      "id": 5,
+      "email": "alice.dev@example.com",
+      "name": "Alice Developer",
+      "githubId": "alicedev",
+      "balance": 65000,
+      "profileImage": "https://github.com/alicedev.png",
+      "bio": "AI/ML specialist with experience in NLP and computer vision",
+      "createdAt": "2024-02-15T11:00:00Z"
+    },
+    {
+      "id": 6,
+      "email": "bob.engineer@example.com",
+      "name": "Bob Engineer",
+      "githubId": "bobengineer",
+      "balance": 45000,
+      "profileImage": "https://github.com/bobengineer.png",
+      "bio": "Backend developer specializing in microservices",
+      "createdAt": "2024-02-20T13:00:00Z"
+    },
+    {
+      "id": 7,
+      "email": "carol.mobile@example.com",
+      "name": "Carol Mobile",
+      "githubId": "carolmobile",
+      "balance": 55000,
+      "profileImage": "https://github.com/carolmobile.png",
+      "bio": "React Native expert with 5+ years experience",
+      "createdAt": "2024-03-01T10:00:00Z"
+    },
+    {
+      "id": 8,
+      "email": "david.fullstack@example.com",
+      "name": "David Fullstack",
+      "githubId": "davidfullstack",
+      "balance": 80000,
+      "profileImage": "https://github.com/davidfullstack.png",
+      "bio": "Full-stack developer with expertise in MERN stack",
+      "createdAt": "2024-03-05T14:00:00Z"
+    },
+    {
+      "id": 9,
+      "email": "eva.cloud@example.com",
+      "name": "Eva Cloud",
+      "githubId": "evacloud",
+      "balance": 70000,
+      "profileImage": "https://github.com/evacloud.png",
+      "bio": "DevOps engineer specializing in AWS and Kubernetes",
+      "createdAt": "2024-03-10T09:00:00Z"
+    },
+    {
+      "id": 10,
+      "email": "frank.designer@example.com",
+      "name": "Frank Designer",
+      "githubId": "frankdesigner",
+      "balance": 40000,
+      "profileImage": "https://github.com/frankdesigner.png",
+      "bio": "UI/UX designer with frontend development skills",
+      "createdAt": "2024-03-15T15:00:00Z"
+    },
+    {
+      "id": 11,
+      "email": "grace.vue@example.com",
+      "name": "Grace Vue",
+      "githubId": "gracevue",
+      "balance": 60000,
+      "profileImage": "https://github.com/gracevue.png",
+      "bio": "Vue.js specialist with enterprise experience",
+      "createdAt": "2024-03-20T11:00:00Z"
+    },
+    {
+      "id": 12,
+      "email": "henry.data@example.com",
+      "name": "Henry Data",
+      "githubId": "henrydata",
+      "balance": 85000,
+      "profileImage": "https://github.com/henrydata.png",
+      "bio": "Data engineer with expertise in big data processing",
+      "createdAt": "2024-03-25T10:00:00Z"
+    },
+    {
+      "id": 13,
+      "email": "iris.python@example.com",
+      "name": "Iris Python",
+      "githubId": "irispython",
+      "balance": 50000,
+      "profileImage": "https://github.com/irispython.png",
+      "bio": "Python developer specializing in web scraping and automation",
+      "createdAt": "2024-04-01T12:00:00Z"
+    },
+    {
+      "id": 14,
+      "email": "jack.aws@example.com",
+      "name": "Jack AWS",
+      "githubId": "jackaws",
+      "balance": 95000,
+      "profileImage": "https://github.com/jackaws.png",
+      "bio": "AWS solutions architect with migration expertise",
+      "createdAt": "2024-04-05T13:00:00Z"
+    },
+    {
+      "id": 15,
+      "email": "kate.node@example.com",
+      "name": "Kate Node",
+      "githubId": "katenode",
+      "balance": 65000,
+      "profileImage": "https://github.com/katenode.png",
+      "bio": "Node.js backend developer with Express expertise",
+      "createdAt": "2024-04-10T14:00:00Z"
+    },
+    {
+      "id": 16,
+      "email": "leo.nest@example.com",
+      "name": "Leo Nest",
+      "githubId": "leonest",
+      "balance": 70000,
+      "profileImage": "https://github.com/leonest.png",
+      "bio": "NestJS developer with enterprise architecture experience",
+      "createdAt": "2024-04-15T09:00:00Z"
+    },
+    {
+      "id": 17,
+      "email": "mia.api@example.com",
+      "name": "Mia API",
+      "githubId": "miaapi",
+      "balance": 55000,
+      "profileImage": "https://github.com/miaapi.png",
+      "bio": "API developer focused on RESTful and GraphQL APIs",
+      "createdAt": "2024-04-20T10:00:00Z"
+    },
+    {
+      "id": 18,
+      "email": "noah.test@example.com",
+      "name": "Noah Test",
+      "githubId": "noahtest",
+      "balance": 60000,
+      "profileImage": "https://github.com/noahtest.png",
+      "bio": "QA engineer with test automation expertise",
+      "createdAt": "2024-04-25T11:00:00Z"
+    },
+    {
+      "id": 19,
+      "email": "olivia.docker@example.com",
+      "name": "Olivia Docker",
+      "githubId": "oliviadocker",
+      "balance": 75000,
+      "profileImage": "https://github.com/oliviadocker.png",
+      "bio": "DevOps engineer specializing in containerization",
+      "createdAt": "2024-05-01T12:00:00Z"
+    },
+    {
+      "id": 20,
+      "email": "paul.wordpress@example.com",
+      "name": "Paul WordPress",
+      "githubId": "paulwordpress",
+      "balance": 35000,
+      "profileImage": "https://github.com/paulwordpress.png",
+      "bio": "WordPress developer with WooCommerce expertise",
+      "createdAt": "2024-05-05T13:00:00Z"
+    },
+    {
+      "id": 21,
+      "email": "quinn.ml@example.com",
+      "name": "Quinn ML",
+      "githubId": "quinnml",
+      "balance": 90000,
+      "profileImage": "https://github.com/quinnml.png",
+      "bio": "Machine learning engineer with deep learning expertise",
+      "createdAt": "2024-05-10T14:00:00Z"
+    },
+    {
+      "id": 22,
+      "email": "rachel.ai@example.com",
+      "name": "Rachel AI",
+      "githubId": "rachelai",
+      "balance": 85000,
+      "profileImage": "https://github.com/rachelai.png",
+      "bio": "AI researcher focusing on computer vision",
+      "createdAt": "2024-05-15T15:00:00Z"
+    },
+    {
+      "id": 23,
+      "email": "sam.data@example.com",
+      "name": "Sam Data",
+      "githubId": "samdata",
+      "balance": 80000,
+      "profileImage": "https://github.com/samdata.png",
+      "bio": "Data scientist with ML pipeline experience",
+      "createdAt": "2024-05-20T09:00:00Z"
+    },
+    {
+      "id": 24,
+      "email": "tina.blockchain@example.com",
+      "name": "Tina Blockchain",
+      "githubId": "tinablockchain",
+      "balance": 120000,
+      "profileImage": "https://github.com/tinablockchain.png",
+      "bio": "Blockchain developer with DeFi expertise",
+      "createdAt": "2024-05-25T10:00:00Z"
+    },
+    {
+      "id": 25,
+      "email": "uma.solidity@example.com",
+      "name": "Uma Solidity",
+      "githubId": "umasolidity",
+      "balance": 110000,
+      "profileImage": "https://github.com/umasolidity.png",
+      "bio": "Smart contract developer with audit experience",
+      "createdAt": "2024-06-01T11:00:00Z"
+    },
+    {
+      "id": 26,
+      "email": "victor.next@example.com",
+      "name": "Victor Next",
+      "githubId": "victornext",
+      "balance": 65000,
+      "profileImage": "https://github.com/victornext.png",
+      "bio": "Next.js developer specializing in SSR/SSG",
+      "createdAt": "2024-06-05T12:00:00Z"
+    },
+    {
+      "id": 27,
+      "email": "wendy.motion@example.com",
+      "name": "Wendy Motion",
+      "githubId": "wendymotion",
+      "balance": 60000,
+      "profileImage": "https://github.com/wendymotion.png",
+      "bio": "Frontend developer with animation expertise",
+      "createdAt": "2024-06-10T13:00:00Z"
+    },
+    {
+      "id": 28,
+      "email": "xander.seo@example.com",
+      "name": "Xander SEO",
+      "githubId": "xanderseo",
+      "balance": 55000,
+      "profileImage": "https://github.com/xanderseo.png",
+      "bio": "Web developer focused on SEO optimization",
+      "createdAt": "2024-06-15T14:00:00Z"
+    },
+    {
+      "id": 29,
+      "email": "yara.django@example.com",
+      "name": "Yara Django",
+      "githubId": "yaradjango",
+      "balance": 70000,
+      "profileImage": "https://github.com/yaradjango.png",
+      "bio": "Django developer with educational platform experience",
+      "createdAt": "2024-06-20T15:00:00Z"
+    },
+    {
+      "id": 30,
+      "email": "zoe.unity@example.com",
+      "name": "Zoe Unity",
+      "githubId": "zoeunity",
+      "balance": 95000,
+      "profileImage": "https://github.com/zoeunity.png",
+      "bio": "Unity game developer with mobile expertise",
+      "createdAt": "2024-06-25T09:00:00Z"
+    },
+    {
+      "id": 31,
+      "email": "alex.recommend@example.com",
+      "name": "Alex Recommend",
+      "githubId": "alexrecommend",
+      "balance": 100000,
+      "profileImage": "https://github.com/alexrecommend.png",
+      "bio": "ML engineer specializing in recommendation systems",
+      "createdAt": "2024-07-01T10:00:00Z"
     }
   ]
 }
