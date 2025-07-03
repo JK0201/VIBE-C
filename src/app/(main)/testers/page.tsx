@@ -22,36 +22,22 @@ export default function TestersPage() {
     testType: string[];
     isUrgent: boolean | null;
     requirements: string[];
+    status: string[];
   }>({
     rewardRange: [],
     testType: [],
     isUrgent: null,
-    requirements: []
+    requirements: [],
+    status: []
   });
   const [displayedCount, setDisplayedCount] = useState(ITEMS_PER_PAGE);
   const [isLoading, setIsLoading] = useState(false);
 
   // Filter and sort testers
   const filteredTesters = testersData.testers.filter(tester => {
-    // Category filter
+    // Category filter (now using test types directly)
     if (selectedCategory !== 'all') {
-      // Map test types to categories
-      const categoryMap: Record<string, string[]> = {
-        'mobile': ['functional', 'ui', 'performance', 'security'],
-        'website': ['functional', 'ui', 'performance', 'security'],
-        'ai': ['functional'],
-        'blockchain': ['security'],
-        'ecommerce': ['functional', 'ui'],
-        'backend': ['functional', 'performance', 'security'],
-        'data': ['functional', 'performance'],
-        'devops': ['performance', 'security']
-      };
-      
-      const hasMatchingType = tester.testType.some(type => 
-        categoryMap[selectedCategory]?.includes(type)
-      );
-      
-      if (!hasMatchingType) return false;
+      if (!tester.testType.includes(selectedCategory)) return false;
     }
 
     // Search filter
@@ -80,12 +66,20 @@ export default function TestersPage() {
       return false;
     }
 
-    // Test type filter
-    if (filters.testType.length > 0) {
-      const hasType = filters.testType.some(type => 
-        tester.testType.includes(type)
-      );
-      if (!hasType) return false;
+    // Status filter
+    if (filters.status.length > 0) {
+      const now = new Date();
+      const deadline = new Date(tester.deadline);
+      const isExpired = deadline.getTime() < now.getTime();
+      const isCompleted = tester.status === 'COMPLETED' || isExpired || tester.applicants >= tester.requiredTesters;
+      
+      const matchesStatus = filters.status.some(status => {
+        if (status === 'open') return !isCompleted;
+        if (status === 'completed') return isCompleted;
+        return false;
+      });
+      
+      if (!matchesStatus) return false;
     }
 
     // Requirements filter
@@ -132,6 +126,15 @@ export default function TestersPage() {
     setDisplayedCount(ITEMS_PER_PAGE);
   }, [selectedCategory, searchQuery, sortBy, filters]);
 
+  // Sync category selection with testType filter
+  useEffect(() => {
+    if (selectedCategory === 'all') {
+      setFilters(prev => ({ ...prev, testType: [] }));
+    } else {
+      setFilters(prev => ({ ...prev, testType: [selectedCategory] }));
+    }
+  }, [selectedCategory]);
+
   return (
     <div className={styles.page}>
       <Header />
@@ -144,6 +147,7 @@ export default function TestersPage() {
       <CategoryFilter 
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
+        type="testers"
       />
       
       <div className={styles.mainContent}>
@@ -197,7 +201,8 @@ export default function TestersPage() {
                       rewardRange: [],
                       testType: [],
                       isUrgent: null,
-                      requirements: []
+                      requirements: [],
+                      status: []
                     });
                   }}
                 >

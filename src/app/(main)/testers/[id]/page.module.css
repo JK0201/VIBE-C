@@ -384,6 +384,7 @@
 .applyButton:disabled {
   background: #d1d5db;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .infoItems {
@@ -411,6 +412,11 @@
 
 .statusOpen {
   color: #10b981;
+  font-weight: 600;
+}
+
+.statusClosed {
+  color: #ef4444;
   font-weight: 600;
 }
 

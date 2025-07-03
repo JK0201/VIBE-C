@@ -75,6 +75,9 @@ export default function TesterDetailPage() {
   );
 
   const progressPercentage = Math.round((tester.applicants / tester.requiredTesters) * 100);
+  
+  const isExpired = new Date(tester.deadline).getTime() < new Date().getTime();
+  const isClosed = isExpired || tester.status === 'COMPLETED' || tester.applicants >= tester.requiredTesters;
 
   return (
     <div className={styles.container}>
@@ -97,7 +100,7 @@ export default function TesterDetailPage() {
             </div>
             
             {tester.isUrgent && (
-              <span className={styles.urgentBadge}>긴급 모집</span>
+              <span className={styles.urgentBadge}>긴급</span>
             )}
             
             <h1 className={styles.title}>{tester.title}</h1>
@@ -142,7 +145,7 @@ export default function TesterDetailPage() {
               </div>
               
               <div className={styles.requirementItem}>
-                <h3>지원 플랫폼</h3>
+                <h3>필요 환경</h3>
                 <div className={styles.tags}>
                   {tester.requirements.map(req => (
                     <span key={req} className={styles.tag}>
@@ -228,22 +231,21 @@ export default function TesterDetailPage() {
           <div className={styles.rewardCard}>
             <h3>보상 정보</h3>
             <div className={styles.reward}>
-              <span className={styles.rewardLabel}>보상</span>
               <span className={styles.rewardAmount}>
                 {tester.reward.toLocaleString()}P
               </span>
             </div>
             <p className={styles.rewardNote}>
-              테스트 완료 후 리포트 제출 시 지급됩니다.
+              테스트 완료 후 회사 승인 시 자동 지급됩니다.
             </p>
             
             <button 
               className={styles.applyButton}
               onClick={() => setShowApplyModal(true)}
-              disabled={tester.applicants >= tester.requiredTesters}
+              disabled={isClosed}
             >
-              {tester.applicants >= tester.requiredTesters 
-                ? '모집 완료' 
+              {isClosed 
+                ? '모집 마감' 
                 : '테스터 지원하기'}
             </button>
           </div>
@@ -271,8 +273,8 @@ export default function TesterDetailPage() {
               </div>
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>모집 상태</span>
-                <span className={`${styles.infoValue} ${styles.statusOpen}`}>
-                  {tester.status === 'OPEN' ? '모집중' : '마감'}
+                <span className={`${styles.infoValue} ${isClosed ? styles.statusClosed : styles.statusOpen}`}>
+                  {isClosed ? '마감' : '모집중'}
                 </span>
               </div>
             </div>

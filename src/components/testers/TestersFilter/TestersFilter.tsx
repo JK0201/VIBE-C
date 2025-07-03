@@ -5,6 +5,7 @@ interface FiltersState {
   testType: string[];
   isUrgent: boolean | null;
   requirements: string[];
+  status: string[];
 }
 
 interface TestersFilterProps {
@@ -28,10 +29,15 @@ const testTypes = [
 ];
 
 const requirementOptions = [
-  { id: 'ios', label: 'iOS' },
-  { id: 'android', label: 'Android' },
-  { id: 'windows', label: 'Windows' },
-  { id: 'macos', label: 'macOS' },
+  { id: 'iOS', label: 'iOS' },
+  { id: 'Android', label: 'Android' },
+  { id: 'Windows', label: 'Windows' },
+  { id: 'macOS', label: 'macOS' },
+];
+
+const statuses = [
+  { id: 'open', label: '모집중' },
+  { id: 'completed', label: '완료' },
 ];
 
 
@@ -61,6 +67,14 @@ export default function TestersFilter({ filters, onFiltersChange, totalCount }: 
     onFiltersChange({ ...filters, requirements: newRequirements });
   };
 
+  const handleStatusChange = (value: string, checked: boolean) => {
+    const newStatus = checked
+      ? [...filters.status, value]
+      : filters.status.filter(status => status !== value);
+    
+    onFiltersChange({ ...filters, status: newStatus });
+  };
+
 
   const handleUrgentChange = (checked: boolean) => {
     onFiltersChange({ 
@@ -74,7 +88,8 @@ export default function TestersFilter({ filters, onFiltersChange, totalCount }: 
       rewardRange: [],
       testType: [],
       isUrgent: null,
-      requirements: []
+      requirements: [],
+      status: []
     });
   };
 
@@ -82,7 +97,8 @@ export default function TestersFilter({ filters, onFiltersChange, totalCount }: 
     filters.rewardRange.length > 0 ||
     filters.testType.length > 0 ||
     filters.isUrgent !== null ||
-    filters.requirements.length > 0;
+    filters.requirements.length > 0 ||
+    filters.status.length > 0;
 
   return (
     <aside className={styles.filterSidebar}>
@@ -120,6 +136,30 @@ export default function TestersFilter({ filters, onFiltersChange, totalCount }: 
       </div>
 
       <div className={styles.filterSection}>
+        <h4 className={styles.sectionTitle}>상태</h4>
+        <div className={styles.filterOptions}>
+          {statuses.map((status) => (
+            <label key={status.id} className={styles.filterOption}>
+              <input
+                type="checkbox"
+                className={styles.hiddenCheckbox}
+                checked={filters.status.includes(status.id)}
+                onChange={(e) => handleStatusChange(status.id, e.target.checked)}
+              />
+              <span className={styles.customCheckbox}>
+                {filters.status.includes(status.id) && (
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </span>
+              <span className={styles.checkboxLabel}>{status.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.filterSection}>
         <h4 className={styles.sectionTitle}>보상 범위</h4>
         <div className={styles.filterOptions}>
           {rewardRanges.map((range) => (
@@ -138,30 +178,6 @@ export default function TestersFilter({ filters, onFiltersChange, totalCount }: 
                 )}
               </span>
               <span className={styles.checkboxLabel}>{range.label}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <div className={styles.filterSection}>
-        <h4 className={styles.sectionTitle}>테스트 유형</h4>
-        <div className={styles.filterOptions}>
-          {testTypes.map((type) => (
-            <label key={type.id} className={styles.filterOption}>
-              <input
-                type="checkbox"
-                className={styles.hiddenCheckbox}
-                checked={filters.testType.includes(type.id)}
-                onChange={(e) => handleTypeChange(type.id, e.target.checked)}
-              />
-              <span className={styles.customCheckbox}>
-                {filters.testType.includes(type.id) && (
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                )}
-              </span>
-              <span className={styles.checkboxLabel}>{type.label}</span>
             </label>
           ))}
         </div>
