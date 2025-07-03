@@ -16,7 +16,7 @@ const ITEMS_PER_PAGE = 12;
 export default function MarketplacePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('popular');
+  const [sortBy, setSortBy] = useState('latest');
   const [filters, setFilters] = useState<{
     priceRange: string[];
     language: string[];

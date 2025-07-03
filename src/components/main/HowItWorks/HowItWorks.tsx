@@ -17,7 +17,7 @@ export default function HowItWorks() {
             <h3 className={styles.stepTitle}>요청 작성</h3>
             <p className={styles.stepDesc}>
               필요한 기능을 자세히 설명하고<br />
-              예산을 설정하세요
+              가격을 설정하세요
             </p>
           </div>
           <div className={styles.stepConnector}>

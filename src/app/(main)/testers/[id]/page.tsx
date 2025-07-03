@@ -228,9 +228,9 @@ export default function TesterDetailPage() {
           <div className={styles.rewardCard}>
             <h3>보상 정보</h3>
             <div className={styles.reward}>
-              <span className={styles.rewardLabel}>테스터 보상</span>
+              <span className={styles.rewardLabel}>보상</span>
               <span className={styles.rewardAmount}>
-                ₩{tester.reward.toLocaleString()}
+                {tester.reward.toLocaleString()}P
               </span>
             </div>
             <p className={styles.rewardNote}>

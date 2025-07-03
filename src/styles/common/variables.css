@@ -95,8 +95,8 @@
   --sidebar-width: 280px;
 }
 
-/* Dark mode variables */
-@media (prefers-color-scheme: dark) {
+/* Dark mode variables - disabled for now */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --color-text-primary: #f9fafb;
     --color-text-secondary: #d1d5db;
@@ -115,4 +115,4 @@
     --color-warning-light: #78350f;
     --color-error-light: #7f1d1d;
   }
-}
+} */

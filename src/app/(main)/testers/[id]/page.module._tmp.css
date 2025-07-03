@@ -36,7 +36,6 @@
   border-radius: 16px;
   border: 1px solid #e5e7eb;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .header {
@@ -71,19 +70,19 @@
 
 .urgentBadge {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+  padding: 0.375rem 0.875rem;
+  background: #ef4444;
   color: white;
-  border-radius: 24px;
+  border-radius: 20px;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-left: 1rem;
   vertical-align: middle;
 }
 
 .title {
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #111827;
   margin-bottom: 1rem;
 }
@@ -112,7 +111,7 @@
 
 .description h2 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
   margin-bottom: 1rem;
 }
@@ -129,7 +128,7 @@
 
 .requirements h2 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
   margin-bottom: 1.5rem;
 }
@@ -142,11 +141,9 @@
 
 .requirementItem h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #4b5563;
   margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .tags {
@@ -156,17 +153,11 @@
 }
 
 .tag {
-  padding: 0.375rem 0.875rem;
+  padding: 0.375rem 0.75rem;
   background: #f3f4f6;
   color: #4b5563;
-  border-radius: 20px;
+  border-radius: 8px;
   font-size: 0.875rem;
-  transition: all 0.2s;
-}
-
-.tag:hover {
-  background: #e5e7eb;
-  transform: translateY(-1px);
 }
 
 .progress {
@@ -176,7 +167,7 @@
 
 .progress h2 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
   margin-bottom: 1.5rem;
 }
@@ -192,16 +183,12 @@
   align-items: baseline;
   gap: 0.5rem;
   margin-bottom: 1rem;
-  justify-content: center;
 }
 
 .current {
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667EEA;
 }
 
 .divider {
@@ -212,7 +199,6 @@
 .required {
   font-size: 1.5rem;
   color: #6b7280;
-  font-weight: 600;
 }
 
 .progressBar {
@@ -242,7 +228,7 @@
 
 .timeline h2 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
   margin-bottom: 1.5rem;
 }
@@ -308,8 +294,6 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  position: sticky;
-  top: 2rem;
 }
 
 .rewardCard,
@@ -318,42 +302,34 @@
   background: white;
   border-radius: 16px;
   border: 1px solid #e5e7eb;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
 }
 
 .rewardCard h3,
 .infoCard h3,
 .noticeCard h3 {
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .reward {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  background: #f9fafb;
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .rewardLabel {
   font-size: 0.875rem;
   color: #6b7280;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
 }
 
 .rewardAmount {
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
 }
 
 .rewardNote {
@@ -365,7 +341,7 @@
 
 .applyButton {
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   color: white;
@@ -373,12 +349,12 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .applyButton:hover:not(:disabled) {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .applyButton:disabled {
@@ -411,7 +387,6 @@
 
 .statusOpen {
   color: #10b981;
-  font-weight: 600;
 }
 
 .noticeList {
@@ -474,19 +449,19 @@
 }
 
 .modal button {
-  padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  padding: 0.75rem 1.5rem;
+  background: #667EEA;
   color: white;
   border: none;
   border-radius: 12px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .modal button:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  background: #5a5fdb;
+  transform: translateY(-2px);
 }
 
 .notFound {
@@ -518,7 +493,6 @@
 
   .sidebar {
     order: -1;
-    position: static;
   }
 
   .requirementGrid {

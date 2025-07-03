@@ -119,7 +119,7 @@ export default function RequestsFilter({ filters, onFiltersChange, totalCount }:
       </div>
 
       <div className={styles.filterSection}>
-        <h4 className={styles.sectionTitle}>예산 범위</h4>
+        <h4 className={styles.sectionTitle}>가격 범위</h4>
         <div className={styles.filterOptions}>
           {budgetRanges.map((range) => (
             <label key={range.id} className={styles.filterOption}>

@@ -10,8 +10,8 @@ interface RequestsSearchControlsProps {
 const sortOptions = [
   { value: 'latest', label: '최신순' },
   { value: 'deadline', label: '마감임박순' },
-  { value: 'price-high', label: '예산 높은순' },
-  { value: 'price-low', label: '예산 낮은순' },
+  { value: 'price-high', label: '가격 높은순' },
+  { value: 'price-low', label: '가격 낮은순' },
 ];
 
 export default function RequestsSearchControls({ 

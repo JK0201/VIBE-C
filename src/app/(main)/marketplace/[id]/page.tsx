@@ -212,9 +212,9 @@ export default function ComponentDetailPage() {
 
         <div className={styles.sidebar}>
           <div className={styles.priceCard}>
+            <h3 className={styles.priceTitle}>가격 정보</h3>
             <div className={styles.price}>
-              <span className={styles.priceLabel}>가격</span>
-              <span className={styles.priceAmount}>₩{component.price.toLocaleString()}</span>
+              <span className={styles.priceAmount}>{component.price.toLocaleString()}P</span>
             </div>
             <button className={styles.purchaseButton}>
               구매하기

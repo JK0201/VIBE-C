@@ -36,7 +36,6 @@
   border-radius: 16px;
   border: 1px solid #e5e7eb;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .header {
@@ -46,18 +45,18 @@
 
 .categoryBadge {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.375rem 0.875rem;
   background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   color: white;
-  border-radius: 24px;
+  border-radius: 20px;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 1rem;
 }
 
 .title {
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #111827;
   margin-bottom: 0.75rem;
 }
@@ -77,17 +76,11 @@
 }
 
 .tag {
-  padding: 0.375rem 0.875rem;
+  padding: 0.375rem 0.75rem;
   background: #f3f4f6;
   color: #4b5563;
-  border-radius: 20px;
+  border-radius: 8px;
   font-size: 0.875rem;
-  transition: all 0.2s;
-}
-
-.tag:hover {
-  background: #e5e7eb;
-  transform: translateY(-1px);
 }
 
 .stats {
@@ -109,7 +102,6 @@
 
 .tabs {
   display: flex;
-  background: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -122,17 +114,15 @@
   color: #6b7280;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s;
+  transition: color 0.2s;
 }
 
 .tab:hover {
   color: #111827;
-  background: rgba(255, 255, 255, 0.5);
 }
 
 .tab.active {
   color: #667EEA;
-  background: white;
 }
 
 .tab.active::after {
@@ -141,8 +131,8 @@
   bottom: -1px;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  height: 2px;
+  background: #667EEA;
 }
 
 .tabContent {
@@ -159,9 +149,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  padding: 2rem;
-  background: #f9fafb;
-  border-radius: 12px;
 }
 
 .infoItem h3 {
@@ -169,14 +156,11 @@
   font-weight: 600;
   color: #6b7280;
   margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .infoItem p {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: #111827;
-  font-weight: 500;
 }
 
 .links {
@@ -193,7 +177,7 @@
   font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .linkButton:first-child {
@@ -257,53 +241,36 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  position: sticky;
-  top: 2rem;
 }
 
 .priceCard {
   background: white;
   border-radius: 16px;
   border: 1px solid #e5e7eb;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.priceTitle {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 1.5rem;
+  padding: 1.5rem;
 }
 
 .price {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  background: #f9fafb;
-  border-radius: 12px;
 }
 
 .priceLabel {
   font-size: 0.875rem;
   color: #6b7280;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
 }
 
 .priceAmount {
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
 }
 
 .purchaseButton {
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   color: white;
@@ -311,13 +278,13 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
   margin-bottom: 0.75rem;
 }
 
 .purchaseButton:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .cartButton {
@@ -330,28 +297,27 @@
   border: 2px solid #667EEA;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .cartButton:hover {
-  background: #F7FAFC;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  background: #f7fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .sellerCard {
   background: white;
   border-radius: 16px;
   border: 1px solid #e5e7eb;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
 }
 
 .sellerTitle {
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .sellerInfo {
@@ -390,10 +356,7 @@
   font-size: 0.875rem;
   color: #4b5563;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: #f9fafb;
-  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .contactButton {
@@ -443,7 +406,6 @@
 
   .sidebar {
     order: -1;
-    position: static;
   }
 
   .infoGrid {

@@ -217,7 +217,7 @@ export default function RequestDetailPage() {
                             </div>
                           </div>
                           <div className={styles.bidAmount}>
-                            ₩{bid.amount.toLocaleString()}
+                            {bid.amount.toLocaleString()}P
                           </div>
                         </div>
                         <p className={styles.bidMessage}>{bid.message}</p>
@@ -235,17 +235,17 @@ export default function RequestDetailPage() {
 
         <div className={styles.sidebar}>
           <div className={styles.budgetCard}>
-            <h3>예산 정보</h3>
+            <h3>가격 정보</h3>
             {request.type === 'FIXED_PRICE' ? (
               <>
                 <div className={styles.budget}>
-                  <span className={styles.budgetLabel}>고정 예산</span>
+                  <span className={styles.budgetLabel}>가격</span>
                   <span className={styles.budgetAmount}>
-                    ₩{request.budget?.toLocaleString()}
+                    {request.budget?.toLocaleString()}P
                   </span>
                 </div>
                 <p className={styles.budgetNote}>
-                  예산은 고정되어 있으며, 지원 시 이 금액에 동의하게 됩니다.
+                  가격은 고정되어 있으며, 지원 시 이 금액에 동의하게 됩니다.
                 </p>
               </>
             ) : (
@@ -254,7 +254,7 @@ export default function RequestDetailPage() {
                   <span className={styles.budgetLabel}>현재 최저가</span>
                   <span className={styles.budgetAmount}>
                     {request.bids && request.bids.length > 0
-                      ? `₩${Math.min(...request.bids.map(b => b.amount)).toLocaleString()}`
+                      ? `${Math.min(...request.bids.map(b => b.amount)).toLocaleString()}P`
                       : '입찰 없음'}
                   </span>
                 </div>

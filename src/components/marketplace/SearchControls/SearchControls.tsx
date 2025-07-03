@@ -8,11 +8,11 @@ interface SearchControlsProps {
 }
 
 const sortOptions = [
-  { value: 'popular', label: '인기순' },
   { value: 'latest', label: '최신순' },
+  { value: 'popular', label: '인기순' },
+  { value: 'rating', label: '평점순' },
   { value: 'price-low', label: '가격 낮은순' },
   { value: 'price-high', label: '가격 높은순' },
-  { value: 'rating', label: '평점순' },
 ];
 
 export default function SearchControls({ 

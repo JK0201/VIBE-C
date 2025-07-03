@@ -11,7 +11,7 @@ export default function CTA() {
               가장 쉬운 방법 🤝
             </h2>
             <p className={styles.ctaDesc}>
-              지금 가입하면 <strong>첫 거래 수수료 0원</strong>
+              지금 가입하면 <strong>첫 거래 수수료 0P</strong>
             </p>
           </div>
           
