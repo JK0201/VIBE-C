@@ -18,17 +18,17 @@ export default function Header() {
           <Link href="/marketplace" className={styles.navLink}>
             모듈 스토어
           </Link>
-          <Link href="/developers" className={styles.navLink}>
+          <Link href="/testers" className={styles.navLink}>
             테스터 모집
           </Link>
         </div>
         <div className={styles.navActions}>
-          <button className={styles.loginBtn}>
+          <Link href="/auth/login" className={styles.loginBtn}>
             로그인
-          </button>
-          <button className={styles.signupBtn}>
+          </Link>
+          <Link href="/auth/signup" className={styles.signupBtn}>
             회원가입
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

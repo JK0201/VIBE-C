@@ -1,0 +1,143 @@
+/* Requests List */
+.testersList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+
+.testerItem {
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.testerItem:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #CBD5E0;
+}
+
+.testerBadges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.urgentBadge {
+  background: #FF4444;
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.typeBadge {
+  background: #F7FAFC;
+  color: #4A5568;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.testerTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1A202C;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.testerDesc {
+  color: #718096;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.testerCompany {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.testerMeta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.testerDuration {
+  font-weight: 600;
+  color: #4A5568;
+}
+
+.testerReward {
+  color: #667EEA;
+  font-weight: 700;
+}
+
+.testerApplicants {
+  color: #667EEA;
+  font-weight: 700;
+}
+
+.testerDeadline {
+  color: #E53E3E;
+  font-weight: 600;
+}
+
+.testerRequirements {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.requirementsLabel {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.requirementsList {
+  color: #4b5563;
+}
+
+/* Status badge styles */
+.statusBadge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.statusOPEN {
+  background: #E6FFFA;
+  color: #047857;
+}
+
+.statusIN_PROGRESS {
+  background: #EBF5FF;
+  color: #1E40AF;
+}
+
+.statusCOMPLETED {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .testersList {
+    grid-template-columns: 1fr;
+  }
+}
