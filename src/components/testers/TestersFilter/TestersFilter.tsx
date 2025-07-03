@@ -21,12 +21,6 @@ const rewardRanges = [
   { id: 'premium', label: '100,000P~', value: '100001-999999' },
 ];
 
-const testTypes = [
-  { id: 'functional', label: '기능 테스트' },
-  { id: 'ui', label: 'UI/UX 테스트' },
-  { id: 'performance', label: '성능 테스트' },
-  { id: 'security', label: '보안 테스트' },
-];
 
 const requirementOptions = [
   { id: 'iOS', label: 'iOS' },
@@ -41,7 +35,7 @@ const statuses = [
 ];
 
 
-export default function TestersFilter({ filters, onFiltersChange, totalCount }: TestersFilterProps) {
+export default function TestersFilter({ filters, onFiltersChange }: TestersFilterProps) {
   const handleRewardChange = (value: string, checked: boolean) => {
     const newRewardRange = checked
       ? [...filters.rewardRange, value]
@@ -51,13 +45,6 @@ export default function TestersFilter({ filters, onFiltersChange, totalCount }: 
   };
 
 
-  const handleTypeChange = (value: string, checked: boolean) => {
-    const newType = checked
-      ? [...filters.testType, value]
-      : filters.testType.filter(type => type !== value);
-    
-    onFiltersChange({ ...filters, testType: newType });
-  };
 
   const handleRequirementChange = (value: string, checked: boolean) => {
     const newRequirements = checked
