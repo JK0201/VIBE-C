@@ -39,6 +39,10 @@
   background: white;
   border: 1px solid #E2E8F0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
 }
 
 .categoryNavItem:hover {

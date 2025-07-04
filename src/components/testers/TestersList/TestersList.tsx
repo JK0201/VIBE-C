@@ -89,6 +89,30 @@ export default function TestersList({ testers }: TestersListProps) {
     return requirements.join(', ');
   };
 
+  // 테스트 타입에 따른 아이콘 반환
+  const getTestTypeIcon = (types: string[]) => {
+    const iconMap: Record<string, string> = {
+      'functional': '🧪',
+      'ui': '🎨',
+      'performance': '⚡',
+      'security': '🔒'
+    };
+    // 첫 번째 타입의 아이콘 반환
+    return iconMap[types[0]] || '🧪';
+  };
+
+  // 테스트 타입에 따른 그라디언트 반환
+  const getTestTypeGradient = (types: string[]) => {
+    const gradientMap: Record<string, string> = {
+      'functional': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+      'ui': 'linear-gradient(135deg, #F093FB 0%, #F5576C 100%)',
+      'performance': 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)',
+      'security': 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)'
+    };
+    // 첫 번째 타입의 그라디언트 반환
+    return gradientMap[types[0]] || 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)';
+  };
+
   return (
     <div className={styles.testersList}>
       {testers.map((tester) => (
@@ -106,6 +130,11 @@ export default function TestersList({ testers }: TestersListProps) {
           </div>
           <h3 className={styles.testerTitle}>{tester.title}</h3>
           <p className={styles.testerCompany}>{tester.company}</p>
+          <div className={styles.testerImage}>
+            <div className={styles.imagePlaceholder} style={{ background: getTestTypeGradient(tester.testType) }}>
+              <span className={styles.imageIcon}>{getTestTypeIcon(tester.testType)}</span>
+            </div>
+          </div>
           <p className={styles.testerDesc}>{tester.description}</p>
           <div className={styles.testerMeta}>
             <span className={styles.testerDuration}>테스트 기간: {getDurationText(tester.duration)}</span>

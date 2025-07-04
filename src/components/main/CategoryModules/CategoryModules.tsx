@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import styles from './CategoryModules.module.css';
 import ModuleCarousel from '@/components/common/ModuleCarousel/ModuleCarousel';
 
@@ -15,7 +16,21 @@ const categories = [
   { id: 'devops', name: 'DevOps', icon: '🔧' },
 ];
 
-interface Module {
+interface APIModule {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  price: number;
+  rating: number;
+  purchases: number;
+  tags: string[];
+  gradient: string;
+  icon: string;
+}
+
+// Mock data type that matches carousel requirements
+interface MockModule {
   id: number;
   title: string;
   description: string;
@@ -27,7 +42,7 @@ interface Module {
   icon: string;
 }
 
-const modulesByCategory: Record<string, Module[]> = {
+const modulesByCategory: Record<string, MockModule[]> = {
   website: [
     {
       id: 1,
@@ -161,16 +176,63 @@ const modulesByCategory: Record<string, Module[]> = {
   ]
 };
 
+// Define carousel-compatible module type
+interface CarouselModule {
+  id: number;
+  category?: string;
+  title: string;
+  description: string;
+  tags: string[];
+  price: number;
+  rating: number;
+  downloads?: number;
+  purchases?: number;
+  gradient: string;
+  icon: string;
+}
+
 export default function CategoryModules() {
   const [selectedCategory, setSelectedCategory] = useState('website');
-  
-  const modules = modulesByCategory[selectedCategory] || [];
-  
-  // 각 모듈에 카테고리 정보 추가
-  const modulesWithCategory = modules.map(module => ({
-    ...module,
-    category: categories.find(cat => cat.id === selectedCategory)?.name || ''
-  }));
+  const [modules, setModules] = useState<CarouselModule[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchCategoryModules = async () => {
+      setLoading(true);
+      
+      try {
+        const response = await fetch(`/api/v1/modules/by-category?category=${selectedCategory}&limit=5`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch modules');
+        }
+        const data = await response.json();
+        if (data.success) {
+          // Transform API data to match carousel component expectations
+          const transformedModules = data.data.map((module: APIModule) => ({
+            ...module,
+            title: module.name, // API has 'name', carousel expects 'title'
+            downloads: module.purchases, // API has 'purchases', carousel expects 'downloads'
+            category: categories.find(cat => cat.id === selectedCategory)?.name || ''
+          }));
+          setModules(transformedModules);
+        } else {
+          throw new Error(data.error || 'Failed to fetch modules');
+        }
+      } catch (err) {
+        console.error('Error fetching category modules:', err);
+        // Fallback to mock data on error
+        const fallbackModules = modulesByCategory[selectedCategory] || [];
+        setModules(fallbackModules.map(module => ({
+          ...module,
+          category: categories.find(cat => cat.id === selectedCategory)?.name || ''
+        })));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategoryModules();
+  }, [selectedCategory]);
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
@@ -195,17 +257,23 @@ export default function CategoryModules() {
           ))}
         </div>
         
-        <ModuleCarousel 
-          modules={modulesWithCategory}
-          showCategory={true}
-          itemsPerPage={4}
-        />
+        {loading ? (
+          <div className={styles.loadingContainer}>
+            <p>모듈을 불러오는 중...</p>
+          </div>
+        ) : (
+          <ModuleCarousel 
+            modules={modules}
+            showCategory={true}
+            itemsPerPage={4}
+          />
+        )}
         
         <div className={styles.viewMore}>
-          <a href="#" className={styles.viewMoreLink}>
+          <Link href="/marketplace" className={styles.viewMoreLink}>
             모든 모듈 둘러보기
             <span className={styles.moreArrow}>→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

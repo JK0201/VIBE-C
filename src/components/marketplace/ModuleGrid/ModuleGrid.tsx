@@ -45,6 +45,7 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
 
   const toggleFavorite = (id: number, e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setFavorites(prev => {
       const newFavorites = new Set(prev);
@@ -57,9 +58,6 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
     });
   };
 
-  const handleCardClick = (componentId: number) => {
-    // Navigation is handled by Link component
-  };
 
 
   return (

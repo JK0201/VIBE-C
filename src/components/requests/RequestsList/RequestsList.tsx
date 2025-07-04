@@ -3,7 +3,7 @@ import styles from './RequestsList.module.css';
 
 interface Request {
   id: number;
-  userId: number;
+  userId?: number;
   title: string;
   description: string;
   type: string;

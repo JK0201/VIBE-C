@@ -224,3 +224,13 @@
 .statIcon {
   font-size: 0.875rem;
 }
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  color: #718096;
+  font-size: 1rem;
+}

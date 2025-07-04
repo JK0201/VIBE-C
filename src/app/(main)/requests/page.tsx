@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import RequestsHero from '@/components/requests/RequestsHero/RequestsHero';
@@ -8,12 +9,40 @@ import CategoryFilter from '@/components/marketplace/CategoryFilter/CategoryFilt
 import RequestsFilter from '@/components/requests/RequestsFilter/RequestsFilter';
 import RequestsSearchControls from '@/components/requests/RequestsSearchControls/RequestsSearchControls';
 import RequestsList from '@/components/requests/RequestsList/RequestsList';
-import requestsData from '@data/mock/requests.json';
 import styles from './requests.module.css';
 
 const ITEMS_PER_PAGE = 12;
 
-export default function RequestsPage() {
+interface Request {
+  id: number;
+  title: string;
+  description: string;
+  type: string;
+  budget: number | null;
+  category: string;
+  isUrgent: boolean;
+  deadline: string;
+  status: string;
+  createdAt: string;
+  applicationCount: number;
+  bidCount: number;
+  author?: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
+  categoryDisplay: {
+    name: string;
+    color: string;
+  };
+  deadlineDisplay: string;
+  isExpired: boolean;
+}
+
+function RequestsContent() {
+  const searchParams = useSearchParams();
+  const categoryFromUrl = searchParams.get('category');
+  
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('latest');
@@ -28,95 +57,77 @@ export default function RequestsPage() {
     isUrgent: null,
     status: []
   });
-  const [displayedCount, setDisplayedCount] = useState(ITEMS_PER_PAGE);
-  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [requests, setRequests] = useState<Request[]>([]);
+  const [totalRequests, setTotalRequests] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Filter and sort requests
-  const filteredRequests = requestsData.requests.filter(request => {
-    // Category filter
-    if (selectedCategory !== 'all' && request.category !== selectedCategory) {
-      return false;
+  // Set category from URL parameter on mount
+  useEffect(() => {
+    if (categoryFromUrl) {
+      setSelectedCategory(categoryFromUrl);
     }
+  }, [categoryFromUrl]);
 
-    // Search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      const matchesSearch = 
-        request.title.toLowerCase().includes(query) ||
-        request.description.toLowerCase().includes(query);
+  // Fetch requests from API
+  useEffect(() => {
+    const fetchRequests = async () => {
+      setIsLoading(true);
+      setError(null);
       
-      if (!matchesSearch) return false;
-    }
+      try {
+        // Build query parameters
+        const params = new URLSearchParams();
+        if (selectedCategory !== 'all') params.append('category', selectedCategory);
+        if (searchQuery) params.append('search', searchQuery);
+        params.append('sort', sortBy);
+        filters.budgetRange.forEach(range => params.append('budgetRange', range));
+        filters.requestType.forEach(type => params.append('requestType', type));
+        if (filters.isUrgent !== null) params.append('isUrgent', String(filters.isUrgent));
+        filters.status.forEach(s => params.append('status', s));
+        params.append('page', String(currentPage));
+        params.append('limit', String(ITEMS_PER_PAGE));
+        
+        const response = await fetch(`/api/v1/requests?${params.toString()}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch requests');
+        }
+        
+        const data = await response.json();
+        if (data.success) {
+          if (currentPage === 1) {
+            setRequests(data.data);
+          } else {
+            setRequests(prev => [...prev, ...data.data]);
+          }
+          setTotalRequests(data.meta.total);
+          setTotalPages(data.meta.totalPages);
+        } else {
+          throw new Error(data.error || 'Failed to fetch requests');
+        }
+      } catch (err) {
+        console.error('Error fetching requests:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load requests');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    // Budget filter
-    if (filters.budgetRange.length > 0) {
-      const matchesBudget = filters.budgetRange.some(range => {
-        const [min, max] = range.split('-').map(Number);
-        if (request.budget === null) return false;
-        return request.budget >= min && request.budget <= max;
-      });
-      if (!matchesBudget) return false;
-    }
+    fetchRequests();
+  }, [selectedCategory, searchQuery, sortBy, filters, currentPage]);
 
-    // Urgent filter (AND condition)
-    if (filters.isUrgent === true && !request.isUrgent) {
-      return false;
-    }
-
-    // Request type filter
-    if (filters.requestType.length > 0) {
-      const hasType = filters.requestType.some(type => {
-        if (type === 'fixed' && request.type === 'FIXED_PRICE') return true;
-        if (type === 'auction' && request.type === 'AUCTION') return true;
-        return false;
-      });
-      if (!hasType) return false;
-    }
-
-    // Status filter
-    if (filters.status.length > 0) {
-      const matchesStatus = filters.status.some(status => {
-        if (status === 'open' && request.status === 'OPEN') return true;
-        if (status === 'completed' && request.status === 'COMPLETED') return true;
-        return false;
-      });
-      if (!matchesStatus) return false;
-    }
-
-
-    return true;
-  });
-
-  // Sort requests
-  const sortedRequests = [...filteredRequests].sort((a, b) => {
-    switch (sortBy) {
-      case 'latest':
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      case 'deadline':
-        return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
-      case 'price-high':
-        return (b.budget || 0) - (a.budget || 0);
-      case 'price-low':
-        return (a.budget || 0) - (b.budget || 0);
-      default:
-        return 0;
-    }
-  });
-
-  const displayedRequests = sortedRequests.slice(0, displayedCount);
 
   const handleLoadMore = () => {
-    setIsLoading(true);
-    // Simulate loading delay
-    setTimeout(() => {
-      setDisplayedCount(prev => prev + ITEMS_PER_PAGE);
-      setIsLoading(false);
-    }, 500);
+    if (currentPage < totalPages) {
+      setCurrentPage(prev => prev + 1);
+    }
   };
 
-  // Reset displayed count when filters change
+  // Reset page when filters change
   useEffect(() => {
-    setDisplayedCount(ITEMS_PER_PAGE);
+    setCurrentPage(1);
   }, [selectedCategory, searchQuery, sortBy, filters]);
 
   return (
@@ -139,7 +150,7 @@ export default function RequestsPage() {
             <RequestsFilter 
               filters={filters}
               onFiltersChange={setFilters}
-              totalCount={filteredRequests.length}
+              totalCount={totalRequests}
             />
           </aside>
           
@@ -147,32 +158,43 @@ export default function RequestsPage() {
             <RequestsSearchControls 
               sortBy={sortBy}
               onSortChange={setSortBy}
-              totalCount={filteredRequests.length}
-              displayedCount={displayedRequests.length}
+              totalCount={totalRequests}
+              displayedCount={requests.length}
             />
             
-            <RequestsList requests={displayedRequests} />
+            {isLoading && currentPage === 1 ? (
+              <div className={styles.loadingState}>
+                <p>요청을 불러오는 중...</p>
+              </div>
+            ) : error ? (
+              <div className={styles.errorState}>
+                <p>{error}</p>
+                <button onClick={() => window.location.reload()}>다시 시도</button>
+              </div>
+            ) : (
+              <RequestsList requests={requests} />
+            )}
             
-            {displayedRequests.length < filteredRequests.length && (
+            {currentPage < totalPages && (
               <div className={styles.loadMoreSection}>
                 <button 
                   className={styles.loadMoreBtn}
                   onClick={handleLoadMore}
                   disabled={isLoading}
                 >
-                  {isLoading ? (
+                  {isLoading && currentPage > 1 ? (
                     <span className={styles.loadingText}>로딩 중...</span>
                   ) : (
-                    <>더 보기 ({filteredRequests.length - displayedRequests.length}개 남음)</>
+                    <>더 보기</>
                   )}
                 </button>
                 <p className={styles.countInfo}>
-                  전체 {filteredRequests.length}개 중 {displayedRequests.length}개 표시
+                  전체 {totalRequests}개 중 {requests.length}개 표시 (페이지 {currentPage}/{totalPages})
                 </p>
               </div>
             )}
 
-            {filteredRequests.length === 0 && (
+            {!isLoading && requests.length === 0 && (
               <div className={styles.emptyState}>
                 <p className={styles.emptyText}>조건에 맞는 요청이 없습니다.</p>
                 <button 
@@ -198,5 +220,33 @@ export default function RequestsPage() {
       
       <Footer />
     </div>
+  );
+}
+
+export default function RequestsPage() {
+  return (
+    <Suspense fallback={
+      <div className={styles.container}>
+        <Header />
+        <RequestsHero searchQuery="" onSearchChange={() => {}} />
+        <div className={styles.content}>
+          <div className={styles.marketplace}>
+            <aside className={styles.sidebar}>
+              <div className={styles.filterContainer}>로딩 중...</div>
+            </aside>
+            <main className={styles.main}>
+              <div className={styles.mainContent}>
+                <div className={styles.loadingState}>
+                  <p>요청을 불러오는 중...</p>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    }>
+      <RequestsContent />
+    </Suspense>
   );
 }

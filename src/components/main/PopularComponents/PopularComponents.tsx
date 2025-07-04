@@ -1,9 +1,28 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import styles from './PopularComponents.module.css';
 import ModuleCarousel from '@/components/common/ModuleCarousel/ModuleCarousel';
 
-const popularComponents = [
+interface APIModule {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  price: number;
+  rating: number;
+  purchases: number;
+  tags: string[];
+  author?: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
+  gradient: string;
+  icon: string;
+}
+
+const mockData = [
   {
     id: 1,
     category: 'AI/ML',
@@ -100,7 +119,84 @@ const popularComponents = [
   },
 ];
 
+// Define carousel-compatible module type
+interface CarouselModule {
+  id: number;
+  category?: string;
+  title: string;
+  description: string;
+  tags: string[];
+  price: number;
+  rating: number;
+  downloads?: number;
+  purchases?: number;
+  gradient: string;
+  icon: string;
+}
+
 export default function PopularComponents() {
+  const [modules, setModules] = useState<CarouselModule[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPopularModules = async () => {
+      try {
+        const response = await fetch('/api/v1/modules/popular?limit=8');
+        if (!response.ok) {
+          throw new Error('Failed to fetch popular modules');
+        }
+        const data = await response.json();
+        if (data.success) {
+          // Transform API data to match carousel component expectations
+          const transformedModules = data.data.map((module: APIModule) => ({
+            ...module,
+            title: module.name, // API has 'name', carousel expects 'title'
+            downloads: module.purchases, // API has 'purchases', carousel expects 'downloads'
+            category: getCategoryDisplay(module.category || ''),
+          }));
+          setModules(transformedModules);
+        } else {
+          throw new Error(data.error || 'Failed to fetch modules');
+        }
+      } catch (err) {
+        console.error('Error fetching popular modules:', err);
+        // Fallback to mock data on error
+        const transformedMockData = mockData.map((module) => ({
+          ...module,
+          name: module.title, // Map title to name for consistency
+          downloads: module.downloads,
+          category: getCategoryDisplay(module.category || ''),
+        }));
+        setModules(transformedMockData);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPopularModules();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className={styles.popularComponents}>
+        <div className={styles.popularContent}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>
+              <span className={styles.titleIcon}>🔥</span>
+              인기 모듈
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              고객이 가장 많이 찾는 검증된 솔루션
+            </p>
+          </div>
+          <div className={styles.loadingContainer}>
+            <p>모듈을 불러오는 중...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.popularComponents}>
       <div className={styles.popularContent}>
@@ -114,11 +210,26 @@ export default function PopularComponents() {
           </p>
         </div>
         <ModuleCarousel 
-          modules={popularComponents}
+          modules={modules}
           showCategory={true}
           itemsPerPage={4}
         />
       </div>
     </section>
   );
+}
+
+// Helper function to get category display name
+function getCategoryDisplay(category: string): string {
+  const categoryMap: Record<string, string> = {
+    'website': '웹사이트',
+    'mobile': '모바일 앱',
+    'ecommerce': '이커머스',
+    'ai': 'AI/ML',
+    'backend': '백엔드/API',
+    'blockchain': '블록체인',
+    'data': '데이터 분석',
+    'devops': 'DevOps',
+  };
+  return categoryMap[category] || category;
 }

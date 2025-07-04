@@ -1,7 +1,44 @@
-import { useState } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from './RecentRequests.module.css';
 
-const requests = [
+interface Request {
+  id: number;
+  title: string;
+  description: string;
+  type: string;
+  budget?: number;
+  category: string;
+  isUrgent: boolean;
+  deadline: string;
+  status: string;
+  author?: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
+  applicationCount?: number;
+  bidInfo?: {
+    bidCount: number;
+    lowestBid: number;
+    highestBid: number;
+    averageBid: number;
+  };
+  categoryDisplay: {
+    name: string;
+    color: string;
+  };
+  bids?: number; // For display purposes
+}
+
+type RequestFromAPI = Request & {
+  deadlineDisplay?: string;
+};
+
+const mockRequests = [
   {
     id: 1,
     isUrgent: true,
@@ -65,7 +102,56 @@ const requests = [
 ];
 
 export default function RecentRequests() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('all');
+  const [requests, setRequests] = useState<Request[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecentRequests = async () => {
+      setLoading(true);
+      
+      try {
+        const type = activeTab === 'urgent' ? 'urgent' : activeTab === 'fixed' ? 'fixed' : activeTab === 'auction' ? 'auction' : 'all';
+        const response = await fetch(`/api/v1/requests/recent?limit=6&type=${type}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch requests');
+        }
+        const data = await response.json();
+        if (data.success) {
+          // Transform API data to match component expectations
+          const transformedRequests = data.data.map((request: RequestFromAPI) => ({
+            ...request,
+            category: request.categoryDisplay.name,
+            deadline: calculateDeadline(request.deadline),
+            bids: request.bidInfo?.bidCount || 0,
+          }));
+          setRequests(transformedRequests);
+        } else {
+          throw new Error(data.error || 'Failed to fetch requests');
+        }
+      } catch (err) {
+        console.error('Error fetching recent requests:', err);
+        // Fallback to mock data on error
+        const transformedMockRequests = mockRequests.map(req => ({
+          ...req,
+          status: 'OPEN',
+          categoryDisplay: getCategoryDisplay(req.category),
+          budget: 'budget' in req ? req.budget : undefined,
+          bids: 'bids' in req ? req.bids : undefined,
+        }));
+        setRequests(transformedMockRequests);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecentRequests();
+  }, [activeTab]);
+
+  const handleRequestClick = (requestId: number) => {
+    router.push(`/requests/${requestId}`);
+  };
 
   return (
     <section className={styles.recentRequests}>
@@ -103,9 +189,18 @@ export default function RecentRequests() {
             </button>
           </div>
         </div>
-        <div className={styles.requestsList}>
-          {requests.map((request) => (
-            <div key={request.id} className={styles.requestItem}>
+        {loading ? (
+          <div className={styles.loadingContainer}>
+            <p>요청을 불러오는 중...</p>
+          </div>
+        ) : (
+          <div className={styles.requestsList}>
+            {requests.map((request) => (
+            <div 
+              key={request.id} 
+              className={styles.requestItem}
+              onClick={() => handleRequestClick(request.id)}
+            >
               <div className={styles.requestBadges}>
                 {request.isUrgent && (
                   <span className={styles.urgentBadge}>긴급</span>
@@ -125,14 +220,46 @@ export default function RecentRequests() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
         <div className={styles.viewMore}>
-          <a href="#" className={styles.viewMoreLink}>
+          <Link href="/requests" className={styles.viewMoreLink}>
             모든 요청 보기
             <span className={styles.moreArrow}>→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
   );
+}
+
+// Helper function to calculate deadline display
+function getCategoryDisplay(category: string): { name: string; color: string } {
+  const categories: Record<string, { name: string; color: string }> = {
+    '백엔드/API': { name: '백엔드/API', color: '#30CFD0' },
+    'AI/ML': { name: 'AI/ML', color: '#FA709A' },
+    '모바일 앱': { name: '모바일 앱', color: '#F093FB' },
+    '웹사이트': { name: '웹사이트', color: '#667EEA' },
+    '블록체인': { name: '블록체인', color: '#A8EDEA' },
+    '데이터 분석': { name: '데이터 분석', color: '#8B5CF6' },
+  };
+  return categories[category] || { name: category, color: '#667EEA' };
+}
+
+function calculateDeadline(deadline: string): string {
+  const now = new Date();
+  const deadlineDate = new Date(deadline);
+  const diffTime = deadlineDate.getTime() - now.getTime();
+  const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffHours / 24);
+  
+  if (diffHours < 0) {
+    return '마감됨';
+  } else if (diffHours < 24) {
+    return `${diffHours}시간 남음`;
+  } else if (diffDays < 7) {
+    return `${diffDays}일 남음`;
+  } else {
+    return `${Math.floor(diffDays / 7)}주 남음`;
+  }
 }

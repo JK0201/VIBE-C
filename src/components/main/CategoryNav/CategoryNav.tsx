@@ -1,3 +1,6 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import styles from './CategoryNav.module.css';
 
 const categories = [
@@ -12,6 +15,12 @@ const categories = [
 ];
 
 export default function CategoryNav() {
+  const router = useRouter();
+
+  const handleCategoryClick = (categoryId: string) => {
+    router.push(`/marketplace?category=${categoryId}`);
+  };
+
   return (
     <section className={styles.categoryNav}>
       <div className={styles.categoryNavContent}>
@@ -20,12 +29,16 @@ export default function CategoryNav() {
         </h2>
         <div className={styles.categoryNavGrid}>
           {categories.map((category) => (
-            <a key={category.id} href="#" className={styles.categoryNavItem}>
+            <button
+              key={category.id}
+              onClick={() => handleCategoryClick(category.id)}
+              className={styles.categoryNavItem}
+            >
               <div className={styles.categoryNavIcon}>
                 <span className={styles.iconEmoji}>{category.icon}</span>
               </div>
               <span className={styles.categoryNavName}>{category.name}</span>
-            </a>
+            </button>
           ))}
         </div>
       </div>

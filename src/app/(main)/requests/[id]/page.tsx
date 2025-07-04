@@ -63,7 +63,7 @@ export default function RequestDetailPage() {
     const foundRequest = requestsData.requests.find(r => r.id === requestId);
     
     if (foundRequest) {
-      setRequest(foundRequest);
+      setRequest(foundRequest as Request);
       const foundRequester = usersData.users.find(u => u.id === foundRequest.userId);
       setRequester(foundRequester || null);
 

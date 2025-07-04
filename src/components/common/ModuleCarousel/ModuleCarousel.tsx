@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './ModuleCarousel.module.css';
 
 interface Module {
@@ -28,6 +29,7 @@ export default function ModuleCarousel({
   showCategory = true,
   itemsPerPage = 4 
 }: ModuleCarouselProps) {
+  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalPages = Math.ceil(modules.length / itemsPerPage);
   
@@ -42,6 +44,10 @@ export default function ModuleCarousel({
   
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const handleModuleClick = (moduleId: number) => {
+    router.push(`/marketplace/${moduleId}`);
   };
 
   if (modules.length === 0) {
@@ -73,7 +79,11 @@ export default function ModuleCarousel({
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
             {modules.map((module) => (
-              <div key={module.id} className={styles.componentCard}>
+              <div 
+                key={module.id} 
+                className={styles.componentCard}
+                onClick={() => handleModuleClick(module.id)}
+              >
                 <div className={styles.componentImage}>
                   <div className={styles.imagePlaceholder} style={{background: module.gradient}}>
                     <span className={styles.imageIcon}>{module.icon}</span>

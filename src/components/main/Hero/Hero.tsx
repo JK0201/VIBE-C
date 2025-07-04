@@ -1,6 +1,10 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import styles from './Hero.module.css';
 
 export default function Hero() {
+  const router = useRouter();
   return (
     <section className={styles.hero}>
       <div className={styles.heroPattern}>
@@ -19,10 +23,16 @@ export default function Hero() {
           모든 개발 영역의 전문 솔루션을 만나보세요
         </p>
         <div className={styles.heroActions}>
-          <button className={styles.primaryAction}>
+          <button 
+            className={styles.primaryAction}
+            onClick={() => router.push('/marketplace')}
+          >
             개발 모듈 둘러보기
           </button>
-          <button className={styles.secondaryAction}>
+          <button 
+            className={styles.secondaryAction}
+            onClick={() => router.push('/requests')}
+          >
             개발 요청하기
           </button>
         </div>
