@@ -45,7 +45,6 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
 
   const toggleFavorite = (id: number, e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
     setFavorites(prev => {
       const newFavorites = new Set(prev);
@@ -58,6 +57,9 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
     });
   };
 
+  const handleCardClick = (componentId: number) => {
+    // Navigation is handled by Link component
+  };
 
 
   return (
@@ -75,17 +77,15 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
             href={`/marketplace/${component.id}`}
             className={styles.moduleCard}
           >
-            <div
+            <button
               className={`${styles.favoriteBtn} ${favorites.has(component.id) ? styles.active : ''}`}
               onClick={(e) => toggleFavorite(component.id, e)}
               aria-label={favorites.has(component.id) ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-              role="button"
-              tabIndex={0}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill={favorites.has(component.id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
-            </div>
+            </button>
 
             <div className={`${carouselStyles.componentCard} ${styles.componentCard}`}>
               <div className={carouselStyles.componentImage}>

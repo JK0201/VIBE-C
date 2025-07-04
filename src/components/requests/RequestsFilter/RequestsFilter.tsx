@@ -31,7 +31,7 @@ const statuses = [
 ];
 
 
-export default function RequestsFilter({ filters, onFiltersChange }: RequestsFilterProps) {
+export default function RequestsFilter({ filters, onFiltersChange, totalCount }: RequestsFilterProps) {
   const handleBudgetChange = (value: string, checked: boolean) => {
     const newBudgetRange = checked
       ? [...filters.budgetRange, value]

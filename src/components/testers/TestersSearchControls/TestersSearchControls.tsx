@@ -1,5 +1,11 @@
 import styles from './TestersSearchControls.module.css';
 
+interface TestersSearchControlsProps {
+  sortBy: string;
+  onSortChange: (sort: string) => void;
+  totalCount: number;
+  displayedCount: number;
+}
 
 const sortOptions = [
   { value: 'latest', label: '최신순' },
@@ -8,19 +14,12 @@ const sortOptions = [
   { value: 'reward-low', label: '보상 낮은순' },
 ];
 
-interface TestersSearchControlsProps {
-  sortBy: string;
-  onSortChange: (sort: string) => void;
-  totalCount: number;
-  displayedCount: number;
-}
-
 export default function TestersSearchControls({ 
   sortBy, 
   onSortChange, 
   totalCount, 
   displayedCount 
-}: TestersSearchControlsProps) {
+}: RequestsSearchControlsProps) {
   return (
     <div className={styles.searchControls}>
       <div className={styles.resultInfo}>
