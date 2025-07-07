@@ -36,7 +36,7 @@ export async function GET(
         ...app,
         user: applicant ? {
           id: applicant.id,
-          name: applicant.name,
+          name: applicant.nickname,
           profileImage: applicant.profileImage,
           rating: 4.5,
           transactionCount: 10,
@@ -54,7 +54,7 @@ export async function GET(
         amount: undefined,
         user: bidder ? {
           id: bidder.id,
-          name: bidder.name,
+          name: bidder.nickname,
           profileImage: bidder.profileImage,
           rating: 4.5,
           transactionCount: 10,
@@ -104,7 +104,7 @@ export async function GET(
       ],
       requester: requester ? {
         id: requester.id,
-        name: requester.name,
+        name: requester.nickname,
         email: requester.email,
         profileImage: requester.profileImage,
         rating: 4.5,

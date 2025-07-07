@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -18,14 +19,16 @@ export default function Header() {
   // NextAuth 세션과 Zustand store 동기화
   useEffect(() => {
     if (session?.user) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const user = session.user as any;
       setUser({
-        id: session.user.id || '',
-        email: session.user.email || '',
-        name: session.user.name || '',
-        image: session.user.image || undefined,
-        role: session.user.role || 'user',
-        balance: session.user.balance || 0,
-        githubId: session.user.githubId || undefined,
+        id: user.id || '',
+        email: user.email || '',
+        name: user.name || '',
+        image: user.image || undefined,
+        role: user.role || 'user',
+        balance: user.balance || 0,
+        githubId: user.githubId || undefined,
       });
     } else if (status === 'unauthenticated') {
       zustandLogout();
@@ -107,7 +110,13 @@ export default function Header() {
               >
                 <div className={styles.userAvatar}>
                   {session.user?.image ? (
-                    <img src={session.user.image} alt={session.user.name || ''} />
+                    <Image 
+                      src={session.user.image} 
+                      alt={session.user.name || ''} 
+                      width={32} 
+                      height={32}
+                      style={{ borderRadius: '50%' }}
+                    />
                   ) : (
                     <span>{session.user?.name?.charAt(0) || 'U'}</span>
                   )}
@@ -131,7 +140,8 @@ export default function Header() {
                   <div className={styles.dropdownDivider}></div>
                   <div className={styles.balanceInfo}>
                     <span className={styles.balanceLabel}>포인트</span>
-                    <span className={styles.balanceAmount}>{(user?.balance || session.user?.balance || 0).toLocaleString()}P</span>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    <span className={styles.balanceAmount}>{(user?.balance || (session.user as any)?.balance || 0).toLocaleString()}P</span>
                   </div>
                   <div className={styles.dropdownDivider}></div>
                   <button onClick={handleLogout} className={styles.logoutButton}>

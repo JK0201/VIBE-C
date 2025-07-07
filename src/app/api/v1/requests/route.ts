@@ -117,7 +117,7 @@ export async function GET(request: NextRequest) {
         bidCount: request.bids?.length || 0,
         author: author ? {
           id: author.id,
-          name: author.name,
+          name: author.nickname,
           profileImage: author.profileImage,
         } : null,
         // Add display properties

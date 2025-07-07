@@ -114,7 +114,7 @@ export default function SignupPage() {
     e.preventDefault();
     
     // 최종 유효성 검사
-    const newErrors: any = {};
+    const newErrors: { [key: string]: string } = {};
     
     // 닉네임 검사
     const nameError = validateName(formData.name);
@@ -143,7 +143,13 @@ export default function SignupPage() {
     
     // 에러가 있으면 제출 중단
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+      setErrors({
+        name: newErrors.name || '',
+        email: newErrors.email || '',
+        password: newErrors.password || '',
+        confirmPassword: newErrors.confirmPassword || '',
+        agreeTerms: newErrors.agreeTerms || ''
+      });
       return;
     }
     

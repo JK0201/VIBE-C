@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
           status: request.status,
           author: user ? {
             id: user.id,
-            name: user.name,
+            name: user.nickname,
             profileImage: user.profileImage,
           } : null,
           applicationCount: request.applications?.length || 0,

@@ -3,9 +3,37 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import bcrypt from 'bcrypt';
 
+interface SignupData {
+  name: string;
+  email: string;
+  password: string;
+  agreeTerms: boolean;
+  githubId?: string;
+}
+
+interface ValidationErrors {
+  name?: string;
+  email?: string;
+  password?: string;
+  agreeTerms?: string;
+}
+
+interface DBUser {
+  id: number;
+  email: string;
+  nickname: string;
+  password: string;
+  role: string;
+  githubId?: string;
+  balance: number;
+  profileImage?: string;
+  bio?: string;
+  createdAt?: string;
+}
+
 // 유효성 검사 함수 (프론트엔드와 동일한 규칙)
-function validateSignupData(data: any) {
-  const errors: any = {};
+function validateSignupData(data: SignupData) {
+  const errors: ValidationErrors = {};
   
   // 닉네임 검사
   if (!data.name || data.name.length < 2) {
@@ -47,17 +75,17 @@ async function loadUsers() {
 }
 
 // 중복 체크 함수
-async function checkDuplicates(data: any) {
+async function checkDuplicates(data: SignupData) {
   const users = await loadUsers();
-  const errors: any = {};
+  const errors: ValidationErrors = {};
   
   // 이메일 중복 체크
-  if (users.some((user: any) => user.email === data.email)) {
+  if (users.some((user: DBUser) => user.email === data.email)) {
     errors.email = "이미 가입된 이메일입니다";
   }
   
   // 닉네임 중복 체크
-  if (users.some((user: any) => user.nickname === data.name)) {
+  if (users.some((user: DBUser) => user.nickname === data.name)) {
     errors.name = "이미 사용 중인 닉네임입니다";
   }
   
@@ -67,14 +95,14 @@ async function checkDuplicates(data: any) {
 // 다음 사용자 ID 가져오기
 async function getNextUserId() {
   const users = await loadUsers();
-  const maxId = users.reduce((max: number, user: any) => 
+  const maxId = users.reduce((max: number, user: DBUser) => 
     Math.max(max, user.id), 0
   );
   return maxId + 1;
 }
 
 // 새 사용자를 파일에 추가
-async function appendUserToFile(newUser: any) {
+async function appendUserToFile(newUser: DBUser) {
   const filePath = path.join(process.cwd(), 'data/mock/users.json');
   const fileContent = await fs.readFile(filePath, 'utf-8');
   const data = JSON.parse(fileContent);

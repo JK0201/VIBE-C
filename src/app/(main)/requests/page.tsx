@@ -156,7 +156,7 @@ function RequestsContent() {
           <main className={styles.content}>
             <RequestsSearchControls 
               sortBy={requestFilters.sortBy || 'latest'}
-              onSortChange={(sort) => setRequestFilters({ sortBy: sort })}
+              onSortChange={(sort) => setRequestFilters({ sortBy: sort as 'latest' | 'budget' | 'bidCount' | 'deadline' })}
               totalCount={totalRequests}
               displayedCount={requests.length}
             />

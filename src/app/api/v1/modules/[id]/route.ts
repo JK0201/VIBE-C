@@ -59,7 +59,7 @@ export async function GET(
       images: [],
       author: author ? {
         id: author.id,
-        name: author.name,
+        name: author.nickname,
         email: author.email,
         profileImage: author.profileImage,
         githubId: author.githubId,

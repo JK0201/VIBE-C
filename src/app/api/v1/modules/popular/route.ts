@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
           createdAt: component.createdAt,
           author: author ? {
             id: author.id,
-            name: author.name,
+            name: author.nickname,
             profileImage: author.profileImage,
           } : null,
           // Add display properties for UI

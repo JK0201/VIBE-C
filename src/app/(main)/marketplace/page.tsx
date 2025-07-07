@@ -158,7 +158,7 @@ function MarketplaceContent() {
           <main className={styles.content}>
             <SearchControls 
               sortBy={marketplaceFilters.sortBy || 'latest'}
-              onSortChange={(sort) => setMarketplaceFilters({ sortBy: sort })}
+              onSortChange={(sort) => setMarketplaceFilters({ sortBy: sort as 'latest' | 'popular' | 'rating' | 'price' | 'priceDesc' })}
               totalCount={totalModules}
               displayedCount={modules.length}
             />

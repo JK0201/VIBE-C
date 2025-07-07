@@ -159,7 +159,7 @@ export default function TestersPage() {
           <main className={styles.content}>
             <TestersSearchControls 
               sortBy={testerFilters.sortBy || 'latest'}
-              onSortChange={(sort) => setTesterFilters({ sortBy: sort })}
+              onSortChange={(sort) => setTesterFilters({ sortBy: sort as 'latest' | 'reward' | 'deadline' | 'applicants' })}
               totalCount={totalTesters}
               displayedCount={testers.length}
             />
