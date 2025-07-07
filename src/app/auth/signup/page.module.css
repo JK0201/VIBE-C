@@ -164,30 +164,122 @@
 
 .requirementItem {
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 1.75rem;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
-  color: #4b5563;
+  color: #6b7280;
   line-height: 1.5;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+  min-height: 24px;
 }
 
-.requirementItem::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5rem;
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-primary);
-  border-radius: 50%;
+.requirementItem.valid {
+  color: #10b981;
 }
 
 .requirementItem:last-child {
   margin-bottom: 0;
 }
 
+.checkIcon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #10b981;
+}
+
+.emptyCircle {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+  display: block;
+}
+
+.requirementItem.valid .emptyCircle {
+  display: none;
+}
+
+.passwordRequirements.allValid {
+  background-color: #f0fdf4;
+  border-color: #86efac;
+}
+
+.passwordMatchStatus {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  position: relative;
+  padding-left: 1.75rem;
+  line-height: 1.5;
+  min-height: 24px;
+}
+
+.passwordMatchStatus::before {
+  content: '';
+  position: absolute;
+  top: -0.75rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.passwordMatchStatus.match {
+  color: #10b981;
+}
+
+.passwordMatchStatus.noMatch {
+  color: #ef4444;
+}
+
+.passwordMatchStatus .checkIcon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.xIcon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+
 .agreements {
   margin-bottom: 1.5rem;
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+.input.error {
+  border-color: #ef4444;
+}
+
+.input.error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 .checkboxLabel {
