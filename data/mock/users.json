@@ -383,6 +383,18 @@
       "profileImage": "",
       "bio": "",
       "createdAt": "2025-07-07T03:04:23.431Z"
+    },
+    {
+      "id": 33,
+      "email": "catwalk@gmail.com",
+      "nickname": "catwalk",
+      "password": "$2b$10$4APkKAwrzUFv0kldEUX5PueLU1E6wc4kKkZqP1KPzutlkkEFLgdeG",
+      "role": "user",
+      "githubId": "",
+      "balance": 10000,
+      "profileImage": "",
+      "bio": "",
+      "createdAt": "2025-07-07T07:57:35.691Z"
     }
   ]
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import useFilterStore from '@/stores/useFilterStore';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import TestersHero from '@/components/testers/TestersHero/TestersHero';
@@ -39,22 +40,9 @@ interface Tester {
 }
 
 export default function TestersPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('latest');
-  const [filters, setFilters] = useState<{
-    rewardRange: string[];
-    testType: string[];
-    isUrgent: boolean | null;
-    requirements: string[];
-    status: string[];
-  }>({
-    rewardRange: [],
-    testType: [],
-    isUrgent: null,
-    requirements: [],
-    status: []
-  });
+  // Zustand store에서 필터 상태 가져오기
+  const { testerFilters, setTesterFilters } = useFilterStore();
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [testers, setTesters] = useState<Tester[]>([]);
   const [totalTesters, setTotalTesters] = useState(0);
@@ -71,19 +59,21 @@ export default function TestersPage() {
       try {
         // Build query parameters
         const params = new URLSearchParams();
-        if (searchQuery) params.append('search', searchQuery);
-        params.append('sort', sortBy);
+        if (testerFilters.searchQuery) params.append('search', testerFilters.searchQuery);
+        params.append('sort', testerFilters.sortBy || 'latest');
         
         // Handle test type filter based on selected category
-        if (selectedCategory !== 'all') {
-          params.append('testType', selectedCategory);
-        } else if (filters.testType.length > 0) {
-          filters.testType.forEach(type => params.append('testType', type));
+        if (testerFilters.category && testerFilters.category !== 'all') {
+          params.append('testType', testerFilters.category);
+        } else if (testerFilters.testType && testerFilters.testType.length > 0) {
+          testerFilters.testType.forEach(type => params.append('testType', type));
         }
         
-        filters.rewardRange.forEach(range => params.append('reward', range));
-        if (filters.isUrgent !== null) params.append('isUrgent', String(filters.isUrgent));
-        filters.status.forEach(s => params.append('status', s));
+        testerFilters.rewardRange?.forEach(range => params.append('reward', range));
+        if (testerFilters.isUrgent !== null && testerFilters.isUrgent !== undefined) {
+          params.append('isUrgent', String(testerFilters.isUrgent));
+        }
+        testerFilters.status?.forEach(s => params.append('status', s));
         params.append('page', String(currentPage));
         params.append('limit', String(ITEMS_PER_PAGE));
         
@@ -113,7 +103,7 @@ export default function TestersPage() {
     };
 
     fetchTesters();
-  }, [selectedCategory, searchQuery, sortBy, filters, currentPage]);
+  }, [testerFilters, currentPage]);
 
   const handleLoadMore = () => {
     if (currentPage < totalPages) {
@@ -124,29 +114,29 @@ export default function TestersPage() {
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory, searchQuery, sortBy, filters]);
+  }, [testerFilters]);
 
   // Sync category selection with testType filter
   useEffect(() => {
-    if (selectedCategory === 'all') {
-      setFilters(prev => ({ ...prev, testType: [] }));
-    } else {
-      setFilters(prev => ({ ...prev, testType: [selectedCategory] }));
+    if (testerFilters.category === 'all') {
+      setTesterFilters({ testType: [] });
+    } else if (testerFilters.category) {
+      setTesterFilters({ testType: [testerFilters.category] });
     }
-  }, [selectedCategory]);
+  }, [testerFilters.category, setTesterFilters]);
 
   return (
     <div className={styles.page}>
       <Header />
       
       <TestersHero 
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        searchQuery={testerFilters.searchQuery || ''}
+        onSearchChange={(query) => setTesterFilters({ searchQuery: query })}
       />
       
       <CategoryFilter 
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+        selectedCategory={testerFilters.category || 'all'}
+        onCategoryChange={(category) => setTesterFilters({ category })}
         type="testers"
       />
       
@@ -154,16 +144,22 @@ export default function TestersPage() {
         <div className={styles.container}>
           <aside className={styles.sidebar}>
             <TestersFilter 
-              filters={filters}
-              onFiltersChange={setFilters}
+              filters={{
+                rewardRange: testerFilters.rewardRange || [],
+                testType: testerFilters.testType || [],
+                isUrgent: testerFilters.isUrgent || null,
+                requirements: testerFilters.requirements || [],
+                status: testerFilters.status || []
+              }}
+              onFiltersChange={(newFilters) => setTesterFilters(newFilters)}
               totalCount={totalTesters}
             />
           </aside>
           
           <main className={styles.content}>
             <TestersSearchControls 
-              sortBy={sortBy}
-              onSortChange={setSortBy}
+              sortBy={testerFilters.sortBy || 'latest'}
+              onSortChange={(sort) => setTesterFilters({ sortBy: sort })}
               totalCount={totalTesters}
               displayedCount={testers.length}
             />
@@ -206,15 +202,8 @@ export default function TestersPage() {
                 <button 
                   className={styles.resetBtn}
                   onClick={() => {
-                    setSelectedCategory('all');
-                    setSearchQuery('');
-                    setFilters({
-                      rewardRange: [],
-                      testType: [],
-                      isUrgent: null,
-                      requirements: [],
-                      status: []
-                    });
+                    const { resetTesterFilters } = useFilterStore.getState();
+                    resetTesterFilters();
                   }}
                 >
                   필터 초기화

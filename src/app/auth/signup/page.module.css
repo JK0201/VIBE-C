@@ -353,7 +353,63 @@
   transform: translateY(0);
 }
 
-/* GitHub 소셜 로그인 관련 스타일 - 회원가입에서는 사용하지 않음 */
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.divider span {
+  position: relative;
+  background-color: white;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+}
+
+.githubButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: #24292e;
+  border: 1px solid #24292e;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.githubButton:hover {
+  background-color: #1a1e22;
+  border-color: #1a1e22;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(36, 41, 46, 0.3);
+}
+
+.githubButton:active {
+  transform: translateY(0);
+}
+
+.githubIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
 
 .loginLink {
   text-align: center;

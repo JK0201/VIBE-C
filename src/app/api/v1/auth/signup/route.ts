@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import bcrypt from 'bcrypt';
 
 // 유효성 검사 함수 (프론트엔드와 동일한 규칙)
 function validateSignupData(data: any) {
@@ -83,10 +84,10 @@ async function appendUserToFile(newUser: any) {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 }
 
-// 비밀번호 해싱 (실제로는 bcrypt 등을 사용해야 함)
-function hashPassword(password: string) {
-  // 임시로 base64 인코딩 사용 (실제로는 bcrypt 사용 필요)
-  return Buffer.from(password).toString('base64');
+// 비밀번호 해싱 (bcrypt 사용, salt rounds = 10)
+async function hashPassword(password: string) {
+  const saltRounds = 10;
+  return await bcrypt.hash(password, saltRounds);
 }
 
 export async function POST(request: NextRequest) {
@@ -116,7 +117,7 @@ export async function POST(request: NextRequest) {
       id: await getNextUserId(),
       email: body.email,
       nickname: body.name, // name 필드를 nickname으로 저장
-      password: hashPassword(body.password),
+      password: await hashPassword(body.password), // await 추가
       role: 'user', // 기본 role
       githubId: body.githubId || '',
       balance: 10000, // 초기 포인트

@@ -31,7 +31,7 @@ interface Component {
 interface User {
   id: number;
   email: string;
-  name: string;
+  nickname: string;
   githubId: string;
   balance: number;
   profileImage?: string;
@@ -229,10 +229,10 @@ export default function ComponentDetailPage() {
               <h3 className={styles.sellerTitle}>판매자 정보</h3>
               <div className={styles.sellerInfo}>
                 <div className={styles.sellerAvatar}>
-                  {seller.name.charAt(0)}
+                  {seller.nickname.charAt(0)}
                 </div>
                 <div className={styles.sellerDetails}>
-                  <h4>{seller.name}</h4>
+                  <h4>{seller.nickname}</h4>
                   <p>@{seller.githubId}</p>
                 </div>
               </div>

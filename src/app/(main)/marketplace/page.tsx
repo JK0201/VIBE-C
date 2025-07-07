@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import useFilterStore from '@/stores/useFilterStore';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import MarketplaceHero from '@/components/marketplace/MarketplaceHero/MarketplaceHero';
@@ -49,18 +50,9 @@ function MarketplaceContent() {
   const searchParams = useSearchParams();
   const categoryFromUrl = searchParams.get('category');
   
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('latest');
-  const [filters, setFilters] = useState<{
-    priceRange: string[];
-    language: string[];
-    rating: number | null;
-  }>({
-    priceRange: [],
-    language: [],
-    rating: null
-  });
+  // Zustand store에서 필터 상태 가져오기
+  const { marketplaceFilters, setMarketplaceFilters } = useFilterStore();
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [modules, setModules] = useState<Module[]>([]);
   const [totalModules, setTotalModules] = useState(0);
@@ -71,9 +63,9 @@ function MarketplaceContent() {
   // Set category from URL parameter on mount and when URL changes
   useEffect(() => {
     if (categoryFromUrl) {
-      setSelectedCategory(categoryFromUrl);
+      setMarketplaceFilters({ category: categoryFromUrl });
     }
-  }, [categoryFromUrl]);
+  }, [categoryFromUrl, setMarketplaceFilters]);
 
   // Fetch modules from API
   useEffect(() => {
@@ -84,12 +76,16 @@ function MarketplaceContent() {
       try {
         // Build query parameters
         const params = new URLSearchParams();
-        if (selectedCategory !== 'all') params.append('category', selectedCategory);
-        if (searchQuery) params.append('search', searchQuery);
-        params.append('sort', sortBy);
-        filters.priceRange.forEach(range => params.append('priceRange', range));
-        filters.language.forEach(lang => params.append('language', lang));
-        if (filters.rating !== null) params.append('rating', String(filters.rating));
+        if (marketplaceFilters.category && marketplaceFilters.category !== 'all') {
+          params.append('category', marketplaceFilters.category);
+        }
+        if (marketplaceFilters.searchQuery) params.append('search', marketplaceFilters.searchQuery);
+        params.append('sort', marketplaceFilters.sortBy || 'latest');
+        marketplaceFilters.priceRange?.forEach(range => params.append('priceRange', range));
+        marketplaceFilters.language?.forEach(lang => params.append('language', lang));
+        if (marketplaceFilters.rating !== null && marketplaceFilters.rating !== undefined) {
+          params.append('rating', String(marketplaceFilters.rating));
+        }
         params.append('page', String(currentPage));
         params.append('limit', String(ITEMS_PER_PAGE));
         
@@ -119,7 +115,7 @@ function MarketplaceContent() {
     };
 
     fetchModules();
-  }, [selectedCategory, searchQuery, sortBy, filters, currentPage]);
+  }, [marketplaceFilters, currentPage]);
 
   const handleLoadMore = () => {
     if (currentPage < totalPages) {
@@ -130,35 +126,39 @@ function MarketplaceContent() {
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory, searchQuery, sortBy, filters]);
+  }, [marketplaceFilters]);
 
   return (
     <div className={styles.page}>
       <Header />
       
       <MarketplaceHero 
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        searchQuery={marketplaceFilters.searchQuery || ''}
+        onSearchChange={(query) => setMarketplaceFilters({ searchQuery: query })}
       />
       
       <CategoryFilter 
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+        selectedCategory={marketplaceFilters.category || 'all'}
+        onCategoryChange={(category) => setMarketplaceFilters({ category })}
       />
       
       <div className={styles.mainContent}>
         <div className={styles.container}>
           <aside className={styles.sidebar}>
             <FilterSidebar 
-              filters={filters}
-              onFiltersChange={setFilters}
+              filters={{
+                priceRange: marketplaceFilters.priceRange || [],
+                language: marketplaceFilters.language || [],
+                rating: marketplaceFilters.rating || null
+              }}
+              onFiltersChange={(newFilters) => setMarketplaceFilters(newFilters)}
             />
           </aside>
           
           <main className={styles.content}>
             <SearchControls 
-              sortBy={sortBy}
-              onSortChange={setSortBy}
+              sortBy={marketplaceFilters.sortBy || 'latest'}
+              onSortChange={(sort) => setMarketplaceFilters({ sortBy: sort })}
               totalCount={totalModules}
               displayedCount={modules.length}
             />
@@ -201,13 +201,8 @@ function MarketplaceContent() {
                 <button 
                   className={styles.resetBtn}
                   onClick={() => {
-                    setSelectedCategory('all');
-                    setSearchQuery('');
-                    setFilters({
-                      priceRange: [],
-                      language: [],
-                      rating: null
-                    });
+                    const { resetMarketplaceFilters } = useFilterStore.getState();
+                    resetMarketplaceFilters();
                   }}
                 >
                   필터 초기화

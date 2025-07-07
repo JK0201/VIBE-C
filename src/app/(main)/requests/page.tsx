@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import useFilterStore from '@/stores/useFilterStore';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import RequestsHero from '@/components/requests/RequestsHero/RequestsHero';
@@ -43,20 +44,9 @@ function RequestsContent() {
   const searchParams = useSearchParams();
   const categoryFromUrl = searchParams.get('category');
   
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('latest');
-  const [filters, setFilters] = useState<{
-    budgetRange: string[];
-    requestType: string[];
-    isUrgent: boolean | null;
-    status: string[];
-  }>({
-    budgetRange: [],
-    requestType: [],
-    isUrgent: null,
-    status: []
-  });
+  // Zustand store에서 필터 상태 가져오기
+  const { requestFilters, setRequestFilters } = useFilterStore();
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [requests, setRequests] = useState<Request[]>([]);
   const [totalRequests, setTotalRequests] = useState(0);
@@ -67,9 +57,9 @@ function RequestsContent() {
   // Set category from URL parameter on mount
   useEffect(() => {
     if (categoryFromUrl) {
-      setSelectedCategory(categoryFromUrl);
+      setRequestFilters({ category: categoryFromUrl });
     }
-  }, [categoryFromUrl]);
+  }, [categoryFromUrl, setRequestFilters]);
 
   // Fetch requests from API
   useEffect(() => {
@@ -80,13 +70,17 @@ function RequestsContent() {
       try {
         // Build query parameters
         const params = new URLSearchParams();
-        if (selectedCategory !== 'all') params.append('category', selectedCategory);
-        if (searchQuery) params.append('search', searchQuery);
-        params.append('sort', sortBy);
-        filters.budgetRange.forEach(range => params.append('budgetRange', range));
-        filters.requestType.forEach(type => params.append('requestType', type));
-        if (filters.isUrgent !== null) params.append('isUrgent', String(filters.isUrgent));
-        filters.status.forEach(s => params.append('status', s));
+        if (requestFilters.category && requestFilters.category !== 'all') {
+          params.append('category', requestFilters.category);
+        }
+        if (requestFilters.searchQuery) params.append('search', requestFilters.searchQuery);
+        params.append('sort', requestFilters.sortBy || 'latest');
+        requestFilters.budgetRange?.forEach(range => params.append('budgetRange', range));
+        requestFilters.requestType?.forEach(type => params.append('requestType', type));
+        if (requestFilters.isUrgent !== null && requestFilters.isUrgent !== undefined) {
+          params.append('isUrgent', String(requestFilters.isUrgent));
+        }
+        requestFilters.status?.forEach(s => params.append('status', s));
         params.append('page', String(currentPage));
         params.append('limit', String(ITEMS_PER_PAGE));
         
@@ -116,7 +110,7 @@ function RequestsContent() {
     };
 
     fetchRequests();
-  }, [selectedCategory, searchQuery, sortBy, filters, currentPage]);
+  }, [requestFilters, currentPage]);
 
 
   const handleLoadMore = () => {
@@ -128,36 +122,41 @@ function RequestsContent() {
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory, searchQuery, sortBy, filters]);
+  }, [requestFilters]);
 
   return (
     <div className={styles.page}>
       <Header />
       
       <RequestsHero 
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        searchQuery={requestFilters.searchQuery || ''}
+        onSearchChange={(query) => setRequestFilters({ searchQuery: query })}
       />
       
       <CategoryFilter 
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+        selectedCategory={requestFilters.category || 'all'}
+        onCategoryChange={(category) => setRequestFilters({ category })}
       />
       
       <div className={styles.mainContent}>
         <div className={styles.container}>
           <aside className={styles.sidebar}>
             <RequestsFilter 
-              filters={filters}
-              onFiltersChange={setFilters}
+              filters={{
+                budgetRange: requestFilters.budgetRange || [],
+                requestType: requestFilters.requestType || [],
+                isUrgent: requestFilters.isUrgent || null,
+                status: requestFilters.status || []
+              }}
+              onFiltersChange={(newFilters) => setRequestFilters(newFilters)}
               totalCount={totalRequests}
             />
           </aside>
           
           <main className={styles.content}>
             <RequestsSearchControls 
-              sortBy={sortBy}
-              onSortChange={setSortBy}
+              sortBy={requestFilters.sortBy || 'latest'}
+              onSortChange={(sort) => setRequestFilters({ sortBy: sort })}
               totalCount={totalRequests}
               displayedCount={requests.length}
             />
@@ -200,14 +199,8 @@ function RequestsContent() {
                 <button 
                   className={styles.resetBtn}
                   onClick={() => {
-                    setSelectedCategory('all');
-                    setSearchQuery('');
-                    setFilters({
-                      budgetRange: [],
-                      requestType: [],
-                      isUrgent: null,
-                      status: []
-                    });
+                    const { resetRequestFilters } = useFilterStore.getState();
+                    resetRequestFilters();
                   }}
                 >
                   필터 초기화

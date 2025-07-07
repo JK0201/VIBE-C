@@ -44,7 +44,7 @@ interface Request {
 interface User {
   id: number;
   email: string;
-  name: string;
+  nickname: string;
   githubId: string;
   balance: number;
   profileImage?: string;
@@ -171,10 +171,10 @@ export default function RequestDetailPage() {
                       <div key={app.id} className={styles.applicationItem}>
                         <div className={styles.applicantInfo}>
                           <div className={styles.applicantAvatar}>
-                            {applicant.name.charAt(0)}
+                            {applicant.nickname.charAt(0)}
                           </div>
                           <div className={styles.applicantDetails}>
-                            <h4>{applicant.name}</h4>
+                            <h4>{applicant.nickname}</h4>
                             <p>@{applicant.githubId}</p>
                           </div>
                         </div>
@@ -203,7 +203,7 @@ export default function RequestDetailPage() {
                       <div key={bid.id} className={styles.applicationItem}>
                         <div className={styles.applicantInfo}>
                           <div className={styles.applicantAvatar}>
-                            {bidder.name.charAt(0)}
+                            {bidder.nickname.charAt(0)}
                           </div>
                           <div className={styles.applicantDetails}>
                             <h4>{index + 1}번째 입찰자</h4>
@@ -273,10 +273,10 @@ export default function RequestDetailPage() {
               <h3>요청자 정보</h3>
               <div className={styles.requesterInfo}>
                 <div className={styles.requesterAvatar}>
-                  {requester.name.charAt(0)}
+                  {requester.nickname.charAt(0)}
                 </div>
                 <div className={styles.requesterDetails}>
-                  <h4>{requester.name}</h4>
+                  <h4>{requester.nickname}</h4>
                   <p>@{requester.githubId}</p>
                 </div>
               </div>
