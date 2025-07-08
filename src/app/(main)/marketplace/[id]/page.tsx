@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
 import styles from './page.module.css';
 import usersData from '@data/mock/users.json';
 
@@ -25,6 +26,7 @@ interface Component {
   comments: number;
   createdAt: string;
   updatedAt: string;
+  images?: string[];
 }
 
 interface User {
@@ -94,6 +96,10 @@ export default function ComponentDetailPage() {
 
       <div className={styles.content}>
         <div className={styles.mainSection}>
+          {component.images && component.images.length > 0 && (
+            <ImageGallery images={component.images} title={component.name} />
+          )}
+          
           <div className={styles.header}>
             <div className={styles.categoryBadge}>
               {getCategoryDisplay()}

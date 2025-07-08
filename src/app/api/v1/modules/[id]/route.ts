@@ -56,7 +56,7 @@ export async function GET(
       license: foundModule.license || 'MIT',
       githubUrl: foundModule.githubUrl,
       demoUrl: foundModule.demoUrl,
-      images: [],
+      images: foundModule.images || [],
       author: author ? {
         id: author.id,
         name: author.nickname,

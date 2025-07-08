@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
 import styles from './page.module.css';
 import testersData from '@data/mock/testers.json';
 import { formatDate } from '@/lib/formatDate';
@@ -22,6 +23,7 @@ interface Tester {
   applicants: number;
   isUrgent: boolean;
   status: string;
+  images?: string[];
 }
 
 export default function TesterDetailPage() {
@@ -91,6 +93,10 @@ export default function TesterDetailPage() {
 
       <div className={styles.content}>
         <div className={styles.mainSection}>
+          {tester.images && tester.images.length > 0 && (
+            <ImageGallery images={tester.images} title={tester.title} />
+          )}
+          
           <div className={styles.header}>
             <div className={styles.company}>
               <div className={styles.companyAvatar}>

@@ -108,6 +108,8 @@ export async function GET(request: NextRequest) {
         } : null,
         // Add display properties
         categoryDisplay: getCategoryDisplay(module.category),
+        // Include first image as thumbnail
+        thumbnail: module.images && module.images.length > 0 ? module.images[0] : null,
       };
     });
 

@@ -13,6 +13,12 @@
       "githubUrl": "https://github.com/example/ai-chatbot-engine",
       "demoUrl": "https://demo.example.com/chatbot",
       "sellerId": 2,
+      "images": [
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=AI+Chatbot+Main",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Dashboard+View",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=API+Documentation",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Settings+Panel"
+      ],
       "features": [
         "GPT-4 API 통합",
         "한국어 자연어 처리",
@@ -41,6 +47,11 @@
       "githubUrl": "https://github.com/example/stock-crawler",
       "demoUrl": "https://demo.example.com/stocks",
       "sellerId": 3,
+      "images": [
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Stock+Crawler+Main",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Real-time+Charts",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Data+Analysis"
+      ],
       "features": [
         "실시간 주가 수집",
         "기술적 지표 계산 (RSI, MACD 등)",
@@ -69,6 +80,12 @@
       "githubUrl": "https://github.com/example/auth-gateway",
       "demoUrl": "https://demo.example.com/gateway",
       "sellerId": 1,
+      "images": [
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Auth+Gateway+1",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Auth+Gateway+2",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Auth+Gateway+3",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Auth+Gateway+4"
+      ],
       "features": [
         "JWT 토큰 관리",
         "OAuth2.0 프로바이더 통합",
@@ -97,6 +114,12 @@
       "githubUrl": "https://github.com/example/k8s-deploy",
       "demoUrl": "https://demo.example.com/k8s",
       "sellerId": 4,
+      "images": [
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=K8s+Deploy+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=K8s+Deploy+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=K8s+Deploy+3",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=K8s+Deploy+4"
+      ],
       "features": [
         "GitOps 워크플로우",
         "Helm 차트 관리",
@@ -125,6 +148,13 @@
       "githubUrl": "https://github.com/example/image-ai",
       "demoUrl": "https://demo.example.com/image-ai",
       "sellerId": 2,
+      "images": [
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+AI+1",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+AI+2",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+AI+3",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+AI+4",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+AI+5"
+      ],
       "features": [
         "YOLO 기반 객체 인식",
         "AI 배경 제거",
@@ -153,6 +183,12 @@
       "githubUrl": "https://github.com/example/defi-contracts",
       "demoUrl": "https://demo.example.com/defi",
       "sellerId": 3,
+      "images": [
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Smart+Contract+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Smart+Contract+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Smart+Contract+3",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Smart+Contract+4"
+      ],
       "features": [
         "ERC20/721/1155 토큰 컨트랙트",
         "스테이킹 풀 시스템",
@@ -181,6 +217,12 @@
       "githubUrl": "https://github.com/example/rn-push",
       "demoUrl": "https://demo.example.com/push",
       "sellerId": 1,
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Push+Notification+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Push+Notification+2",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Push+Notification+3",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Push+Notification+4"
+      ],
       "features": [
         "FCM/APNs 통합",
         "세그먼트 기반 타겟팅",
@@ -209,6 +251,11 @@
       "githubUrl": "https://github.com/example/unity-mp-server",
       "demoUrl": "https://demo.example.com/game",
       "sellerId": 4,
+      "images": [
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Unity+Server+1",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Unity+Server+2",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Unity+Server+3"
+      ],
       "features": [
         "실시간 상태 동기화",
         "매치메이킹 시스템",
@@ -237,6 +284,13 @@
       "githubUrl": "https://github.com/example/nextjs-ecommerce",
       "demoUrl": "https://demo.example.com/ecommerce",
       "sellerId": 1,
+      "images": [
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Ecommerce+1",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Ecommerce+2",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Ecommerce+3",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Ecommerce+4",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Ecommerce+5"
+      ],
       "features": [
         "상품 카탈로그 시스템",
         "장바구니/위시리스트",
@@ -265,6 +319,12 @@
       "githubUrl": "https://github.com/example/vue-admin",
       "demoUrl": "https://demo.example.com/vue-admin",
       "sellerId": 2,
+      "images": [
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Vue+Admin+1",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Vue+Admin+2",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Vue+Admin+3",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Vue+Admin+4"
+      ],
       "features": [
         "20+ 차트 컴포넌트",
         "데이터 테이블",
@@ -293,6 +353,13 @@
       "githubUrl": "https://github.com/example/flutter-social",
       "demoUrl": "https://demo.example.com/social",
       "sellerId": 3,
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Flutter+Social+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Flutter+Social+2",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Flutter+Social+3",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Flutter+Social+4",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Flutter+Social+5"
+      ],
       "features": [
         "피드 타임라인",
         "스토리 기능",
@@ -321,6 +388,12 @@
       "githubUrl": "https://github.com/example/spring-msa",
       "demoUrl": "https://demo.example.com/msa",
       "sellerId": 4,
+      "images": [
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Spring+MSA+1",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Spring+MSA+2",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Spring+MSA+3",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Spring+MSA+4"
+      ],
       "features": [
         "Eureka 서비스 디스커버리",
         "Config Server",
@@ -349,6 +422,11 @@
       "githubUrl": "https://github.com/example/image-classifier",
       "demoUrl": "https://demo.example.com/classifier",
       "sellerId": 2,
+      "images": [
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+Classifier+1",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+Classifier+2",
+        "https://via.placeholder.com/800x600/667EEA/FFFFFF?text=Image+Classifier+3"
+      ],
       "features": [
         "ResNet50 기반 모델",
         "1000+ 카테고리 분류",
@@ -377,6 +455,13 @@
       "githubUrl": "https://github.com/example/nft-marketplace",
       "demoUrl": "https://demo.example.com/nft",
       "sellerId": 3,
+      "images": [
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=NFT+Marketplace+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=NFT+Marketplace+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=NFT+Marketplace+3",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=NFT+Marketplace+4",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=NFT+Marketplace+5"
+      ],
       "features": [
         "ERC721/1155 지원",
         "고정가/경매 판매",
@@ -405,6 +490,12 @@
       "githubUrl": "https://github.com/example/terraform-aws",
       "demoUrl": "https://demo.example.com/terraform",
       "sellerId": 4,
+      "images": [
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Terraform+AWS+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Terraform+AWS+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Terraform+AWS+3",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Terraform+AWS+4"
+      ],
       "features": [
         "멀티 AZ VPC 구성",
         "ECS Fargate 클러스터",
@@ -433,6 +524,12 @@
       "githubUrl": "https://github.com/example/collab-editor",
       "demoUrl": "https://demo.example.com/editor",
       "sellerId": 1,
+      "images": [
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Collab+Editor+1",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Collab+Editor+2",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Collab+Editor+3",
+        "https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Collab+Editor+4"
+      ],
       "features": [
         "실시간 동시 편집",
         "CRDT 기반 충돌 해결",
@@ -461,6 +558,11 @@
       "githubUrl": "https://github.com/example/django-api",
       "demoUrl": "https://demo.example.com/django",
       "sellerId": 2,
+      "images": [
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Django+API+1",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Django+API+2",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=Django+API+3"
+      ],
       "features": [
         "JWT 인증 시스템",
         "Swagger API 문서",
@@ -489,6 +591,12 @@
       "githubUrl": "https://github.com/example/elk-logging",
       "demoUrl": "https://demo.example.com/elk",
       "sellerId": 4,
+      "images": [
+        "https://via.placeholder.com/800x600/6366F1/FFFFFF?text=ELK+Stack+1",
+        "https://via.placeholder.com/800x600/6366F1/FFFFFF?text=ELK+Stack+2",
+        "https://via.placeholder.com/800x600/6366F1/FFFFFF?text=ELK+Stack+3",
+        "https://via.placeholder.com/800x600/6366F1/FFFFFF?text=ELK+Stack+4"
+      ],
       "features": [
         "멀티 소스 로그 수집",
         "실시간 로그 파싱",
@@ -517,6 +625,13 @@
       "githubUrl": "https://github.com/example/fitness-tracker",
       "demoUrl": "https://demo.example.com/fitness",
       "sellerId": 1,
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Fitness+Tracker+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Fitness+Tracker+2",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Fitness+Tracker+3",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Fitness+Tracker+4",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Fitness+Tracker+5"
+      ],
       "features": [
         "운동 기록/추적",
         "Apple Watch 연동",
@@ -545,6 +660,12 @@
       "githubUrl": "https://github.com/example/graphql-gateway",
       "demoUrl": "https://demo.example.com/graphql",
       "sellerId": 2,
+      "images": [
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=GraphQL+Gateway+1",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=GraphQL+Gateway+2",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=GraphQL+Gateway+3",
+        "https://via.placeholder.com/800x600/6B7280/FFFFFF?text=GraphQL+Gateway+4"
+      ],
       "features": [
         "Apollo Federation",
         "스키마 스티칭",
@@ -573,6 +694,11 @@
       "githubUrl": "https://github.com/example/wp-blog-theme",
       "demoUrl": "https://demo.example.com/blog",
       "sellerId": 8,
+      "images": [
+        "https://via.placeholder.com/800x600/EC4899/FFFFFF?text=WordPress+Theme+1",
+        "https://via.placeholder.com/800x600/EC4899/FFFFFF?text=WordPress+Theme+2",
+        "https://via.placeholder.com/800x600/EC4899/FFFFFF?text=WordPress+Theme+3"
+      ],
       "features": [
         "SEO 최적화",
         "반응형 디자인",
@@ -601,6 +727,13 @@
       "githubUrl": "https://github.com/example/react-ui-kit",
       "demoUrl": "https://demo.example.com/ui-kit",
       "sellerId": 9,
+      "images": [
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=React+UI+Kit+1",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=React+UI+Kit+2",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=React+UI+Kit+3",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=React+UI+Kit+4",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=React+UI+Kit+5"
+      ],
       "features": [
         "50+ UI 컴포넌트",
         "Storybook 문서화",
@@ -629,6 +762,12 @@
       "githubUrl": "https://github.com/example/social-bot",
       "demoUrl": "https://demo.example.com/social",
       "sellerId": 10,
+      "images": [
+        "https://via.placeholder.com/800x600/EC4899/FFFFFF?text=Social+Bot+1",
+        "https://via.placeholder.com/800x600/EC4899/FFFFFF?text=Social+Bot+2",
+        "https://via.placeholder.com/800x600/EC4899/FFFFFF?text=Social+Bot+3",
+        "https://via.placeholder.com/800x600/EC4899/FFFFFF?text=Social+Bot+4"
+      ],
       "features": [
         "멀티 플랫폼 지원",
         "예약 포스팅",
@@ -657,6 +796,12 @@
       "githubUrl": "https://github.com/example/figma-to-react",
       "demoUrl": "https://demo.example.com/figma",
       "sellerId": 11,
+      "images": [
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Figma+to+React+1",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Figma+to+React+2",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Figma+to+React+3",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Figma+to+React+4"
+      ],
       "features": [
         "Figma 플러그인",
         "자동 코드 생성",

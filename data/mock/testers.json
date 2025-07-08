@@ -14,7 +14,13 @@
       "createdAt": "2025-07-02T10:00:00Z",
       "applicants": 15,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/F093FB/FFFFFF?text=Shopping+App+Main",
+        "https://via.placeholder.com/800x600/F093FB/FFFFFF?text=Product+List",
+        "https://via.placeholder.com/800x600/F093FB/FFFFFF?text=Cart+View",
+        "https://via.placeholder.com/800x600/F093FB/FFFFFF?text=Checkout+Process"
+      ]
     },
     {
       "id": 2,
@@ -30,7 +36,12 @@
       "createdAt": "2025-07-02T08:00:00Z",
       "applicants": 3,
       "isUrgent": true,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/A8EDEA/000000?text=Security+Test+Main",
+        "https://via.placeholder.com/800x600/A8EDEA/000000?text=Vulnerability+Report",
+        "https://via.placeholder.com/800x600/A8EDEA/000000?text=Security+Analysis"
+      ]
     },
     {
       "id": 3,
