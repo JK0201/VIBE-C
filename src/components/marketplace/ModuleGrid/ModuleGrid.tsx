@@ -31,14 +31,23 @@ interface ModuleGridProps {
 
 // Category mapping for display
 const categoryMap: Record<string, { name: string; icon: string; gradient: string }> = {
-  website: { name: '웹사이트', icon: '🌐', gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
-  mobile: { name: '모바일 앱', icon: '📱', gradient: 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)' },
-  ecommerce: { name: '이커머스', icon: '🛒', gradient: 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)' },
-  ai: { name: 'AI/ML', icon: '🤖', gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
-  backend: { name: '백엔드/API', icon: '⚙️', gradient: 'linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%)' },
-  blockchain: { name: '블록체인', icon: '⛓️', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-  data: { name: '데이터 분석', icon: '📊', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-  devops: { name: 'DevOps', icon: '🔧', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+  // New category system
+  'sns': { name: 'SNS', icon: '💬', gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
+  'automation': { name: 'Automation', icon: '🔧', gradient: 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)' },
+  'web-app': { name: 'Web/App', icon: '🌐', gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
+  'mobile': { name: 'Mobile', icon: '📱', gradient: 'linear-gradient(135deg, #F093FB 0%, #F5576C 100%)' },
+  'ui-ux': { name: 'UI/UX', icon: '🎨', gradient: 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)' },
+  'data': { name: 'Data', icon: '📊', gradient: 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)' },
+  'ai-ml': { name: 'AI/ML', icon: '🤖', gradient: 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)' },
+  'fintech': { name: 'Fintech', icon: '💰', gradient: 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)' },
+  'b2b': { name: 'B2B', icon: '🏢', gradient: 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)' },
+  // Old category system (for backward compatibility)
+  'website': { name: 'Web/App', icon: '🌐', gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
+  'ecommerce': { name: 'Web/App', icon: '🛒', gradient: 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)' },
+  'ai': { name: 'AI/ML', icon: '🤖', gradient: 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)' },
+  'backend': { name: 'B2B', icon: '⚙️', gradient: 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)' },
+  'blockchain': { name: 'Fintech', icon: '⛓️', gradient: 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)' },
+  'devops': { name: 'Automation', icon: '🚀', gradient: 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)' },
 };
 
 export default function ModuleGrid({ components }: ModuleGridProps) {

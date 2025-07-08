@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styles from './page.module.css';
-import componentsData from '@data/mock/components.json';
 import usersData from '@data/mock/users.json';
 
 interface Component {
@@ -45,14 +44,22 @@ export default function ComponentDetailPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'features' | 'reviews'>('overview');
 
   useEffect(() => {
-    const componentId = parseInt(params.id as string);
-    const foundComponent = componentsData.components.find(c => c.id === componentId);
-    
-    if (foundComponent) {
-      setComponent(foundComponent);
-      const foundSeller = usersData.users.find(u => u.id === foundComponent.sellerId);
-      setSeller(foundSeller || null);
-    }
+    const fetchComponent = async () => {
+      try {
+        const response = await fetch(`/api/v1/modules/${params.id}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          setComponent(data.data);
+          const foundSeller = usersData.users.find(u => u.id === data.data.sellerId);
+          setSeller(foundSeller || null);
+        }
+      } catch (error) {
+        console.error('Failed to fetch component:', error);
+      }
+    };
+
+    fetchComponent();
   }, [params.id]);
 
   if (!component) {
@@ -66,15 +73,13 @@ export default function ComponentDetailPage() {
     );
   }
 
-  const categoryKorean: { [key: string]: string } = {
-    website: '웹사이트',
-    mobile: '모바일 앱',
-    ecommerce: '이커머스',
-    ai: 'AI/ML',
-    backend: '백엔드/API',
-    blockchain: '블록체인',
-    data: '데이터 분석',
-    devops: 'DevOps'
+  // API response already includes categoryDisplay
+  const getCategoryDisplay = () => {
+    if (component && 'categoryDisplay' in component) {
+      return (component as any).categoryDisplay.name;
+    }
+    // Fallback for old data
+    return component?.category || '';
   };
 
   return (
@@ -91,7 +96,7 @@ export default function ComponentDetailPage() {
         <div className={styles.mainSection}>
           <div className={styles.header}>
             <div className={styles.categoryBadge}>
-              {categoryKorean[component.category]}
+              {getCategoryDisplay()}
             </div>
             <h1 className={styles.title}>{component.name}</h1>
             <p className={styles.description}>{component.description}</p>

@@ -136,18 +136,60 @@ export async function GET(request: NextRequest) {
 // Helper function
 function getCategoryDisplay(category: string): { name: string; gradient: string; icon: string } {
   const categories: Record<string, { name: string; gradient: string; icon: string }> = {
-    'website': { 
-      name: '웹사이트', 
+    // New category system
+    'sns': { 
+      name: 'SNS', 
+      gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+      icon: '💬'
+    },
+    'automation': { 
+      name: 'Automation', 
+      gradient: 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)',
+      icon: '🔧'
+    },
+    'web-app': { 
+      name: 'Web/App', 
       gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
       icon: '🌐'
     },
     'mobile': { 
-      name: '모바일 앱', 
+      name: 'Mobile', 
       gradient: 'linear-gradient(135deg, #F093FB 0%, #F5576C 100%)',
       icon: '📱'
     },
+    'ui-ux': { 
+      name: 'UI/UX', 
+      gradient: 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)',
+      icon: '🎨'
+    },
+    'data': { 
+      name: 'Data', 
+      gradient: 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)',
+      icon: '📊'
+    },
+    'ai-ml': { 
+      name: 'AI/ML', 
+      gradient: 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)',
+      icon: '🤖'
+    },
+    'fintech': { 
+      name: 'Fintech', 
+      gradient: 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)',
+      icon: '💰'
+    },
+    'b2b': { 
+      name: 'B2B', 
+      gradient: 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)',
+      icon: '🏢'
+    },
+    // Old category system (for backward compatibility)
+    'website': { 
+      name: 'Web/App', 
+      gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+      icon: '🌐'
+    },
     'ecommerce': { 
-      name: '이커머스', 
+      name: 'Web/App', 
       gradient: 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)',
       icon: '🛒'
     },
@@ -157,28 +199,27 @@ function getCategoryDisplay(category: string): { name: string; gradient: string;
       icon: '🤖'
     },
     'backend': { 
-      name: '백엔드/API', 
+      name: 'B2B', 
       gradient: 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)',
       icon: '⚙️'
     },
     'blockchain': { 
-      name: '블록체인', 
+      name: 'Fintech', 
       gradient: 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)',
       icon: '🔗'
     },
-    'data': { 
-      name: '데이터 분석', 
-      gradient: 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)',
-      icon: '📊'
-    },
     'devops': { 
-      name: 'DevOps', 
+      name: 'Automation', 
       gradient: 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)',
       icon: '🚀'
     },
   };
+  
+  // Convert to uppercase and replace hyphens with slashes for display
+  const defaultName = category.toUpperCase().replace(/-/g, '/');
+  
   return categories[category] || { 
-    name: category, 
+    name: defaultName, 
     gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
     icon: '📦'
   };

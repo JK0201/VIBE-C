@@ -75,27 +75,45 @@ export async function GET(request: NextRequest) {
 // Helper functions to map categories to UI properties
 function getGradientByCategory(category: string): string {
   const gradients: Record<string, string> = {
-    'website': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+    // New category system
+    'sns': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+    'automation': 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)',
+    'web-app': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
     'mobile': 'linear-gradient(135deg, #F093FB 0%, #F5576C 100%)',
+    'ui-ux': 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)',
+    'data': 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)',
+    'ai-ml': 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)',
+    'fintech': 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)',
+    'b2b': 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)',
+    // Old category system (for backward compatibility)
+    'website': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
     'ecommerce': 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)',
     'ai': 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)',
     'backend': 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)',
     'blockchain': 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)',
-    'data': 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)',
     'devops': 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)',
   };
-  return gradients[category] || gradients['website'];
+  return gradients[category] || 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)';
 }
 
 function getIconByCategory(category: string): string {
   const icons: Record<string, string> = {
-    'website': '🌐',
+    // New category system
+    'sns': '💬',
+    'automation': '🔧',
+    'web-app': '🌐',
     'mobile': '📱',
+    'ui-ux': '🎨',
+    'data': '📊',
+    'ai-ml': '🤖',
+    'fintech': '💰',
+    'b2b': '🏢',
+    // Old category system (for backward compatibility)
+    'website': '🌐',
     'ecommerce': '🛍️',
     'ai': '🤖',
     'backend': '⚙️',
     'blockchain': '🔗',
-    'data': '📊',
     'devops': '🚀',
   };
   return icons[category] || '📦';

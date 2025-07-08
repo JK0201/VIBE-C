@@ -141,16 +141,29 @@ export async function GET(
 // Helper functions
 function getCategoryDisplay(category: string): { name: string; color: string } {
   const categories: Record<string, { name: string; color: string }> = {
-    'website': { name: '웹사이트', color: '#667EEA' },
-    'mobile': { name: '모바일 앱', color: '#F093FB' },
-    'ecommerce': { name: '이커머스', color: '#4FACFE' },
+    // New category system
+    'sns': { name: 'SNS', color: '#667EEA' },
+    'automation': { name: 'Automation', color: '#FEB692' },
+    'web-app': { name: 'Web/App', color: '#667EEA' },
+    'mobile': { name: 'Mobile', color: '#F093FB' },
+    'ui-ux': { name: 'UI/UX', color: '#4FACFE' },
+    'data': { name: 'Data', color: '#8B5CF6' },
+    'ai-ml': { name: 'AI/ML', color: '#FA709A' },
+    'fintech': { name: 'Fintech', color: '#A8EDEA' },
+    'b2b': { name: 'B2B', color: '#30CFD0' },
+    // Old category system (for backward compatibility)
+    'website': { name: 'Web/App', color: '#667EEA' },
+    'ecommerce': { name: 'Web/App', color: '#4FACFE' },
     'ai': { name: 'AI/ML', color: '#FA709A' },
-    'backend': { name: '백엔드/API', color: '#30CFD0' },
-    'blockchain': { name: '블록체인', color: '#A8EDEA' },
-    'data': { name: '데이터 분석', color: '#8B5CF6' },
-    'devops': { name: 'DevOps', color: '#FEB692' },
+    'backend': { name: 'B2B', color: '#30CFD0' },
+    'blockchain': { name: 'Fintech', color: '#A8EDEA' },
+    'devops': { name: 'Automation', color: '#FEB692' },
   };
-  return categories[category] || { name: category, color: '#667EEA' };
+  
+  // Convert to uppercase and replace hyphens with slashes for display
+  const defaultName = category.toUpperCase().replace(/-/g, '/');
+  
+  return categories[category] || { name: defaultName, color: '#667EEA' };
 }
 
 function calculateDeadline(deadline: string): string {

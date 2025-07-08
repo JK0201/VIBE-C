@@ -3,14 +3,15 @@ import styles from './CategoryFilter.module.css';
 
 const marketplaceCategories = [
   { id: 'all', name: '전체', icon: '✨' },
-  { id: 'website', name: '웹사이트', icon: '🌐' },
-  { id: 'mobile', name: '모바일 앱', icon: '📱' },
-  { id: 'ecommerce', name: '이커머스', icon: '🛒' },
-  { id: 'ai', name: 'AI/ML', icon: '🤖' },
-  { id: 'backend', name: '백엔드/API', icon: '⚙️' },
-  { id: 'blockchain', name: '블록체인', icon: '⛓️' },
-  { id: 'data', name: '데이터 분석', icon: '📊' },
-  { id: 'devops', name: 'DevOps', icon: '🔧' },
+  { id: 'sns', name: 'SNS', icon: '💬' },
+  { id: 'automation', name: 'Automation', icon: '🔧' },
+  { id: 'web-app', name: 'Web/App', icon: '🌐' },
+  { id: 'mobile', name: 'Mobile', icon: '📱' },
+  { id: 'ui-ux', name: 'UI/UX', icon: '🎨' },
+  { id: 'data', name: 'Data', icon: '📊' },
+  { id: 'ai-ml', name: 'AI/ML', icon: '🤖' },
+  { id: 'fintech', name: 'Fintech', icon: '💰' },
+  { id: 'b2b', name: 'B2B', icon: '🏢' },
 ];
 
 const testerCategories = [
@@ -62,7 +63,6 @@ export default function CategoryFilter({ selectedCategory, onCategoryChange, typ
               }`}
               onClick={() => onCategoryChange(category.id)}
             >
-              <span className={styles.categoryIcon}>{category.icon}</span>
               <span className={styles.categoryName}>{category.name}</span>
             </button>
           ))}

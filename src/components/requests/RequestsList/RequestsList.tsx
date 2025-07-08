@@ -81,14 +81,23 @@ export default function RequestsList({ requests }: RequestsListProps) {
   // 카테고리 매핑
   const getCategoryText = (category: string) => {
     const categoryMap: Record<string, string> = {
-      'website': '웹사이트',
-      'mobile': '모바일 앱',
-      'ecommerce': '이커머스',
+      // New category system
+      'sns': 'SNS',
+      'automation': 'Automation',
+      'web-app': 'Web/App',
+      'mobile': 'Mobile',
+      'ui-ux': 'UI/UX',
+      'data': 'Data',
+      'ai-ml': 'AI/ML',
+      'fintech': 'Fintech',
+      'b2b': 'B2B',
+      // Old category system (for backward compatibility)
+      'website': 'Web/App',
+      'ecommerce': 'Web/App',
       'ai': 'AI/ML',
-      'backend': '백엔드/API',
-      'blockchain': '블록체인',
-      'data': '데이터 분석',
-      'devops': 'DevOps'
+      'backend': 'B2B',
+      'blockchain': 'Fintech',
+      'devops': 'Automation'
     };
     return categoryMap[category] || category;
   };

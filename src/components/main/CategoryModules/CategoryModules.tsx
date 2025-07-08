@@ -6,14 +6,15 @@ import styles from './CategoryModules.module.css';
 import ModuleCarousel from '@/components/common/ModuleCarousel/ModuleCarousel';
 
 const categories = [
-  { id: 'website', name: '웹사이트', icon: '🌐' },
-  { id: 'mobile', name: '모바일 앱', icon: '📱' },
-  { id: 'ecommerce', name: '이커머스', icon: '🛒' },
-  { id: 'ai', name: 'AI/ML', icon: '🤖' },
-  { id: 'backend', name: '백엔드/API', icon: '⚙️' },
-  { id: 'blockchain', name: '블록체인', icon: '⛓️' },
-  { id: 'data', name: '데이터 분석', icon: '📊' },
-  { id: 'devops', name: 'DevOps', icon: '🔧' },
+  { id: 'sns', name: 'SNS', icon: '💬' },
+  { id: 'automation', name: 'Automation', icon: '🔧' },
+  { id: 'web-app', name: 'Web/App', icon: '🌐' },
+  { id: 'mobile', name: 'Mobile', icon: '📱' },
+  { id: 'ui-ux', name: 'UI/UX', icon: '🎨' },
+  { id: 'data', name: 'Data', icon: '📊' },
+  { id: 'ai-ml', name: 'AI/ML', icon: '🤖' },
+  { id: 'fintech', name: 'Fintech', icon: '💰' },
+  { id: 'b2b', name: 'B2B', icon: '🏢' },
 ];
 
 interface APIModule {
@@ -43,7 +44,7 @@ interface MockModule {
 }
 
 const modulesByCategory: Record<string, MockModule[]> = {
-  website: [
+  'web-app': [
     {
       id: 1,
       title: '모던 랜딩페이지 템플릿',
@@ -124,7 +125,7 @@ const modulesByCategory: Record<string, MockModule[]> = {
       icon: '👥'
     }
   ],
-  ai: [
+  'ai-ml': [
     {
       id: 7,
       title: 'AI 챗봇 엔진',
@@ -148,7 +149,7 @@ const modulesByCategory: Record<string, MockModule[]> = {
       icon: '🎨'
     }
   ],
-  backend: [
+  'b2b': [
     {
       id: 9,
       title: '마이크로서비스 인증 게이트웨이',
@@ -161,7 +162,7 @@ const modulesByCategory: Record<string, MockModule[]> = {
       icon: '⚙️'
     }
   ],
-  blockchain: [
+  'fintech': [
     {
       id: 10,
       title: 'DeFi 스마트 컨트랙트 템플릿',
@@ -172,6 +173,78 @@ const modulesByCategory: Record<string, MockModule[]> = {
       downloads: 89,
       gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
       icon: '⛓️'
+    }
+  ],
+  'sns': [
+    {
+      id: 11,
+      title: 'WordPress 블로그 테마',
+      description: 'SEO 최적화된 프리미엄 워드프레스 테마. 반응형...',
+      tags: ['WordPress', 'PHP', 'SEO'],
+      price: 65000,
+      rating: 4.7,
+      downloads: 234,
+      gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+      icon: '💬'
+    },
+    {
+      id: 12,
+      title: '소셜 미디어 자동 포스팅',
+      description: 'Instagram, Twitter 동시 포스팅 자동화 도구...',
+      tags: ['Python', 'API', 'Automation'],
+      price: 75000,
+      rating: 4.5,
+      downloads: 189,
+      gradient: 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)',
+      icon: '📱'
+    }
+  ],
+  'ui-ux': [
+    {
+      id: 13,
+      title: 'React UI 컴포넌트',
+      description: '모던 디자인 시스템 기반 UI 컴포넌트 세트...',
+      tags: ['React', 'Storybook', 'Design System'],
+      price: 98000,
+      rating: 4.9,
+      downloads: 456,
+      gradient: 'linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%)',
+      icon: '🎨'
+    },
+    {
+      id: 14,
+      title: 'Figma to React 변환기',
+      description: 'Figma 디자인을 React 컴포넌트로 자동 변환...',
+      tags: ['Figma', 'React', 'Automation'],
+      price: 120000,
+      rating: 4.8,
+      downloads: 312,
+      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      icon: '🖌️'
+    }
+  ],
+  'automation': [
+    {
+      id: 15,
+      title: 'Kubernetes 자동 배포',
+      description: 'GitOps 기반 K8s 자동 배포 파이프라인...',
+      tags: ['Kubernetes', 'ArgoCD', 'GitOps'],
+      price: 110000,
+      rating: 4.6,
+      downloads: 178,
+      gradient: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+      icon: '🔧'
+    },
+    {
+      id: 16,
+      title: 'Terraform AWS 모듈',
+      description: '프로덕션 레디 AWS 인프라 템플릿...',
+      tags: ['Terraform', 'AWS', 'IaC'],
+      price: 125000,
+      rating: 4.9,
+      downloads: 145,
+      gradient: 'linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%)',
+      icon: '☁️'
     }
   ]
 };
@@ -192,7 +265,7 @@ interface CarouselModule {
 }
 
 export default function CategoryModules() {
-  const [selectedCategory, setSelectedCategory] = useState('website');
+  const [selectedCategory, setSelectedCategory] = useState('web-app');
   const [modules, setModules] = useState<CarouselModule[]>([]);
   const [loading, setLoading] = useState(false);
 

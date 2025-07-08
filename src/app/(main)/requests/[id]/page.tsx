@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styles from './page.module.css';
-import requestsData from '@data/mock/requests.json';
 import usersData from '@data/mock/users.json';
 import { formatDate } from '@/lib/formatDate';
 
@@ -59,26 +58,34 @@ export default function RequestDetailPage() {
   const [showApplyModal, setShowApplyModal] = useState(false);
 
   useEffect(() => {
-    const requestId = parseInt(params.id as string);
-    const foundRequest = requestsData.requests.find(r => r.id === requestId);
-    
-    if (foundRequest) {
-      setRequest(foundRequest as Request);
-      const foundRequester = usersData.users.find(u => u.id === foundRequest.userId);
-      setRequester(foundRequester || null);
+    const fetchRequest = async () => {
+      try {
+        const response = await fetch(`/api/v1/requests/${params.id}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          setRequest(data.data);
+          const foundRequester = usersData.users.find(u => u.id === data.data.userId);
+          setRequester(foundRequester || null);
 
-      // Load applicants/bidders
-      const applicantIds = foundRequest.type === 'FIXED_PRICE' 
-        ? foundRequest.applications?.map(a => a.userId) || []
-        : foundRequest.bids?.map(b => b.userId) || [];
-      
-      const applicantMap: { [key: number]: User } = {};
-      applicantIds.forEach(id => {
-        const user = usersData.users.find(u => u.id === id);
-        if (user) applicantMap[id] = user;
-      });
-      setApplicants(applicantMap);
-    }
+          // Load applicants/bidders
+          const applicantIds = data.data.type === 'FIXED_PRICE' 
+            ? data.data.applications?.map((a: Application) => a.userId) || []
+            : data.data.bids?.map((b: Bid) => b.userId) || [];
+          
+          const applicantMap: { [key: number]: User } = {};
+          applicantIds.forEach((id: number) => {
+            const user = usersData.users.find(u => u.id === id);
+            if (user) applicantMap[id] = user;
+          });
+          setApplicants(applicantMap);
+        }
+      } catch (error) {
+        console.error('Failed to fetch request:', error);
+      }
+    };
+
+    fetchRequest();
   }, [params.id]);
 
   if (!request) {
@@ -92,15 +99,13 @@ export default function RequestDetailPage() {
     );
   }
 
-  const categoryKorean: { [key: string]: string } = {
-    website: '웹사이트',
-    mobile: '모바일 앱',
-    ecommerce: '이커머스',
-    ai: 'AI/ML',
-    backend: '백엔드/API',
-    blockchain: '블록체인',
-    data: '데이터 분석',
-    devops: 'DevOps'
+  // API response already includes categoryDisplay
+  const getCategoryDisplay = () => {
+    if (request && 'categoryDisplay' in request) {
+      return (request as any).categoryDisplay.name;
+    }
+    // Fallback for old data
+    return request?.category || '';
   };
 
   const daysUntilDeadline = Math.ceil(
@@ -127,7 +132,7 @@ export default function RequestDetailPage() {
                 <span className={styles.urgentBadge}>긴급</span>
               )}
               <span className={styles.categoryBadge}>
-                {categoryKorean[request.category]}
+                {getCategoryDisplay()}
               </span>
             </div>
             
@@ -298,7 +303,7 @@ export default function RequestDetailPage() {
               <div className={styles.statusItem}>
                 <span className={styles.statusLabel}>카테고리</span>
                 <span className={styles.statusValue}>
-                  {categoryKorean[request.category]}
+                  {getCategoryDisplay()}
                 </span>
               </div>
               <div className={styles.statusItem}>

@@ -95,27 +95,45 @@ export async function GET(
 // Helper functions
 function getGradientByCategory(category: string): string {
   const gradients: Record<string, string> = {
-    'website': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+    // New category system
+    'sns': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+    'automation': 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)',
+    'web-app': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
     'mobile': 'linear-gradient(135deg, #F093FB 0%, #F5576C 100%)',
+    'ui-ux': 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)',
+    'data': 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)',
+    'ai-ml': 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)',
+    'fintech': 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)',
+    'b2b': 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)',
+    // Old category system (for backward compatibility)
+    'website': 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
     'ecommerce': 'linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%)',
     'ai': 'linear-gradient(135deg, #FA709A 0%, #FEE140 100%)',
     'backend': 'linear-gradient(135deg, #30CFD0 0%, #330867 100%)',
     'blockchain': 'linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%)',
-    'data': 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)',
     'devops': 'linear-gradient(135deg, #FEB692 0%, #EA5455 100%)',
   };
-  return gradients[category] || gradients['website'];
+  return gradients[category] || 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)';
 }
 
 function getIconByCategory(category: string): string {
   const icons: Record<string, string> = {
-    'website': '🌐',
+    // New category system
+    'sns': '💬',
+    'automation': '🔧',
+    'web-app': '🌐',
     'mobile': '📱',
+    'ui-ux': '🎨',
+    'data': '📊',
+    'ai-ml': '🤖',
+    'fintech': '💰',
+    'b2b': '🏢',
+    // Old category system (for backward compatibility)
+    'website': '🌐',
     'ecommerce': '🛍️',
     'ai': '🤖',
     'backend': '⚙️',
     'blockchain': '🔗',
-    'data': '📊',
     'devops': '🚀',
   };
   return icons[category] || '📦';
@@ -123,14 +141,27 @@ function getIconByCategory(category: string): string {
 
 function getCategoryDisplay(category: string): { name: string; color: string } {
   const categories: Record<string, { name: string; color: string }> = {
-    'website': { name: '웹사이트', color: '#667EEA' },
-    'mobile': { name: '모바일 앱', color: '#F093FB' },
-    'ecommerce': { name: '이커머스', color: '#4FACFE' },
+    // New category system
+    'sns': { name: 'SNS', color: '#667EEA' },
+    'automation': { name: 'Automation', color: '#FEB692' },
+    'web-app': { name: 'Web/App', color: '#667EEA' },
+    'mobile': { name: 'Mobile', color: '#F093FB' },
+    'ui-ux': { name: 'UI/UX', color: '#4FACFE' },
+    'data': { name: 'Data', color: '#8B5CF6' },
+    'ai-ml': { name: 'AI/ML', color: '#FA709A' },
+    'fintech': { name: 'Fintech', color: '#A8EDEA' },
+    'b2b': { name: 'B2B', color: '#30CFD0' },
+    // Old category system (for backward compatibility)
+    'website': { name: 'Web/App', color: '#667EEA' },
+    'ecommerce': { name: 'Web/App', color: '#4FACFE' },
     'ai': { name: 'AI/ML', color: '#FA709A' },
-    'backend': { name: '백엔드/API', color: '#30CFD0' },
-    'blockchain': { name: '블록체인', color: '#A8EDEA' },
-    'data': { name: '데이터 분석', color: '#8B5CF6' },
-    'devops': { name: 'DevOps', color: '#FEB692' },
+    'backend': { name: 'B2B', color: '#30CFD0' },
+    'blockchain': { name: 'Fintech', color: '#A8EDEA' },
+    'devops': { name: 'Automation', color: '#FEB692' },
   };
-  return categories[category] || { name: category, color: '#667EEA' };
+  
+  // Convert to uppercase and replace hyphens with slashes for display
+  const defaultName = category.toUpperCase().replace(/-/g, '/');
+  
+  return categories[category] || { name: defaultName, color: '#667EEA' };
 }
