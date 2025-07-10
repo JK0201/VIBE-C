@@ -2,22 +2,34 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
 import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
 import { Module, User } from '@/types';
+import useCartStore, { hydrateCartStore } from '@/stores/useCartStore';
+import useUIStore from '@/stores/useUIStore';
+import useAuthStore from '@/stores/useAuthStore';
 import styles from './page.module.css';
 import usersData from '@data/mock/users.json';
 
-// Using Module type as Component for consistency with API
-type Component = Module;
-
 export default function ComponentDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const [component, setComponent] = useState<Module | null>(null);
   const [seller, setSeller] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'features' | 'reviews'>('overview');
   const [isLoading, setIsLoading] = useState(true);
+  
+  const { addItem, items } = useCartStore();
+  const { showToast } = useUIStore();
+  const { user } = useAuthStore();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Hydrate cart store on client side
+  useEffect(() => {
+    hydrateCartStore();
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     const fetchComponent = async () => {
@@ -31,7 +43,7 @@ export default function ComponentDetailPage() {
           const foundSeller = usersData.users.find(u => u.id === data.data.sellerId);
           setSeller(foundSeller || null);
         }
-      } catch (error) {
+      } catch {
         // Handle error silently
       } finally {
         setIsLoading(false);
@@ -59,7 +71,7 @@ export default function ComponentDetailPage() {
   // API response already includes categoryDisplay
   const getCategoryDisplay = () => {
     if (component && 'categoryDisplay' in component) {
-      return (component as any).categoryDisplay.name;
+      return (component as { categoryDisplay: { name: string } }).categoryDisplay.name;
     }
     // Fallback for old data
     return component?.category || '';
@@ -207,11 +219,60 @@ export default function ComponentDetailPage() {
             <div className={styles.price}>
               <span className={styles.priceAmount}>{component.price.toLocaleString()}P</span>
             </div>
-            <button className={styles.purchaseButton}>
+            <button 
+              className={styles.purchaseButton}
+              onClick={() => {
+                if (!user) {
+                  showToast('로그인이 필요한 서비스입니다.', 'warning');
+                  router.push('/auth/login');
+                  return;
+                }
+                // Add to cart and go to cart page
+                if (isHydrated && !items.find(item => item.moduleId === component.id)) {
+                  addItem({
+                    moduleId: component.id,
+                    name: component.name,
+                    price: component.price,
+                    category: component.category,
+                    sellerId: component.sellerId,
+                    sellerName: seller?.nickname || `User #${component.sellerId}`
+                  });
+                }
+                router.push('/cart');
+              }}
+            >
               구매하기
             </button>
-            <button className={styles.cartButton}>
-              장바구니에 담기
+            <button 
+              className={styles.cartButton}
+              onClick={() => {
+                if (!user) {
+                  showToast('로그인이 필요한 서비스입니다.', 'warning');
+                  router.push('/auth/login');
+                  return;
+                }
+                const isInCart = items.find(item => item.moduleId === component.id);
+                if (isInCart) {
+                  // If already in cart, go to cart page
+                  router.push('/cart');
+                } else {
+                  // Add to cart
+                  addItem({
+                    moduleId: component.id,
+                    name: component.name,
+                    price: component.price,
+                    category: component.category,
+                    sellerId: component.sellerId,
+                    sellerName: seller?.nickname || `User #${component.sellerId}`
+                  });
+                  // Show success message
+                  showToast('장바구니에 추가되었습니다!', 'success');
+                }
+              }}
+            >
+              {isHydrated && items.find(item => item.moduleId === component.id) 
+                ? '장바구니 보기' 
+                : '장바구니에 담기'}
             </button>
           </div>
 

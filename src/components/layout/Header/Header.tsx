@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import useAuthStore from '@/stores/useAuthStore';
 import useFilterStore from '@/stores/useFilterStore';
+import useCartStore, { hydrateCartStore } from '@/stores/useCartStore';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -15,6 +16,14 @@ export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { items } = useCartStore();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Hydrate cart store on client side
+  useEffect(() => {
+    hydrateCartStore();
+    setIsHydrated(true);
+  }, []);
 
   // NextAuth 세션과 Zustand store 동기화
   useEffect(() => {
@@ -53,6 +62,7 @@ export default function Header() {
 
   const handleLogout = async () => {
     zustandLogout(); // Zustand store 초기화
+    useCartStore.getState().clearCartOnLogout(); // 장바구니 비우기
     await signOut({ redirect: false });
     router.push('/');
     router.refresh();
@@ -100,6 +110,18 @@ export default function Header() {
           </Link>
         </div>
         <div className={styles.navActions}>
+          {session && (
+            <Link href="/cart" className={styles.cartButton}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="9" cy="21" r="1"/>
+                <circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              {isHydrated && items.length > 0 && (
+                <span className={styles.cartCount}>{items.length}</span>
+              )}
+            </Link>
+          )}
           {status === 'loading' ? (
             <div className={styles.loadingSpinner}></div>
           ) : session ? (

@@ -163,7 +163,7 @@ export async function POST(request: NextRequest) {
       redirectUrl: "/auth/login"
     });
     
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { 
         success: false, 

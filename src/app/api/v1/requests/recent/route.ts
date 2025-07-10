@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
         type: type,
       }
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,

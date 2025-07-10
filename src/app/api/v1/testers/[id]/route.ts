@@ -72,7 +72,7 @@ export async function GET(
       success: true,
       data: detailedTester,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,

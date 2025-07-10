@@ -92,7 +92,7 @@ export async function GET(
       deadline: requestItem.deadline,
       createdAt: requestItem.createdAt,
       status: requestItem.status,
-      images: (requestItem as any).images || [],
+      images: 'images' in requestItem ? (requestItem as typeof requestItem & { images: string[] }).images : [],
       requirements: [
         '개발 경험 3년 이상',
         '관련 포트폴리오 보유',
@@ -127,7 +127,7 @@ export async function GET(
       success: true,
       data: detailedRequest,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,

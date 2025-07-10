@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
 import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
 import { Tester } from '@/types';
+import useUIStore from '@/stores/useUIStore';
 import styles from './page.module.css';
 import { formatDate } from '@/lib/formatDate';
 
@@ -16,6 +17,7 @@ export default function TesterDetailPage() {
   const [tester, setTester] = useState<Tester | null>(null);
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { showToast } = useUIStore();
   
   // Agreement detail toggle states
   const [agreementDetails, setAgreementDetails] = useState({
@@ -47,7 +49,7 @@ export default function TesterDetailPage() {
         if (data.success) {
           setTester(data.data);
         }
-      } catch (error) {
+      } catch {
         // Error is silently handled by setting tester to null
       } finally {
         setIsLoading(false);
@@ -618,24 +620,24 @@ export default function TesterDetailPage() {
                 onClick={() => {
                   // Validation
                   if (formData.devices.length === 0) {
-                    alert('보유하신 기기를 선택해주세요.');
+                    showToast('보유하신 기기를 선택해주세요.', 'error');
                     return;
                   }
                   if (!formData.experience) {
-                    alert('테스트 경험을 선택해주세요.');
+                    showToast('테스트 경험을 선택해주세요.', 'error');
                     return;
                   }
                   if (!formData.availability) {
-                    alert('참여 가능 여부를 선택해주세요.');
+                    showToast('참여 가능 여부를 선택해주세요.', 'error');
                     return;
                   }
                   if (!formData.agreements.privacy || !formData.agreements.nda || !formData.agreements.participation) {
-                    alert('모든 동의사항에 체크해주세요.');
+                    showToast('모든 동의사항에 체크해주세요.', 'error');
                     return;
                   }
                   
                   // Submit
-                  alert('지원이 완료되었습니다. 검토 후 연락드리겠습니다.');
+                  showToast('지원이 완료되었습니다. 검토 후 연락드리겠습니다.', 'success');
                   
                   // Reset form and close modal
                   setFormData({

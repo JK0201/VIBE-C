@@ -130,7 +130,7 @@ export default function RecentRequests() {
         } else {
           throw new Error(data.error || 'Failed to fetch requests');
         }
-      } catch (err) {
+      } catch {
         // Fallback to mock data on error
         const transformedMockRequests = mockRequests.map(req => ({
           ...req,

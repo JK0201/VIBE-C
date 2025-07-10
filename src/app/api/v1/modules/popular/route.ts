@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
         limit: limit,
       }
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,

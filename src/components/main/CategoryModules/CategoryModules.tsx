@@ -291,7 +291,7 @@ export default function CategoryModules() {
         } else {
           throw new Error(data.error || 'Failed to fetch modules');
         }
-      } catch (err) {
+      } catch {
         // Fallback to mock data on error
         const fallbackModules = modulesByCategory[selectedCategory] || [];
         setModules(fallbackModules.map(module => ({

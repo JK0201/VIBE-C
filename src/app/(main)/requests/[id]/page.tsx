@@ -43,7 +43,7 @@ export default function RequestDetailPage() {
           });
           setApplicants(applicantMap);
         }
-      } catch (error) {
+      } catch {
         // Handle error silently
       } finally {
         setIsLoading(false);
@@ -71,7 +71,7 @@ export default function RequestDetailPage() {
   // API response already includes categoryDisplay
   const getCategoryDisplay = () => {
     if (request && 'categoryDisplay' in request) {
-      return (request as any).categoryDisplay.name;
+      return (request as { categoryDisplay: { name: string } }).categoryDisplay.name;
     }
     // Fallback for old data
     return request?.category || '';

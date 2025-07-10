@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import useUIStore from '@/stores/useUIStore';
 import styles from './page.module.css';
 
 export default function SignupPage() {
+  const { showToast } = useUIStore();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -180,14 +182,14 @@ export default function SignupPage() {
       const data = await response.json();
       
       if (data.success) {
-        alert(data.message);
+        showToast(data.message, 'success');
         window.location.href = data.redirectUrl;
       } else {
         // 서버에서 반환한 에러 표시
         setErrors(data.errors || {});
       }
-    } catch (error) {
-      alert('회원가입 중 오류가 발생했습니다');
+    } catch {
+      showToast('회원가입 중 오류가 발생했습니다', 'error');
     }
   };
 

@@ -40,6 +40,7 @@ export async function GET(
       rating: foundModule.rating,
       purchases: foundModule.purchases,
       tags: foundModule.tags,
+      sellerId: foundModule.sellerId,  // Add sellerId to the response
       features: foundModule.features || [
         '완전한 소스 코드 제공',
         '상세한 설치 가이드',
@@ -80,7 +81,7 @@ export async function GET(
       success: true,
       data: detailedModule,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,
