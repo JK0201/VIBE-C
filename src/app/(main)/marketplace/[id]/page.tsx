@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
+import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
 import styles from './page.module.css';
 import usersData from '@data/mock/users.json';
 
@@ -44,9 +45,11 @@ export default function ComponentDetailPage() {
   const [component, setComponent] = useState<Component | null>(null);
   const [seller, setSeller] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'features' | 'reviews'>('overview');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchComponent = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`/api/v1/modules/${params.id}`);
         const data = await response.json();
@@ -58,11 +61,17 @@ export default function ComponentDetailPage() {
         }
       } catch (error) {
         console.error('Failed to fetch component:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchComponent();
   }, [params.id]);
+
+  if (isLoading) {
+    return <DetailPageSkeleton />;
+  }
 
   if (!component) {
     return (

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
+import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
 import styles from './page.module.css';
 import testersData from '@data/mock/testers.json';
 import { formatDate } from '@/lib/formatDate';
@@ -30,6 +31,7 @@ export default function TesterDetailPage() {
   const params = useParams();
   const [tester, setTester] = useState<Tester | null>(null);
   const [showApplyModal, setShowApplyModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
   // Agreement detail toggle states
   const [agreementDetails, setAgreementDetails] = useState({
@@ -52,13 +54,32 @@ export default function TesterDetailPage() {
   });
 
   useEffect(() => {
-    const testerId = parseInt(params.id as string);
-    const foundTester = testersData.testers.find(t => t.id === testerId);
-    
-    if (foundTester) {
-      setTester(foundTester);
-    }
+    // Simulate API call
+    const fetchTester = async () => {
+      setIsLoading(true);
+      try {
+        // Simulate delay
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        const testerId = parseInt(params.id as string);
+        const foundTester = testersData.testers.find(t => t.id === testerId);
+        
+        if (foundTester) {
+          setTester(foundTester);
+        }
+      } catch (error) {
+        console.error('Failed to fetch tester:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTester();
   }, [params.id]);
+
+  if (isLoading) {
+    return <DetailPageSkeleton />;
+  }
 
   if (!tester) {
     return (

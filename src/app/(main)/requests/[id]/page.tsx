@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
 import styles from './page.module.css';
 import usersData from '@data/mock/users.json';
 import { formatDate } from '@/lib/formatDate';
@@ -56,9 +57,11 @@ export default function RequestDetailPage() {
   const [requester, setRequester] = useState<User | null>(null);
   const [applicants, setApplicants] = useState<{ [key: number]: User }>({});
   const [showApplyModal, setShowApplyModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchRequest = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`/api/v1/requests/${params.id}`);
         const data = await response.json();
@@ -82,11 +85,17 @@ export default function RequestDetailPage() {
         }
       } catch (error) {
         console.error('Failed to fetch request:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchRequest();
   }, [params.id]);
+
+  if (isLoading) {
+    return <DetailPageSkeleton />;
+  }
 
   if (!request) {
     return (
