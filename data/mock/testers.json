@@ -12,7 +12,7 @@
       "requirements": ["iOS", "Android"],
       "deadline": "2025-07-05T00:00:00Z",
       "createdAt": "2025-07-02T10:00:00Z",
-      "applicants": 15,
+      "applicants": 20,
       "isUrgent": false,
       "status": "OPEN",
       "images": [
@@ -57,7 +57,13 @@
       "createdAt": "2025-07-01T14:00:00Z",
       "applicants": 8,
       "isUrgent": true,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Browser+Test+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Browser+Test+2",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=UI+Test+1",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=UI+Test+2"
+      ]
     },
     {
       "id": 4,
@@ -73,7 +79,12 @@
       "createdAt": "2025-06-25T09:00:00Z",
       "applicants": 25,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Game+Performance+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Game+Performance+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Game+Performance+3"
+      ]
     },
     {
       "id": 5,
@@ -89,7 +100,12 @@
       "createdAt": "2025-07-01T16:00:00Z",
       "applicants": 12,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=AI+Chatbot+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=AI+Chatbot+2",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=AI+Chatbot+3"
+      ]
     },
     {
       "id": 6,
@@ -105,7 +121,13 @@
       "createdAt": "2025-06-20T11:00:00Z",
       "applicants": 5,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=SmartHome+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=SmartHome+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Performance+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Performance+2"
+      ]
     },
     {
       "id": 7,
@@ -121,7 +143,12 @@
       "createdAt": "2025-07-02T13:00:00Z",
       "applicants": 10,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Education+UX+1",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Education+UX+2",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Education+UX+3"
+      ]
     },
     {
       "id": 8,
@@ -137,7 +164,12 @@
       "createdAt": "2025-07-02T15:00:00Z",
       "applicants": 20,
       "isUrgent": true,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Delivery+App+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Delivery+App+2",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Delivery+App+3"
+      ]
     },
     {
       "id": 9,
@@ -153,7 +185,13 @@
       "createdAt": "2025-06-28T14:00:00Z",
       "applicants": 7,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Streaming+Performance+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Streaming+Performance+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Streaming+Performance+3",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Streaming+Performance+4"
+      ]
     },
     {
       "id": 10,
@@ -169,7 +207,12 @@
       "createdAt": "2025-06-15T10:00:00Z",
       "applicants": 2,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Accessibility+UI+1",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Accessibility+UI+2",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Accessibility+Test+1"
+      ]
     },
     {
       "id": 11,
@@ -185,7 +228,13 @@
       "createdAt": "2025-06-10T12:00:00Z",
       "applicants": 35,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Social+App+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Social+App+2",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Social+UI+1",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Social+UI+2"
+      ]
     },
     {
       "id": 12,
@@ -201,7 +250,12 @@
       "createdAt": "2025-07-01T08:00:00Z",
       "applicants": 4,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=POS+System+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=POS+System+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=POS+Performance+1"
+      ]
     },
     {
       "id": 13,
@@ -217,7 +271,12 @@
       "createdAt": "2025-06-05T15:00:00Z",
       "applicants": 6,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=VR+Game+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=VR+Game+2",
+        "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=VR+UI+1"
+      ]
     },
     {
       "id": 14,
@@ -233,7 +292,13 @@
       "createdAt": "2025-06-01T09:00:00Z",
       "applicants": 18,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Healthcare+App+1",
+        "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Healthcare+App+2",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Health+Performance+1",
+        "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Health+Performance+2"
+      ]
     },
     {
       "id": 15,
@@ -249,7 +314,12 @@
       "createdAt": "2025-07-02T11:00:00Z",
       "applicants": 2,
       "isUrgent": false,
-      "status": "OPEN"
+      "status": "OPEN",
+      "images": [
+        "https://via.placeholder.com/800x600/EF4444/FFFFFF?text=Blockchain+Security+1",
+        "https://via.placeholder.com/800x600/EF4444/FFFFFF?text=Blockchain+Security+2",
+        "https://via.placeholder.com/800x600/EF4444/FFFFFF?text=Wallet+Security+1"
+      ]
     }
   ]
 }

@@ -30,6 +30,26 @@ export default function TesterDetailPage() {
   const params = useParams();
   const [tester, setTester] = useState<Tester | null>(null);
   const [showApplyModal, setShowApplyModal] = useState(false);
+  
+  // Agreement detail toggle states
+  const [agreementDetails, setAgreementDetails] = useState({
+    privacy: false,
+    nda: false,
+    participation: false
+  });
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    devices: [] as string[],
+    experience: '',
+    availability: '',
+    introduction: '',
+    agreements: {
+      privacy: false,
+      nda: false,
+      participation: false
+    }
+  });
 
   useEffect(() => {
     const testerId = parseInt(params.id as string);
@@ -78,6 +98,11 @@ export default function TesterDetailPage() {
 
   const progressPercentage = Math.round((tester.applicants / tester.requiredTesters) * 100);
   
+  // Determine color based on progress
+  const getProgressColor = () => {
+    return progressPercentage >= 100 ? 'complete' : 'incomplete';
+  };
+  
   const isExpired = new Date(tester.deadline).getTime() < new Date().getTime();
   const isClosed = isExpired || tester.status === 'COMPLETED' || tester.applicants >= tester.requiredTesters;
 
@@ -93,10 +118,6 @@ export default function TesterDetailPage() {
 
       <div className={styles.content}>
         <div className={styles.mainSection}>
-          {tester.images && tester.images.length > 0 && (
-            <ImageGallery images={tester.images} title={tester.title} />
-          )}
-          
           <div className={styles.header}>
             <div className={styles.company}>
               <div className={styles.companyAvatar}>
@@ -129,6 +150,10 @@ export default function TesterDetailPage() {
                 <span>기간: {durationKorean[tester.duration]}</span>
               </div>
             </div>
+            
+            {tester.images && tester.images.length > 0 && (
+              <ImageGallery images={tester.images} title={tester.title} />
+            )}
           </div>
 
           <div className={styles.description}>
@@ -167,9 +192,9 @@ export default function TesterDetailPage() {
             <h2>모집 현황</h2>
             <div className={styles.progressInfo}>
               <div className={styles.progressNumbers}>
-                <span className={styles.current}>{tester.applicants}명</span>
-                <span className={styles.divider}>/</span>
-                <span className={styles.required}>{tester.requiredTesters}명</span>
+                <span className={`${styles.progressCount} ${styles[getProgressColor()]}`}>
+                  {tester.applicants}/{tester.requiredTesters}명
+                </span>
               </div>
               <div className={styles.progressBar}>
                 <div 
@@ -247,7 +272,21 @@ export default function TesterDetailPage() {
             
             <button 
               className={styles.applyButton}
-              onClick={() => setShowApplyModal(true)}
+              onClick={() => {
+                // Reset form when opening modal
+                setFormData({
+                  devices: [],
+                  experience: '',
+                  availability: '',
+                  introduction: '',
+                  agreements: {
+                    privacy: false,
+                    nda: false,
+                    participation: false
+                  }
+                });
+                setShowApplyModal(true);
+              }}
               disabled={isClosed}
             >
               {isClosed 
@@ -299,11 +338,323 @@ export default function TesterDetailPage() {
       </div>
 
       {showApplyModal && (
-        <div className={styles.modalOverlay} onClick={() => setShowApplyModal(false)}>
-          <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <h2>테스터 지원하기</h2>
-            <p>이 기능은 아직 준비 중입니다.</p>
-            <button onClick={() => setShowApplyModal(false)}>닫기</button>
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <div className={styles.modalHeader}>
+              <h2>테스터 지원하기</h2>
+              <button 
+                className={styles.modalClose}
+                onClick={() => setShowApplyModal(false)}
+                aria-label="닫기"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <div className={styles.modalContent}>
+              {/* 보유 기기 */}
+              <div className={styles.formSection}>
+                <h3 className={styles.formSectionTitle}>
+                  <span className={styles.required}>*</span> 이 테스트에 필요한 기기/플랫폼을 보유하고 있나요?
+                </h3>
+                <div className={styles.checkboxGroup}>
+                  {tester.requirements.map(req => (
+                    <label key={req} className={styles.checkbox}>
+                      <input
+                        type="checkbox"
+                        value={req}
+                        checked={formData.devices.includes(req)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData(prev => ({
+                              ...prev,
+                              devices: [...prev.devices, req]
+                            }));
+                          } else {
+                            setFormData(prev => ({
+                              ...prev,
+                              devices: prev.devices.filter(d => d !== req)
+                            }));
+                          }
+                        }}
+                      />
+                      <span>{requirementKorean[req]}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* 테스트 경험 */}
+              <div className={styles.formSection}>
+                <h3 className={styles.formSectionTitle}>
+                  <span className={styles.required}>*</span> 관련 테스트 경험이 있나요?
+                </h3>
+                <div className={styles.radioGroup}>
+                  {[
+                    { value: 'none', label: '없음' },
+                    { value: 'beginner', label: '1-3회' },
+                    { value: 'intermediate', label: '4-10회' },
+                    { value: 'expert', label: '10회 이상' }
+                  ].map(option => (
+                    <label key={option.value} className={styles.radio}>
+                      <input
+                        type="radio"
+                        name="experience"
+                        value={option.value}
+                        checked={formData.experience === option.value}
+                        onChange={(e) => setFormData(prev => ({ ...prev, experience: e.target.value }))}
+                      />
+                      <span>{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* 참여 가능 여부 */}
+              <div className={styles.formSection}>
+                <h3 className={styles.formSectionTitle}>
+                  <span className={styles.required}>*</span> 테스트 기간({durationKorean[tester.duration]}) 동안 참여 가능하신가요?
+                </h3>
+                <div className={styles.radioGroup}>
+                  <label className={styles.radio}>
+                    <input
+                      type="radio"
+                      name="availability"
+                      value="full"
+                      checked={formData.availability === 'full'}
+                      onChange={(e) => setFormData(prev => ({ ...prev, availability: e.target.value }))}
+                    />
+                    <span>전체 기간 가능</span>
+                  </label>
+                  <label className={styles.radio}>
+                    <input
+                      type="radio"
+                      name="availability"
+                      value="partial"
+                      checked={formData.availability === 'partial'}
+                      onChange={(e) => setFormData(prev => ({ ...prev, availability: e.target.value }))}
+                    />
+                    <span>부분 참여 (최소 3일 이상)</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* 자기소개 */}
+              <div className={styles.formSection}>
+                <h3 className={styles.formSectionTitle}>
+                  간단한 자기소개 <span className={styles.optional}>(선택)</span>
+                </h3>
+                <p className={styles.formHelp}>왜 이 테스트에 적합한지 간단히 설명해주세요</p>
+                <textarea
+                  className={styles.textarea}
+                  placeholder="예: 평소 쇼핑앱을 자주 사용하며, UI/UX에 관심이 많습니다..."
+                  value={formData.introduction}
+                  onChange={(e) => {
+                    if (e.target.value.length <= 200) {
+                      setFormData(prev => ({ ...prev, introduction: e.target.value }));
+                    }
+                  }}
+                  rows={4}
+                />
+                <div className={styles.charCount}>
+                  {formData.introduction.length}/200
+                </div>
+              </div>
+
+              {/* 동의사항 */}
+              <div className={styles.formSection}>
+                <h3 className={styles.formSectionTitle}>
+                  <span className={styles.required}>*</span> 동의사항
+                </h3>
+                <div className={styles.agreementGroup}>
+                  <label className={styles.checkbox}>
+                    <input
+                      type="checkbox"
+                      checked={formData.agreements.privacy}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        agreements: { ...prev.agreements, privacy: e.target.checked }
+                      }))}
+                    />
+                    <span>
+                      테스트 진행을 위한 개인정보 수집 및 기업 제공에 동의합니다
+                      <button 
+                        type="button"
+                        className={styles.detailToggle}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setAgreementDetails(prev => ({ ...prev, privacy: !prev.privacy }));
+                        }}
+                      >
+                        <span>자세히</span>
+                        <svg 
+                          width="12" 
+                          height="12" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          stroke="currentColor"
+                          className={`${styles.toggleIcon} ${agreementDetails.privacy ? styles.open : ''}`}
+                        >
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </button>
+                    </span>
+                  </label>
+                  {agreementDetails.privacy && (
+                    <div className={styles.detailContent}>
+                      <h4>1. 수집항목</h4>
+                      <p>필수: 이메일, 닉네임, 보유기기 정보, 테스트 경험</p>
+                      <h4>2. 수집목적</h4>
+                      <p>테스터 선발, 테스트 진행 및 커뮤니케이션</p>
+                      <h4>3. 보유기간</h4>
+                      <p>테스트 종료 후 1년 (법령에 따른 보관 의무 있을 시 해당 기간)</p>
+                    </div>
+                  )}
+                  <label className={styles.checkbox}>
+                    <input
+                      type="checkbox"
+                      checked={formData.agreements.nda}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        agreements: { ...prev.agreements, nda: e.target.checked }
+                      }))}
+                    />
+                    <span>
+                      테스트 내용에 대한 비밀유지 의무를 준수하겠습니다
+                      <button 
+                        type="button"
+                        className={styles.detailToggle}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setAgreementDetails(prev => ({ ...prev, nda: !prev.nda }));
+                        }}
+                      >
+                        <span>자세히</span>
+                        <svg 
+                          width="12" 
+                          height="12" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          stroke="currentColor"
+                          className={`${styles.toggleIcon} ${agreementDetails.nda ? styles.open : ''}`}
+                        >
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </button>
+                    </span>
+                  </label>
+                  {agreementDetails.nda && (
+                    <div className={styles.detailContent}>
+                      <p><strong>비밀유지 대상:</strong></p>
+                      <ul>
+                        <li>테스트 중 알게 된 앱/서비스의 기능, UI/UX 디자인</li>
+                        <li>미공개 콘텐츠 및 비즈니스 정보</li>
+                        <li>발견한 버그 및 취약점 정보</li>
+                        <li>기타 테스트 과정에서 얻은 모든 정보</li>
+                      </ul>
+                      <p className={styles.warning}>⚠️ 위반 시 법적 책임을 질 수 있습니다.</p>
+                    </div>
+                  )}
+                  <label className={styles.checkbox}>
+                    <input
+                      type="checkbox"
+                      checked={formData.agreements.participation}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        agreements: { ...prev.agreements, participation: e.target.checked }
+                      }))}
+                    />
+                    <span>
+                      성실한 테스트 참여 및 상세한 버그 리포트 작성에 동의합니다
+                      <button 
+                        type="button"
+                        className={styles.detailToggle}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setAgreementDetails(prev => ({ ...prev, participation: !prev.participation }));
+                        }}
+                      >
+                        <span>자세히</span>
+                        <svg 
+                          width="12" 
+                          height="12" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          stroke="currentColor"
+                          className={`${styles.toggleIcon} ${agreementDetails.participation ? styles.open : ''}`}
+                        >
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </button>
+                    </span>
+                  </label>
+                  {agreementDetails.participation && (
+                    <div className={styles.detailContent}>
+                      <p><strong>테스터의 의무:</strong></p>
+                      <ul>
+                        <li>테스트 가이드라인에 따른 성실한 테스트 수행</li>
+                        <li>발견한 버그에 대한 상세하고 명확한 리포트 작성</li>
+                        <li>테스트 기간 내 적극적인 참여</li>
+                      </ul>
+                      <p className={styles.warning}>⚠️ 불성실한 참여 또는 허위 리포트 작성 시 보상이 지급되지 않을 수 있습니다.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            <div className={styles.modalFooter}>
+              <button 
+                className={styles.modalCancel}
+                onClick={() => setShowApplyModal(false)}
+              >
+                취소
+              </button>
+              <button 
+                className={styles.modalSubmit}
+                onClick={() => {
+                  // Validation
+                  if (formData.devices.length === 0) {
+                    alert('보유하신 기기를 선택해주세요.');
+                    return;
+                  }
+                  if (!formData.experience) {
+                    alert('테스트 경험을 선택해주세요.');
+                    return;
+                  }
+                  if (!formData.availability) {
+                    alert('참여 가능 여부를 선택해주세요.');
+                    return;
+                  }
+                  if (!formData.agreements.privacy || !formData.agreements.nda || !formData.agreements.participation) {
+                    alert('모든 동의사항에 체크해주세요.');
+                    return;
+                  }
+                  
+                  // Submit
+                  console.log('Tester application submitted:', formData);
+                  alert('지원이 완료되었습니다. 검토 후 연락드리겠습니다.');
+                  
+                  // Reset form and close modal
+                  setFormData({
+                    devices: [],
+                    experience: '',
+                    availability: '',
+                    introduction: '',
+                    agreements: {
+                      privacy: false,
+                      nda: false,
+                      participation: false
+                    }
+                  });
+                  setShowApplyModal(false);
+                }}
+              >
+                지원하기
+              </button>
+            </div>
           </div>
         </div>
       )}

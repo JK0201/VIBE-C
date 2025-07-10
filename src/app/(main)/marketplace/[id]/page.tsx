@@ -96,10 +96,6 @@ export default function ComponentDetailPage() {
 
       <div className={styles.content}>
         <div className={styles.mainSection}>
-          {component.images && component.images.length > 0 && (
-            <ImageGallery images={component.images} title={component.name} />
-          )}
-          
           <div className={styles.header}>
             <div className={styles.categoryBadge}>
               {getCategoryDisplay()}
@@ -134,6 +130,9 @@ export default function ComponentDetailPage() {
                 <span>{component.comments}개 리뷰</span>
               </div>
             </div>
+            {component.images && component.images.length > 0 && (
+            <ImageGallery images={component.images} title={component.name} />
+          )}
           </div>
 
           <div className={styles.tabs}>

@@ -195,24 +195,19 @@
   justify-content: center;
 }
 
-.current {
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.progressCount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  transition: color 0.3s ease;
 }
 
-.divider {
-  font-size: 1.5rem;
-  color: #d1d5db;
+/* Progress-based colors */
+.progressCount.incomplete {
+  color: #6b7280; /* Gray for 0-99% */
 }
 
-.required {
-  font-size: 1.5rem;
-  color: #6b7280;
-  font-weight: 600;
+.progressCount.complete {
+  color: #667EEA; /* Purple for 100% - brand color */
 }
 
 .progressBar {
@@ -462,37 +457,276 @@
 .modal {
   background: white;
   border-radius: 16px;
-  padding: 2rem;
-  max-width: 500px;
+  max-width: 600px;
   width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.modal h2 {
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modalHeader h2 {
   font-size: 1.5rem;
   font-weight: 700;
   color: #111827;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
-.modal p {
-  color: #4b5563;
-  margin-bottom: 1.5rem;
-}
-
-.modal button {
-  padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  color: white;
+.modalClose {
+  background: none;
   border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.modalClose:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.modalContent {
+  padding: 2rem;
+  flex: 1;
+}
+
+.modalDescription {
+  color: #6b7280;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 2rem 2rem;
+  border-top: 1px solid #e5e7eb;
+  justify-content: flex-end;
+}
+
+.modalCancel,
+.modalSubmit {
+  padding: 0.875rem 1.5rem;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
+  border: none;
+  font-size: 1rem;
 }
 
-.modal button:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+.modalCancel {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.modalCancel:hover {
+  background: #e5e7eb;
+}
+
+.modalSubmit {
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  color: white;
+}
+
+.modalSubmit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Form Styles */
+.formSection {
+  margin-bottom: 2rem;
+}
+
+.formSection:last-child {
+  margin-bottom: 0;
+}
+
+.formSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.required {
+  color: #ef4444;
+  margin-right: 0.25rem;
+}
+
+.optional {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.formHelp {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+/* Checkbox and Radio Styles */
+.checkboxGroup,
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.checkbox,
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.checkbox input[type="checkbox"],
+.radio input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #667EEA;
+}
+
+.checkbox:hover,
+.radio:hover {
+  color: #111827;
+}
+
+/* Textarea Styles */
+.textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.2s;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #667EEA;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.textarea::placeholder {
+  color: #9ca3af;
+}
+
+.charCount {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* Agreement Styles */
+.agreementGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.detailToggle {
+  background: none;
+  border: none;
+  color: #667EEA;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 4px;
+}
+
+.detailToggle:hover {
+  background: #f3f4f6;
+}
+
+.toggleIcon {
+  transition: transform 0.2s;
+}
+
+.toggleIcon.open {
+  transform: rotate(180deg);
+}
+
+.detailContent {
+  margin-top: 0.75rem;
+  margin-left: 1.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-left: 3px solid #667EEA;
+  border-radius: 4px;
+  font-size: 0.813rem;
+  color: #4b5563;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detailContent h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.detailContent p {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.detailContent ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.detailContent li {
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+}
+
+.detailContent .warning {
+  color: #dc2626;
+  font-size: 0.75rem;
+  margin-top: 0.75rem;
+  font-weight: 500;
 }
 
 .notFound {
@@ -559,5 +793,29 @@
 
   .progressNumbers {
     justify-content: center;
+  }
+  
+  .modal {
+    max-width: 100%;
+    width: 100%;
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+  
+  .modalContent {
+    padding: 1.5rem;
+  }
+  
+  .modalHeader {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .modalFooter {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+  
+  .checkboxGroup,
+  .radioGroup {
+    gap: 1rem;
   }
 }

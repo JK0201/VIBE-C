@@ -1,5 +1,6 @@
 .gallery {
   width: 100%;
+  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -56,10 +57,11 @@
   color: #374151;
 }
 
-.navButton:hover {
+/* Hover effect removed */
+/* .navButton:hover {
   background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+} */
 
 .navButton:active {
   transform: translateY(-50%) scale(0.95);
@@ -121,10 +123,11 @@
   object-fit: cover;
 }
 
-.thumbnail:hover {
+/* Hover effect removed */
+/* .thumbnail:hover {
   border-color: #e5e7eb;
   transform: scale(1.05);
-}
+} */
 
 .thumbnail.active {
   border-color: #667EEA;
