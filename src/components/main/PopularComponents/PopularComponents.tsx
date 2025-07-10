@@ -159,7 +159,6 @@ export default function PopularComponents() {
           throw new Error(data.error || 'Failed to fetch modules');
         }
       } catch (err) {
-        console.error('Error fetching popular modules:', err);
         // Fallback to mock data on error
         const transformedMockData = mockData.map((module) => ({
           ...module,

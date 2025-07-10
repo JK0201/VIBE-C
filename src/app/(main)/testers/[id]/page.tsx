@@ -5,27 +5,11 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
 import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
+import { Tester } from '@/types';
 import styles from './page.module.css';
-import testersData from '@data/mock/testers.json';
 import { formatDate } from '@/lib/formatDate';
 
-interface Tester {
-  id: number;
-  title: string;
-  company: string;
-  description: string;
-  testType: string[];
-  duration: string;
-  requiredTesters: number;
-  reward: number;
-  requirements: string[];
-  deadline: string;
-  createdAt: string;
-  applicants: number;
-  isUrgent: boolean;
-  status: string;
-  images?: string[];
-}
+// Type imported from @/types
 
 export default function TesterDetailPage() {
   const params = useParams();
@@ -54,21 +38,17 @@ export default function TesterDetailPage() {
   });
 
   useEffect(() => {
-    // Simulate API call
     const fetchTester = async () => {
       setIsLoading(true);
       try {
-        // Simulate delay
-        await new Promise(resolve => setTimeout(resolve, 300));
+        const response = await fetch(`/api/v1/testers/${params.id}`);
+        const data = await response.json();
         
-        const testerId = parseInt(params.id as string);
-        const foundTester = testersData.testers.find(t => t.id === testerId);
-        
-        if (foundTester) {
-          setTester(foundTester);
+        if (data.success) {
+          setTester(data.data);
         }
       } catch (error) {
-        console.error('Failed to fetch tester:', error);
+        // Error is silently handled by setting tester to null
       } finally {
         setIsLoading(false);
       }
@@ -655,7 +635,6 @@ export default function TesterDetailPage() {
                   }
                   
                   // Submit
-                  console.log('Tester application submitted:', formData);
                   alert('지원이 완료되었습니다. 검토 후 연락드리겠습니다.');
                   
                   // Reset form and close modal

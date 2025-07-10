@@ -73,7 +73,6 @@ export async function GET(
       data: detailedTester,
     });
   } catch (error) {
-    console.error('Error fetching tester details:', error);
     return NextResponse.json(
       {
         success: false,

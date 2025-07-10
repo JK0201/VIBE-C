@@ -4,52 +4,12 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
+import { Request, User, Application, Bid } from '@/types';
 import styles from './page.module.css';
 import usersData from '@data/mock/users.json';
 import { formatDate } from '@/lib/formatDate';
 
-interface Application {
-  id: number;
-  userId: number;
-  requestId: number;
-  message: string;
-  createdAt: string;
-}
-
-interface Bid {
-  id: number;
-  userId: number;
-  requestId: number;
-  amount: number;
-  message: string;
-  createdAt: string;
-}
-
-interface Request {
-  id: number;
-  userId: number;
-  title: string;
-  description: string;
-  type: 'FIXED_PRICE' | 'AUCTION';
-  budget: number | null;
-  isUrgent: boolean;
-  status: string;
-  category: string;
-  deadline: string;
-  createdAt: string;
-  applications?: Application[];
-  bids?: Bid[];
-}
-
-interface User {
-  id: number;
-  email: string;
-  nickname: string;
-  githubId: string;
-  balance: number;
-  profileImage?: string;
-  bio?: string;
-}
+// Types are imported from @/types
 
 export default function RequestDetailPage() {
   const params = useParams();
@@ -84,7 +44,7 @@ export default function RequestDetailPage() {
           setApplicants(applicantMap);
         }
       } catch (error) {
-        console.error('Failed to fetch request:', error);
+        // Handle error silently
       } finally {
         setIsLoading(false);
       }

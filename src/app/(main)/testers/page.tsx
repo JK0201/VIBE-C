@@ -95,7 +95,6 @@ export default function TestersPage() {
           throw new Error(data.error || 'Failed to fetch testers');
         }
       } catch (err) {
-        console.error('Error fetching testers:', err);
         setError(err instanceof Error ? err.message : 'Failed to load testers');
       } finally {
         setIsLoading(false);

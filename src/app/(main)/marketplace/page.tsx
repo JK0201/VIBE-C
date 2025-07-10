@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import useFilterStore from '@/stores/useFilterStore';
+import { Module } from '@/types';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import MarketplaceHero from '@/components/marketplace/MarketplaceHero/MarketplaceHero';
@@ -14,37 +15,7 @@ import styles from './marketplace.module.css';
 
 const ITEMS_PER_PAGE = 12;
 
-interface Module {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  tags: string[];
-  rating: number;
-  purchases: number;
-  githubUrl: string;
-  createdAt: string;
-  language: string;
-  framework: string;
-  license: string;
-  sellerId: number;
-  features: string[];
-  comments: number;
-  updatedAt: string;
-  demoUrl?: string;
-  author?: {
-    id: number;
-    name: string;
-    profileImage: string;
-    githubId: string;
-  };
-  categoryDisplay: {
-    name: string;
-    gradient: string;
-    icon: string;
-  };
-}
+// Type imported from @/types
 
 function MarketplaceContent() {
   const searchParams = useSearchParams();
@@ -107,7 +78,6 @@ function MarketplaceContent() {
           throw new Error(data.error || 'Failed to fetch modules');
         }
       } catch (err) {
-        console.error('Error fetching modules:', err);
         setError(err instanceof Error ? err.message : 'Failed to load modules');
       } finally {
         setIsLoading(false);

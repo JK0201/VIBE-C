@@ -47,7 +47,6 @@ export async function GET(request: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error fetching popular modules:', error);
     return NextResponse.json(
       {
         success: false,

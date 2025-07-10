@@ -5,44 +5,16 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import ImageGallery from '@/components/common/ImageGallery/ImageGallery';
 import DetailPageSkeleton from '@/components/common/DetailPageSkeleton/DetailPageSkeleton';
+import { Module, User } from '@/types';
 import styles from './page.module.css';
 import usersData from '@data/mock/users.json';
 
-interface Component {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  tags: string[];
-  language: string;
-  framework: string;
-  license: string;
-  githubUrl: string;
-  demoUrl: string;
-  sellerId: number;
-  features: string[];
-  purchases: number;
-  rating: number;
-  comments: number;
-  createdAt: string;
-  updatedAt: string;
-  images?: string[];
-}
-
-interface User {
-  id: number;
-  email: string;
-  nickname: string;
-  githubId: string;
-  balance: number;
-  profileImage?: string;
-  bio?: string;
-}
+// Using Module type as Component for consistency with API
+type Component = Module;
 
 export default function ComponentDetailPage() {
   const params = useParams();
-  const [component, setComponent] = useState<Component | null>(null);
+  const [component, setComponent] = useState<Module | null>(null);
   const [seller, setSeller] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'features' | 'reviews'>('overview');
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +32,7 @@ export default function ComponentDetailPage() {
           setSeller(foundSeller || null);
         }
       } catch (error) {
-        console.error('Failed to fetch component:', error);
+        // Handle error silently
       } finally {
         setIsLoading(false);
       }

@@ -131,7 +131,6 @@ export default function RecentRequests() {
           throw new Error(data.error || 'Failed to fetch requests');
         }
       } catch (err) {
-        console.error('Error fetching recent requests:', err);
         // Fallback to mock data on error
         const transformedMockRequests = mockRequests.map(req => ({
           ...req,

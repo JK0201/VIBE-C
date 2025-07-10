@@ -187,7 +187,6 @@ export default function SignupPage() {
         setErrors(data.errors || {});
       }
     } catch (error) {
-      console.error('Signup error:', error);
       alert('회원가입 중 오류가 발생했습니다');
     }
   };

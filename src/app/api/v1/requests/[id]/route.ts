@@ -128,7 +128,6 @@ export async function GET(
       data: detailedRequest,
     });
   } catch (error) {
-    console.error('Error fetching request details:', error);
     return NextResponse.json(
       {
         success: false,

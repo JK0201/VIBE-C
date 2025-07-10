@@ -81,7 +81,6 @@ export async function GET(
       data: detailedModule,
     });
   } catch (error) {
-    console.error('Error fetching module details:', error);
     return NextResponse.json(
       {
         success: false,

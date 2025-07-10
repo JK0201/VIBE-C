@@ -57,11 +57,7 @@
   color: #374151;
 }
 
-/* Hover effect removed */
-/* .navButton:hover {
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-} */
+/* Navigation button hover effect removed per user request */
 
 .navButton:active {
   transform: translateY(-50%) scale(0.95);
@@ -123,11 +119,7 @@
   object-fit: cover;
 }
 
-/* Hover effect removed */
-/* .thumbnail:hover {
-  border-color: #e5e7eb;
-  transform: scale(1.05);
-} */
+/* Hover effect removed per user request */
 
 .thumbnail.active {
   border-color: #667EEA;

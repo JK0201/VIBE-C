@@ -102,7 +102,6 @@ function RequestsContent() {
           throw new Error(data.error || 'Failed to fetch requests');
         }
       } catch (err) {
-        console.error('Error fetching requests:', err);
         setError(err instanceof Error ? err.message : 'Failed to load requests');
       } finally {
         setIsLoading(false);
