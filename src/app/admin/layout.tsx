@@ -60,7 +60,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <path d="M3 12h18M3 6h18M3 18h18" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-        <h1 style={{ marginLeft: '1rem', fontSize: '1.25rem', fontWeight: '600' }}>관리자 패널</h1>
+        <h1>관리자 패널</h1>
       </header>
 
       <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''}`}>

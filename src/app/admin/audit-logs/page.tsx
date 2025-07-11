@@ -13,6 +13,7 @@ export default function AdminAuditLogsPage() {
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const [actionFilter, setActionFilter] = useState('');
   const [entityFilter, setEntityFilter] = useState('');
   const [dateFrom, setDateFrom] = useState('');
@@ -25,6 +26,10 @@ export default function AdminAuditLogsPage() {
   useEffect(() => {
     fetchAuditLogs();
   }, [currentPage, searchTerm, actionFilter, entityFilter, dateFrom, dateTo]);
+
+  useEffect(() => {
+    setSearchInput(searchTerm);
+  }, [searchTerm]);
 
   const fetchAuditLogs = async () => {
     try {
@@ -50,6 +55,17 @@ export default function AdminAuditLogsPage() {
       showToast('감사 로그를 불러오는데 실패했습니다', 'error');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+    setCurrentPage(1);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
     }
   };
 
@@ -83,16 +99,26 @@ export default function AdminAuditLogsPage() {
 
       {/* Filters */}
       <div className={styles.filters}>
-        <input
-          type="text"
-          placeholder="이메일, 액션, 상세 내용으로 검색..."
-          className={styles.searchInput}
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
-          }}
-        />
+        <div className={styles.searchWrapper}>
+          <input
+            type="text"
+            placeholder="이메일, 액션, 상세 내용으로 검색..."
+            className={styles.searchInput}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <button
+            className={styles.searchButton}
+            onClick={handleSearch}
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
 
         <select
           className={styles.filterSelect}

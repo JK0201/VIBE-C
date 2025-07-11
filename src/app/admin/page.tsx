@@ -76,9 +76,8 @@ export default function AdminDashboard() {
       {/* Stats Grid */}
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
-          <div className={styles.statIcon}>👥</div>
           <div className={styles.statContent}>
-            <h3>전체 사용자</h3>
+            <h3><span className={styles.inlineIcon}>👥</span> 전체 사용자</h3>
             <p className={styles.statNumber}>{stats?.users.total || 0}</p>
             <p className={styles.statChange}>
               이번 달 신규: {stats?.users.newThisMonth || 0}
@@ -87,9 +86,8 @@ export default function AdminDashboard() {
         </div>
 
         <div className={styles.statCard}>
-          <div className={styles.statIcon}>📦</div>
           <div className={styles.statContent}>
-            <h3>등록 모듈</h3>
+            <h3><span className={styles.inlineIcon}>📦</span> 등록 모듈</h3>
             <p className={styles.statNumber}>{stats?.modules.total || 0}</p>
             <p className={styles.statChange}>
               승인 대기: {stats?.modules.pendingApproval || 0}
@@ -98,9 +96,8 @@ export default function AdminDashboard() {
         </div>
 
         <div className={styles.statCard}>
-          <div className={styles.statIcon}>📝</div>
           <div className={styles.statContent}>
-            <h3>개발 요청</h3>
+            <h3><span className={styles.inlineIcon}>📝</span> 개발 요청</h3>
             <p className={styles.statNumber}>{stats?.requests.total || 0}</p>
             <p className={styles.statChange}>
               진행 중: {stats?.requests.open || 0}
@@ -109,9 +106,8 @@ export default function AdminDashboard() {
         </div>
 
         <div className={styles.statCard}>
-          <div className={styles.statIcon}>💰</div>
           <div className={styles.statContent}>
-            <h3>총 수익</h3>
+            <h3><span className={styles.inlineIcon}>💰</span> 총 수익</h3>
             <p className={styles.statNumber}>
               {stats?.revenue.totalRevenue?.toLocaleString() || 0}P
             </p>
@@ -127,19 +123,19 @@ export default function AdminDashboard() {
         <h2>빠른 작업</h2>
         <div className={styles.actionButtons}>
           <button className={styles.actionButton}>
-            <span>🚨</span>
+            <span className={styles.buttonIcon}>🚨</span>
             신고 내역 확인
           </button>
           <button className={styles.actionButton}>
-            <span>✅</span>
+            <span className={styles.buttonIcon}>✅</span>
             모듈 승인
           </button>
           <button className={styles.actionButton}>
-            <span>💸</span>
+            <span className={styles.buttonIcon}>💸</span>
             정산 처리
           </button>
           <button className={styles.actionButton}>
-            <span>📊</span>
+            <span className={styles.buttonIcon}>📊</span>
             리포트 생성
           </button>
         </div>

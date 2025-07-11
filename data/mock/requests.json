@@ -657,7 +657,7 @@
       "type": "AUCTION",
       "budget": null,
       "isUrgent": true,
-      "status": "OPEN",
+      "status": "CANCELLED",
       "category": "ui-ux",
       "deadline": "2025-07-10T00:00:00Z",
       "createdAt": "2025-07-04T09:00:00Z",
@@ -678,7 +678,8 @@
           "message": "모바일 앱 디자인 전문가입니다. 포트폴리오 확인 부탁드립니다.",
           "createdAt": "2025-07-04T11:30:00Z"
         }
-      ]
+      ],
+      "cancelledAt": "2025-07-11T07:32:34.710Z"
     },
     {
       "id": 23,
@@ -688,7 +689,7 @@
       "type": "FIXED_PRICE",
       "budget": 150000,
       "isUrgent": false,
-      "status": "OPEN",
+      "status": "CLOSED",
       "category": "sns",
       "deadline": "2025-07-30T00:00:00Z",
       "createdAt": "2025-07-05T11:00:00Z",
@@ -700,7 +701,8 @@
           "message": "데이터 시각화 전문가입니다. D3.js와 Chart.js 활용 가능합니다.",
           "createdAt": "2025-07-05T12:00:00Z"
         }
-      ]
+      ],
+      "closedAt": "2025-07-11T07:32:21.193Z"
     },
     {
       "id": 24,
@@ -710,11 +712,12 @@
       "type": "AUCTION",
       "budget": null,
       "isUrgent": false,
-      "status": "OPEN",
+      "status": "CANCELLED",
       "category": "ui-ux",
       "deadline": "2025-08-15T00:00:00Z",
       "createdAt": "2025-07-06T13:00:00Z",
-      "bids": []
+      "bids": [],
+      "cancelledAt": "2025-07-11T07:32:08.494Z"
     }
   ]
 }

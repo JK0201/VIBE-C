@@ -61,16 +61,24 @@
   flex-wrap: wrap;
 }
 
-.searchInput {
+.searchWrapper {
   flex: 1 1 400px;
+  display: flex;
+  position: relative;
+  min-width: 0;
+}
+
+.searchInput {
+  flex: 1;
   padding: 0.75rem 1rem;
+  padding-right: 48px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 0.938rem;
   background: var(--bg-secondary);
   color: var(--text-primary);
-  min-width: 0;
   height: 40px;
+  width: 100%;
 }
 
 .searchInput:focus {
@@ -93,10 +101,34 @@
   height: 40px;
   line-height: 40px;
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d1d5db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 0.75rem center;
+  background-position: right 1rem center;
   background-size: 16px;
+}
+
+.searchButton {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 38px;
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+/* Removed hover effect for search button */
+
+.searchButton svg {
+  width: 18px;
+  height: 18px;
 }
 
 .refreshButton {
@@ -171,7 +203,7 @@
 .table th,
 .table td {
   padding: 1rem;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
 }
@@ -187,6 +219,7 @@
   top: 0;
   z-index: 10;
   white-space: nowrap;
+  text-align: center;
 }
 
 .table tr:last-child td {
@@ -354,7 +387,7 @@
 }
 
 .modal {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border-radius: 12px;
   padding: 2rem;
   width: 90%;
@@ -363,6 +396,7 @@
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .modal h2 {

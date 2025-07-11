@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
 import useUIStore from '@/stores/useUIStore';
@@ -37,12 +36,12 @@ const categoryMap: { [key: string]: string } = {
 };
 
 export default function AdminModulesPage() {
-  const router = useRouter();
   const { showToast } = useUIStore();
   
   const [modules, setModules] = useState<Module[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,6 +52,10 @@ export default function AdminModulesPage() {
   useEffect(() => {
     fetchModules();
   }, [currentPage, searchTerm, categoryFilter, statusFilter]);
+
+  useEffect(() => {
+    setSearchInput(searchTerm);
+  }, [searchTerm]);
 
   const fetchModules = async () => {
     try {
@@ -120,6 +123,17 @@ export default function AdminModulesPage() {
     }
   };
 
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+    setCurrentPage(1);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'approved':
@@ -164,16 +178,26 @@ export default function AdminModulesPage() {
 
       {/* Search and Filters */}
       <div className={styles.controls}>
-        <input
-          type="text"
-          placeholder="모듈명, 설명, 개발자로 검색..."
-          className={styles.searchInput}
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
-          }}
-        />
+        <div className={styles.searchWrapper}>
+          <input
+            type="text"
+            placeholder="모듈명, 설명, 개발자로 검색..."
+            className={styles.searchInput}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <button
+            className={styles.searchButton}
+            onClick={handleSearch}
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
         
         <select
           className={styles.filterSelect}

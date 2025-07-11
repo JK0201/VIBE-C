@@ -16,6 +16,29 @@
       "ipAddress": "::1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
       "createdAt": "2025-07-11T01:31:43.960Z"
+    },
+    {
+      "id": 2,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_UPDATE",
+      "entity": "user",
+      "entityId": 32,
+      "details": {
+        "changes": {
+          "nickname": "John_Developer",
+          "role": "developer",
+          "balance": 10000
+        },
+        "oldValues": {
+          "role": "developer",
+          "balance": 10000,
+          "nickname": "John_Developer"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-11T07:29:33.701Z"
     }
   ]
 }

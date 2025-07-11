@@ -377,12 +377,13 @@
       "email": "john.dev@examplee.com",
       "nickname": "John_Developer",
       "password": "MTIzNGFhYWE=",
-      "role": "user",
+      "role": "developer",
       "githubId": "",
       "balance": 10000,
       "profileImage": "",
       "bio": "",
-      "createdAt": "2025-07-07T03:04:23.431Z"
+      "createdAt": "2025-07-07T03:04:23.431Z",
+      "updatedAt": "2025-07-11T07:29:33.674Z"
     },
     {
       "id": 33,

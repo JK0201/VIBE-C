@@ -23,6 +23,7 @@ export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -32,6 +33,17 @@ export default function AdminUsersPage() {
   useEffect(() => {
     fetchUsers();
   }, [currentPage, searchTerm, roleFilter]);
+
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+    setCurrentPage(1);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   const fetchUsers = async () => {
     try {
@@ -117,16 +129,26 @@ export default function AdminUsersPage() {
 
       {/* Search and Filters */}
       <div className={styles.controls}>
-        <input
-          type="text"
-          placeholder="이메일, 닉네임, GitHub ID로 검색..."
-          className={styles.searchInput}
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
-          }}
-        />
+        <div className={styles.searchWrapper}>
+          <input
+            type="text"
+            placeholder="이메일, 닉네임, GitHub ID로 검색..."
+            className={styles.searchInput}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <button
+            className={styles.searchButton}
+            onClick={handleSearch}
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
         
         <select
           className={styles.filterSelect}

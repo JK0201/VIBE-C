@@ -359,7 +359,7 @@
 .adminContainer th,
 .adminContainer td {
   padding: var(--space-md) var(--space-lg);
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
   color: var(--text-primary) !important;
@@ -389,6 +389,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  text-align: center;
 }
 
 .adminContainer tr:last-child td {
@@ -581,7 +582,14 @@
   align-items: center;
   padding: 0 var(--space-lg);
   z-index: 1002;
-  gap: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.adminHeader h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {
@@ -608,6 +616,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .sidebarToggle:hover {

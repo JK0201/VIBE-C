@@ -65,11 +65,8 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: var(--space-lg);
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-md);
   transition: var(--transition);
-  min-height: 120px;
+  min-height: 100px;
 }
 
 .statCard:hover {
@@ -78,13 +75,16 @@
   border-color: var(--primary-color);
 }
 
-.statIcon {
-  font-size: 2rem;
+.inlineIcon {
+  font-size: 1.25rem;
   line-height: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: inline-block;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.statContent {
+  width: 100%;
 }
 
 .statContent h3 {
@@ -94,6 +94,8 @@
   margin: 0 0 var(--space-sm);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
 }
 
 .statNumber {
@@ -155,8 +157,8 @@
   transform: translateY(-2px);
 }
 
-.actionButton span {
-  font-size: var(--text-xl);
+.buttonIcon {
+  font-size: 1rem;
   flex-shrink: 0;
 }
 
@@ -198,10 +200,10 @@
 }
 
 .activityIcon {
-  font-size: var(--text-2xl);
+  font-size: 1.25rem;
   line-height: 1;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -306,8 +308,8 @@
     min-height: auto;
   }
   
-  .statIcon {
-    font-size: var(--text-xl);
+  .inlineIcon {
+    font-size: 1rem;
   }
   
   .statNumber {
@@ -364,12 +366,10 @@
   }
   
   .statCard {
-    flex-direction: column;
     text-align: center;
-    gap: var(--space-sm);
   }
   
-  .statIcon {
-    width: 100%;
+  .statContent h3 {
+    justify-content: center;
   }
 }

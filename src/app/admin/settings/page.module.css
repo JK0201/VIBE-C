@@ -89,6 +89,17 @@
   height: 20px;
   cursor: pointer;
   accent-color: var(--primary-color);
+  outline: none;
+  border: none;
+}
+
+.checkbox:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.checkbox:checked {
+  outline: none;
 }
 
 /* Test Email */
