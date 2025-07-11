@@ -65,7 +65,7 @@ export default function AdminRequestsPage() {
         search: searchTerm,
         type: typeFilter,
         status: statusFilter,
-        sortBy: 'createdAt',
+        sortBy: 'id',
         sortOrder: 'desc'
       });
 

@@ -35,7 +35,7 @@ function generateTransactions() {
     });
   }
   
-  return transactions.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  return transactions;
 }
 
 function getTransactionDescription(type: string): string {
@@ -71,6 +71,8 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status') || '';
     const dateFrom = searchParams.get('dateFrom') || '';
     const dateTo = searchParams.get('dateTo') || '';
+    const sortBy = searchParams.get('sortBy') || 'id';
+    const sortOrder = searchParams.get('sortOrder') || 'desc';
 
     // Generate mock transactions
     let transactions = generateTransactions();
@@ -94,6 +96,23 @@ export async function GET(request: NextRequest) {
       toDate.setHours(23, 59, 59, 999);
       transactions = transactions.filter(t => new Date(t.createdAt) <= toDate);
     }
+
+    // Sort transactions
+    transactions.sort((a, b) => {
+      let aValue = a[sortBy as keyof typeof a];
+      let bValue = b[sortBy as keyof typeof b];
+      
+      if (sortBy === 'createdAt' || sortBy === 'completedAt') {
+        aValue = new Date(aValue as string || '2024-01-01').getTime();
+        bValue = new Date(bValue as string || '2024-01-01').getTime();
+      }
+      
+      if (sortOrder === 'asc') {
+        return aValue > bValue ? 1 : -1;
+      } else {
+        return aValue < bValue ? 1 : -1;
+      }
+    });
 
     // Calculate statistics
     const stats = {

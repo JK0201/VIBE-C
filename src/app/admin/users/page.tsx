@@ -41,7 +41,7 @@ export default function AdminUsersPage() {
         limit: '10',
         search: searchTerm,
         role: roleFilter,
-        sortBy: 'createdAt',
+        sortBy: 'id',
         sortOrder: 'desc'
       });
 

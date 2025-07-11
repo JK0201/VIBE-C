@@ -3,6 +3,59 @@
   min-height: 100vh;
   background: #111827;
   color-scheme: dark;
+  color: #f9fafb;
+}
+
+/* Ensure all text inherits proper color */
+.adminContainer * {
+  color: inherit;
+}
+
+/* Explicit color for common elements */
+.adminContainer p,
+.adminContainer span,
+.adminContainer div,
+.adminContainer label,
+.adminContainer td,
+.adminContainer th,
+.adminContainer li,
+.adminContainer a {
+  color: var(--text-primary);
+}
+
+/* Links should have their own color */
+.adminContainer a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.adminContainer a:hover {
+  color: var(--primary-color);
+}
+
+/* Headers and titles */
+.adminContainer h1,
+.adminContainer h2,
+.adminContainer h3,
+.adminContainer h4,
+.adminContainer h5,
+.adminContainer h6 {
+  color: var(--text-primary) !important;
+}
+
+/* Specific text elements that might be missed */
+.adminContainer small {
+  color: var(--text-secondary) !important;
+}
+
+.adminContainer strong,
+.adminContainer b {
+  color: var(--text-primary) !important;
+}
+
+.adminContainer em,
+.adminContainer i {
+  color: inherit !important;
 }
 
 /* Dark mode variables for admin only */
@@ -55,10 +108,35 @@
   --transition: all 0.2s ease;
 }
 
+/* Form elements color fix */
+.adminContainer input,
+.adminContainer textarea,
+.adminContainer select,
+.adminContainer option {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+.adminContainer input::placeholder,
+.adminContainer textarea::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+/* Disabled elements */
+.adminContainer input:disabled,
+.adminContainer textarea:disabled,
+.adminContainer select:disabled,
+.adminContainer button:disabled {
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
 /* Common button styles */
 .adminContainer button {
   font-family: inherit;
   transition: var(--transition);
+  color: inherit;
 }
 
 .adminContainer button:disabled {
@@ -66,10 +144,20 @@
   cursor: not-allowed;
 }
 
+/* Badge text color fix */
+.adminContainer [class*="badge"] {
+  color: inherit !important;
+}
+
+/* Status and type badges */
+.adminContainer [class*="Badge"] {
+  color: inherit !important;
+}
+
 /* Primary button style */
 .adminContainer .primaryButton {
   background: var(--primary-color);
-  color: white;
+  color: white !important;
   border: none;
   padding: var(--space-sm) var(--space-lg);
   border-radius: var(--radius);
@@ -225,6 +313,34 @@
   margin-bottom: var(--space-md);
 }
 
+/* Modal text color fix */
+.adminContainer [class*="modal"] {
+  color: var(--text-primary);
+}
+
+.adminContainer [class*="modal"] * {
+  color: inherit;
+}
+
+.adminContainer [class*="modal"] h1,
+.adminContainer [class*="modal"] h2,
+.adminContainer [class*="modal"] h3,
+.adminContainer [class*="modal"] h4,
+.adminContainer [class*="modal"] h5,
+.adminContainer [class*="modal"] h6 {
+  color: var(--text-primary);
+}
+
+.adminContainer [class*="detailRow"] label {
+  color: var(--text-secondary) !important;
+}
+
+.adminContainer [class*="detailRow"] span,
+.adminContainer [class*="detailRow"] p,
+.adminContainer [class*="detailRow"] div {
+  color: var(--text-primary) !important;
+}
+
 /* Common table styles */
 .adminContainer .tableContainer {
   background: var(--bg-secondary);
@@ -232,6 +348,7 @@
   border-radius: var(--radius);
   overflow-x: auto;
   margin-bottom: var(--space-xl);
+  color: var(--text-primary);
 }
 
 .adminContainer table {
@@ -245,6 +362,20 @@
   text-align: left;
   border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
+  color: var(--text-primary) !important;
+}
+
+/* Table content specific colors */
+.adminContainer td * {
+  color: inherit !important;
+}
+
+.adminContainer td a {
+  color: var(--text-primary) !important;
+}
+
+.adminContainer td a:hover {
+  color: var(--primary-color) !important;
 }
 
 .adminContainer th {

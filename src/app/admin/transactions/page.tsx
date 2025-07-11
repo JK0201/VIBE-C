@@ -259,7 +259,7 @@ export default function AdminTransactionsPage() {
               <tbody>
                 {transactions.map(transaction => (
                   <tr key={transaction.id}>
-                    <td>#{transaction.id}</td>
+                    <td>{transaction.id}</td>
                     <td>{getTypeBadge(transaction.type)}</td>
                     <td>{transaction.description}</td>
                     <td className={styles.amount}>{formatCurrency(transaction.amount)}</td>

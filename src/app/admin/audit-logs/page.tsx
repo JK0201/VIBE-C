@@ -199,7 +199,7 @@ export default function AdminAuditLogsPage() {
               <tbody>
                 {logs.map(log => (
                   <tr key={log.id}>
-                    <td>#{log.id}</td>
+                    <td>{log.id}</td>
                     <td>{formatDate(log.createdAt)}</td>
                     <td>
                       <div className={styles.adminInfo}>
@@ -216,7 +216,7 @@ export default function AdminAuditLogsPage() {
                       <div className={styles.entityInfo}>
                         <span className={styles.entityIcon}>{getEntityIcon(log.entity)}</span>
                         <span>{log.entity}</span>
-                        {log.entityId && <span className={styles.entityId}>#{log.entityId}</span>}
+                        {log.entityId && <span className={styles.entityId}>{log.entityId}</span>}
                       </div>
                     </td>
                     <td className={styles.ipAddress}>{log.ipAddress || '-'}</td>

@@ -63,7 +63,7 @@ export default function AdminModulesPage() {
         search: searchTerm,
         category: categoryFilter,
         status: statusFilter,
-        sortBy: 'createdAt',
+        sortBy: 'id',
         sortOrder: 'desc'
       });
 

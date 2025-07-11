@@ -20,6 +20,8 @@ export async function GET(request: NextRequest) {
     const dateFrom = searchParams.get('dateFrom') || undefined;
     const dateTo = searchParams.get('dateTo') || undefined;
     const search = searchParams.get('search') || undefined;
+    const sortBy = searchParams.get('sortBy') || 'id';
+    const sortOrder = searchParams.get('sortOrder') || 'desc';
 
     // Get audit logs
     const result = await getAuditLogs({
@@ -30,7 +32,9 @@ export async function GET(request: NextRequest) {
       dateTo,
       search,
       page,
-      limit
+      limit,
+      sortBy,
+      sortOrder
     });
 
     return NextResponse.json(result);

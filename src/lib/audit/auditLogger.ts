@@ -83,7 +83,9 @@ export async function getAuditLogs({
   dateTo,
   search,
   page = 1,
-  limit = 20
+  limit = 20,
+  sortBy = 'id',
+  sortOrder = 'desc'
 }: {
   adminId?: number;
   action?: string;
@@ -93,6 +95,8 @@ export async function getAuditLogs({
   search?: string;
   page?: number;
   limit?: number;
+  sortBy?: string;
+  sortOrder?: string;
 }) {
   let logs = await loadAuditLogs();
   
@@ -130,8 +134,22 @@ export async function getAuditLogs({
     );
   }
   
-  // Sort by date (newest first)
-  logs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  // Sort logs
+  logs.sort((a, b) => {
+    let aValue: any = a[sortBy as keyof typeof a];
+    let bValue: any = b[sortBy as keyof typeof b];
+    
+    if (sortBy === 'createdAt') {
+      aValue = new Date(aValue as string).getTime();
+      bValue = new Date(bValue as string).getTime();
+    }
+    
+    if (sortOrder === 'asc') {
+      return aValue > bValue ? 1 : -1;
+    } else {
+      return aValue < bValue ? 1 : -1;
+    }
+  });
   
   // Paginate
   const totalLogs = logs.length;

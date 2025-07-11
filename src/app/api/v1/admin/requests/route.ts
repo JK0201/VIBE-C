@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search') || '';
     const type = searchParams.get('type') || '';
     const status = searchParams.get('status') || '';
-    const sortBy = searchParams.get('sortBy') || 'createdAt';
+    const sortBy = searchParams.get('sortBy') || 'id';
     const sortOrder = searchParams.get('sortOrder') || 'desc';
 
     // Load data

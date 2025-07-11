@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10', 10);
     const search = searchParams.get('search') || '';
     const role = searchParams.get('role') || '';
-    const sortBy = searchParams.get('sortBy') || 'createdAt';
+    const sortBy = searchParams.get('sortBy') || 'id';
     const sortOrder = searchParams.get('sortOrder') || 'desc';
 
     // Load users
