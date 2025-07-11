@@ -1,0 +1,21 @@
+{
+  "logs": [
+    {
+      "id": 1,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "REPORT_GENERATE",
+      "entity": "system",
+      "details": {
+        "reportType": "users",
+        "dateRange": {
+          "from": "2025-07-01",
+          "to": "2025-07-11"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-11T01:31:43.960Z"
+    }
+  ]
+}

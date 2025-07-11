@@ -594,6 +594,8 @@ npm start
    - Cart items persist in localStorage via Zustand
    - Added cart icon to header with item count
    - Balance checking for purchase eligibility
+   - Cart restricted to logged-in users only
+   - Logout automatically clears cart items
    
 2. **Security Considerations Added**:
    - Identified cart price manipulation vulnerability
@@ -605,6 +607,24 @@ npm start
    - Created shared type definitions in `/src/types/`
    - Cleaned up commented code
    - Fixed direct JSON imports in client components
+
+4. **UI/UX Improvements**:
+   - **Toast Notification System**: Created reusable Toast component
+   - **ConfirmModal Component**: Replaced browser confirm() dialogs
+   - **Cart Balance Display**: Added arithmetic calculation view showing:
+     - Current balance
+     - Purchase amount (red, with minus sign removed)
+     - Balance after transaction (purple if sufficient, red if insufficient)
+     - Visual separator line between amounts
+   - **Cart Icons**: Fixed broken SVG paths with proper shopping cart icon
+   - **Color Refinements**: Improved color scheme for better visual hierarchy
+
+5. **ESLint & Build Fixes**:
+   - Fixed all TypeScript errors for successful build
+   - Resolved unused variable warnings
+   - Fixed missing dependencies in useEffect hooks
+   - Added proper type assertions to replace `any` types
+   - Build now completes successfully with only optimization warnings
 
 ### 2025-07-07
 1. **API Integration Complete**: 

@@ -6,7 +6,13 @@
       "description": "GPT 기반 고급 챗봇 시스템. 한국어 특화, 컨텍스트 관리, 멀티턴 대화 지원. RAG(Retrieval-Augmented Generation) 구현 포함.",
       "price": 120000,
       "category": "ai-ml",
-      "tags": ["python", "gpt", "langchain", "fastapi", "ai"],
+      "tags": [
+        "python",
+        "gpt",
+        "langchain",
+        "fastapi",
+        "ai"
+      ],
       "language": "Python",
       "framework": "FastAPI, LangChain",
       "license": "MIT",
@@ -40,7 +46,13 @@
       "description": "한국/미국 주식시장 실시간 데이터 수집 및 분석 모듈. 증권사 API 연동, 기술적 지표 계산, 알림 시스템 포함.",
       "price": 85000,
       "category": "data",
-      "tags": ["python", "crawler", "stock", "pandas", "redis"],
+      "tags": [
+        "python",
+        "crawler",
+        "stock",
+        "pandas",
+        "redis"
+      ],
       "language": "Python",
       "framework": "Scrapy, Pandas, Celery",
       "license": "Commercial",
@@ -73,7 +85,14 @@
       "description": "MSA 환경을 위한 통합 인증/인가 시스템. JWT, OAuth2, API 게이트웨이, 율속 제한 기능 포함.",
       "price": 95000,
       "category": "b2b",
-      "tags": ["nodejs", "jwt", "oauth", "microservices", "kong", "javascript"],
+      "tags": [
+        "nodejs",
+        "jwt",
+        "oauth",
+        "microservices",
+        "kong",
+        "javascript"
+      ],
       "language": "Node.js",
       "framework": "Express, Kong Gateway",
       "license": "Apache 2.0",
@@ -107,7 +126,14 @@
       "description": "GitOps 기반 K8s 자동 배포 파이프라인. ArgoCD 통합, 블루-그린 배포, 자동 롤백 지원.",
       "price": 110000,
       "category": "automation",
-      "tags": ["kubernetes", "argocd", "gitops", "helm", "cicd", "go"],
+      "tags": [
+        "kubernetes",
+        "argocd",
+        "gitops",
+        "helm",
+        "cicd",
+        "go"
+      ],
       "language": "Go, YAML",
       "framework": "ArgoCD, Helm",
       "license": "MIT",
@@ -141,7 +167,13 @@
       "description": "딥러닝 기반 이미지 처리 종합 솔루션. 객체 인식, 배경 제거, 스타일 변환, 품질 향상 기능 제공.",
       "price": 75000,
       "category": "ai-ml",
-      "tags": ["python", "tensorflow", "opencv", "ai", "image"],
+      "tags": [
+        "python",
+        "tensorflow",
+        "opencv",
+        "ai",
+        "image"
+      ],
       "language": "Python",
       "framework": "TensorFlow, OpenCV",
       "license": "Commercial",
@@ -168,7 +200,8 @@
       "rating": 3.9,
       "comments": 112,
       "createdAt": "2025-07-01T13:00:00Z",
-      "updatedAt": "2025-07-02T10:00:00Z"
+      "updatedAt": "2025-07-02T10:00:00Z",
+      "featured": false
     },
     {
       "id": 6,
@@ -176,7 +209,14 @@
       "description": "이더리움/폴리곤용 DeFi 스마트 컨트랙트 모음. 스테이킹, 스왑, NFT 마켓플레이스 컨트랙트 포함.",
       "price": 150000,
       "category": "fintech",
-      "tags": ["solidity", "ethereum", "defi", "nft", "web3", "javascript"],
+      "tags": [
+        "solidity",
+        "ethereum",
+        "defi",
+        "nft",
+        "web3",
+        "javascript"
+      ],
       "language": "Solidity",
       "framework": "Hardhat, OpenZeppelin",
       "license": "MIT",
@@ -210,7 +250,15 @@
       "description": "크로스플랫폼 푸시 알림 통합 솔루션. FCM, APNs 연동, 세그먼트 타겟팅, 분석 대시보드 포함.",
       "price": 65000,
       "category": "mobile",
-      "tags": ["react-native", "fcm", "apns", "push", "mobile", "javascript", "typescript"],
+      "tags": [
+        "react-native",
+        "fcm",
+        "apns",
+        "push",
+        "mobile",
+        "javascript",
+        "typescript"
+      ],
       "language": "JavaScript/TypeScript",
       "framework": "React Native, Node.js",
       "license": "MIT",
@@ -244,7 +292,13 @@
       "description": "Unity 게임용 실시간 멀티플레이어 서버. 매치메이킹, 룸 관리, 상태 동기화, 리더보드 시스템 구현.",
       "price": 98000,
       "category": "b2b",
-      "tags": ["unity", "csharp", "multiplayer", "photon", "game"],
+      "tags": [
+        "unity",
+        "csharp",
+        "multiplayer",
+        "photon",
+        "game"
+      ],
       "language": "C#",
       "framework": "Unity, Photon",
       "license": "Commercial",
@@ -277,7 +331,14 @@
       "description": "Next.js 14 기반 완성형 이커머스 솔루션. 상품 관리, 장바구니, 결제 연동, 관리자 대시보드 포함.",
       "price": 180000,
       "category": "web-app",
-      "tags": ["nextjs", "react", "typescript", "stripe", "tailwind", "javascript"],
+      "tags": [
+        "nextjs",
+        "react",
+        "typescript",
+        "stripe",
+        "tailwind",
+        "javascript"
+      ],
       "language": "TypeScript",
       "framework": "Next.js, Tailwind CSS",
       "license": "MIT",
@@ -312,7 +373,14 @@
       "description": "Vue 3 기반 모던 어드민 템플릿. 차트, 테이블, 폼 빌더, 권한 관리 등 완벽한 관리자 기능 제공.",
       "price": 95000,
       "category": "web-app",
-      "tags": ["vue", "vuex", "typescript", "element-plus", "dashboard", "javascript"],
+      "tags": [
+        "vue",
+        "vuex",
+        "typescript",
+        "element-plus",
+        "dashboard",
+        "javascript"
+      ],
       "language": "JavaScript/TypeScript",
       "framework": "Vue 3, Element Plus",
       "license": "Commercial",
@@ -346,7 +414,13 @@
       "description": "Instagram 클론 Flutter 앱. 피드, 스토리, 채팅, 라이브 스트리밍 등 SNS 핵심 기능 구현.",
       "price": 220000,
       "category": "mobile",
-      "tags": ["flutter", "dart", "firebase", "sns", "realtime"],
+      "tags": [
+        "flutter",
+        "dart",
+        "firebase",
+        "sns",
+        "realtime"
+      ],
       "language": "Dart",
       "framework": "Flutter, Firebase",
       "license": "Commercial",
@@ -381,7 +455,13 @@
       "description": "Spring Cloud 기반 MSA 템플릿. 서비스 디스커버리, 설정 관리, 서킷 브레이커, 분산 추적 구현.",
       "price": 150000,
       "category": "b2b",
-      "tags": ["java", "spring", "microservices", "docker", "kubernetes"],
+      "tags": [
+        "java",
+        "spring",
+        "microservices",
+        "docker",
+        "kubernetes"
+      ],
       "language": "Java",
       "framework": "Spring Boot, Spring Cloud",
       "license": "Apache 2.0",
@@ -415,7 +495,13 @@
       "description": "사전 학습된 이미지 분류 AI 모델. 1000+ 카테고리 지원, Transfer Learning 가능, REST API 제공.",
       "price": 95000,
       "category": "ai-ml",
-      "tags": ["python", "tensorflow", "keras", "opencv", "fastapi"],
+      "tags": [
+        "python",
+        "tensorflow",
+        "keras",
+        "opencv",
+        "fastapi"
+      ],
       "language": "Python",
       "framework": "TensorFlow, FastAPI",
       "license": "MIT",
@@ -448,7 +534,13 @@
       "description": "OpenSea 스타일 NFT 거래소 스마트 컨트랙트. 민팅, 리스팅, 경매, 로열티 시스템 완벽 구현.",
       "price": 280000,
       "category": "fintech",
-      "tags": ["solidity", "ethereum", "nft", "marketplace", "web3"],
+      "tags": [
+        "solidity",
+        "ethereum",
+        "nft",
+        "marketplace",
+        "web3"
+      ],
       "language": "Solidity",
       "framework": "Hardhat, OpenZeppelin",
       "license": "MIT",
@@ -483,7 +575,14 @@
       "description": "프로덕션 레디 AWS 인프라 템플릿. VPC, ECS, RDS, ElastiCache, CloudFront 등 완벽한 3-tier 아키텍처.",
       "price": 125000,
       "category": "automation",
-      "tags": ["terraform", "aws", "infrastructure", "devops", "cloud", "go"],
+      "tags": [
+        "terraform",
+        "aws",
+        "infrastructure",
+        "devops",
+        "cloud",
+        "go"
+      ],
       "language": "HCL",
       "framework": "Terraform",
       "license": "Apache 2.0",
@@ -517,7 +616,14 @@
       "description": "Google Docs 스타일 실시간 협업 텍스트 에디터. CRDT 기반 동시 편집, 커서 공유, 버전 관리 지원.",
       "price": 165000,
       "category": "web-app",
-      "tags": ["react", "typescript", "websocket", "crdt", "editor", "javascript"],
+      "tags": [
+        "react",
+        "typescript",
+        "websocket",
+        "crdt",
+        "editor",
+        "javascript"
+      ],
       "language": "TypeScript",
       "framework": "React, Yjs, Socket.io",
       "license": "MIT",
@@ -551,7 +657,13 @@
       "description": "Django 4.0 기반 REST API 템플릿. JWT 인증, API 문서화, 테스트, Docker 설정 등 모든 것 포함.",
       "price": 75000,
       "category": "b2b",
-      "tags": ["python", "django", "rest", "api", "docker"],
+      "tags": [
+        "python",
+        "django",
+        "rest",
+        "api",
+        "docker"
+      ],
       "language": "Python",
       "framework": "Django REST Framework",
       "license": "MIT",
@@ -584,7 +696,14 @@
       "description": "ELK 스택 기반 실시간 로그 수집/분석 시스템. Logstash 파이프라인, Kibana 대시보드, 알림 시스템 포함.",
       "price": 135000,
       "category": "data",
-      "tags": ["elasticsearch", "logstash", "kibana", "logging", "monitoring", "ruby"],
+      "tags": [
+        "elasticsearch",
+        "logstash",
+        "kibana",
+        "logging",
+        "monitoring",
+        "ruby"
+      ],
       "language": "JSON/YAML",
       "framework": "Elastic Stack",
       "license": "Apache 2.0",
@@ -618,7 +737,13 @@
       "description": "Apple Watch 연동 피트니스 앱. 운동 추적, 칼로리 계산, 목표 설정, HealthKit 연동 등 완벽한 헬스케어 솔루션.",
       "price": 185000,
       "category": "mobile",
-      "tags": ["swift", "swiftui", "ios", "watchos", "healthkit"],
+      "tags": [
+        "swift",
+        "swiftui",
+        "ios",
+        "watchos",
+        "healthkit"
+      ],
       "language": "Swift",
       "framework": "SwiftUI, HealthKit",
       "license": "Commercial",
@@ -653,7 +778,15 @@
       "description": "Apollo Federation 기반 GraphQL 게이트웨이. 마이크로서비스 통합, 캐싱, 모니터링, 보안 기능 완비.",
       "price": 115000,
       "category": "b2b",
-      "tags": ["graphql", "apollo", "nodejs", "microservices", "api", "typescript", "javascript"],
+      "tags": [
+        "graphql",
+        "apollo",
+        "nodejs",
+        "microservices",
+        "api",
+        "typescript",
+        "javascript"
+      ],
       "language": "TypeScript",
       "framework": "Apollo Server, Express",
       "license": "MIT",
@@ -687,7 +820,13 @@
       "description": "SEO 최적화된 프리미엄 워드프레스 블로그 테마. 반응형 디자인, 다크모드, 소셜 공유, 구독 시스템 포함.",
       "price": 65000,
       "category": "sns",
-      "tags": ["wordpress", "php", "sns", "cms", "seo"],
+      "tags": [
+        "wordpress",
+        "php",
+        "sns",
+        "cms",
+        "seo"
+      ],
       "language": "PHP/JavaScript",
       "framework": "WordPress",
       "license": "GPL",
@@ -720,7 +859,13 @@
       "description": "모던 디자인 시스템 기반 React UI 컴포넌트 세트. 50+ 컴포넌트, Storybook 문서화, 테마 커스터마이징 지원.",
       "price": 98000,
       "category": "ui-ux",
-      "tags": ["react", "typescript", "ui", "design-system", "storybook"],
+      "tags": [
+        "react",
+        "typescript",
+        "ui",
+        "design-system",
+        "storybook"
+      ],
       "language": "TypeScript",
       "framework": "React, Storybook",
       "license": "MIT",
@@ -755,7 +900,13 @@
       "description": "Instagram, Twitter, Facebook 동시 포스팅 자동화 도구. 예약 발행, 해시태그 분석, 인사이트 대시보드 제공.",
       "price": 75000,
       "category": "sns",
-      "tags": ["python", "social-media", "automation", "bot", "api"],
+      "tags": [
+        "python",
+        "social-media",
+        "automation",
+        "bot",
+        "api"
+      ],
       "language": "Python",
       "framework": "FastAPI, Celery",
       "license": "Commercial",
@@ -789,7 +940,13 @@
       "description": "Figma 디자인을 React 컴포넌트로 자동 변환하는 플러그인. 스타일 추출, 반응형 처리, 컴포넌트 구조화 지원.",
       "price": 120000,
       "category": "ui-ux",
-      "tags": ["figma", "react", "design", "automation", "plugin"],
+      "tags": [
+        "figma",
+        "react",
+        "design",
+        "automation",
+        "plugin"
+      ],
       "language": "TypeScript",
       "framework": "Figma API, React",
       "license": "Commercial",

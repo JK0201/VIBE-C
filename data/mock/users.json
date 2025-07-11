@@ -389,7 +389,7 @@
       "email": "catwalk@gmail.com",
       "nickname": "catwalk",
       "password": "$2b$10$4APkKAwrzUFv0kldEUX5PueLU1E6wc4kKkZqP1KPzutlkkEFLgdeG",
-      "role": "user",
+      "role": "admin",
       "githubId": "",
       "balance": 1000,
       "profileImage": "",
