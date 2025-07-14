@@ -31,7 +31,8 @@ interface Tester {
   createdAt: string;
   applicants: number;
   isUrgent: boolean;
-  status: 'OPEN' | 'COMPLETED' | 'CLOSED';
+  recruitmentStatus: 'OPEN' | 'COMPLETED' | 'CLOSED';
+  status: 'approved' | 'pending' | 'rejected';
   images?: string[];
   userId?: number;
   userName?: string;
@@ -53,9 +54,9 @@ export default function AdminTestersPage() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
-    open: 0,
-    urgent: 0,
-    security: 0
+    approved: 0,
+    pending: 0,
+    rejected: 0
   });
 
   useEffect(() => {
@@ -90,9 +91,9 @@ export default function AdminTestersPage() {
       const allTesters = data.testers;
       setStats({
         total: data.pagination.totalItems || allTesters.length,
-        open: allTesters.filter((t: Tester) => t.status === 'OPEN').length,
-        urgent: allTesters.filter((t: Tester) => t.isUrgent).length,
-        security: allTesters.filter((t: Tester) => t.testType.includes('security')).length
+        approved: allTesters.filter((t: Tester) => t.status === 'approved').length,
+        pending: allTesters.filter((t: Tester) => t.status === 'pending').length,
+        rejected: allTesters.filter((t: Tester) => t.status === 'rejected').length
       });
     } catch (error) {
       console.error('Error fetching testers:', error);
@@ -182,9 +183,9 @@ export default function AdminTestersPage() {
 
   const statusOptions: FilterOption[] = [
     { value: '', label: '전체 상태' },
-    { value: 'OPEN', label: '모집 중' },
-    { value: 'COMPLETED', label: '완료' },
-    { value: 'CLOSED', label: '종료' }
+    { value: 'approved', label: '승인됨' },
+    { value: 'pending', label: '검토 중' },
+    { value: 'rejected', label: '거부됨' }
   ];
 
   const getTestTypeBadges = (types: string[]) => {
@@ -210,15 +211,22 @@ export default function AdminTestersPage() {
     { 
       key: 'title', 
       header: '제목',
-      render: (_, tester) => (
-        <Link 
-          href={`/testers/${tester.id}`}
-          target="_blank"
-          className={styles.testerLink}
-        >
-          {tester.title}
-        </Link>
-      )
+      render: (_, tester) => {
+        // Only approved testers should be clickable
+        if (tester.status === 'approved') {
+          return (
+            <Link 
+              href={`/testers/${tester.id}`}
+              target="_blank"
+              className={styles.testerLink}
+            >
+              {tester.title}
+            </Link>
+          );
+        }
+        // Pending and rejected testers are not clickable
+        return <span className={styles.testerName}>{tester.title}</span>;
+      }
     },
     { key: 'company', header: '회사' },
     { 
@@ -227,9 +235,16 @@ export default function AdminTestersPage() {
       render: (_, tester) => getTestTypeBadges(tester.testType)
     },
     { 
-      key: 'reward', 
-      header: '보상',
-      render: (reward) => <AdminBadge variant="secondary">{reward.toLocaleString()}P</AdminBadge>
+      key: 'recruitmentStatus', 
+      header: '모집 상태',
+      render: (status) => {
+        switch(status) {
+          case 'OPEN': return StatusBadge.open();
+          case 'COMPLETED': return StatusBadge.completed();
+          case 'CLOSED': return StatusBadge.closed();
+          default: return <AdminBadge>{status}</AdminBadge>;
+        }
+      }
     },
     { 
       key: 'requiredTesters', 
@@ -242,18 +257,23 @@ export default function AdminTestersPage() {
       render: (count) => `${count}명`
     },
     { 
+      key: 'reward', 
+      header: '보상',
+      render: (reward) => <AdminBadge variant="secondary">{reward.toLocaleString()}P</AdminBadge>
+    },
+    { 
       key: 'duration', 
       header: '기간',
       render: (duration) => getDurationDisplay(duration)
     },
     { 
       key: 'status', 
-      header: '상태',
+      header: '승인 상태',
       render: (status) => {
         switch(status) {
-          case 'OPEN': return StatusBadge.open();
-          case 'COMPLETED': return StatusBadge.completed();
-          case 'CLOSED': return StatusBadge.closed();
+          case 'approved': return StatusBadge.approved();
+          case 'pending': return StatusBadge.pending();
+          case 'rejected': return StatusBadge.rejected();
           default: return <AdminBadge>{status}</AdminBadge>;
         }
       }
@@ -297,19 +317,19 @@ export default function AdminTestersPage() {
           icon="🧪"
         />
         <AdminStatsCard
-          title="모집 중"
-          value={stats.open}
-          icon="👥"
+          title="승인됨"
+          value={stats.approved}
+          icon="✅"
         />
         <AdminStatsCard
-          title="긴급 모집"
-          value={stats.urgent}
-          icon="🚨"
+          title="검토 중"
+          value={stats.pending}
+          icon="⏳"
         />
         <AdminStatsCard
-          title="보안 테스트"
-          value={stats.security}
-          icon="🔒"
+          title="거부됨"
+          value={stats.rejected}
+          icon="❌"
         />
       </div>
 
@@ -407,10 +427,16 @@ export default function AdminTestersPage() {
                 <span>{formatDate(selectedTester.deadline)}</span>
               </div>
               <div className={styles.detailRow}>
-                <label>상태:</label>
-                {selectedTester.status === 'OPEN' && StatusBadge.open()}
-                {selectedTester.status === 'COMPLETED' && StatusBadge.completed()}
-                {selectedTester.status === 'CLOSED' && StatusBadge.closed()}
+                <label>승인 상태:</label>
+                {selectedTester.status === 'approved' && StatusBadge.approved()}
+                {selectedTester.status === 'pending' && StatusBadge.pending()}
+                {selectedTester.status === 'rejected' && StatusBadge.rejected()}
+              </div>
+              <div className={styles.detailRow}>
+                <label>모집 상태:</label>
+                {selectedTester.recruitmentStatus === 'OPEN' && StatusBadge.open()}
+                {selectedTester.recruitmentStatus === 'COMPLETED' && StatusBadge.completed()}
+                {selectedTester.recruitmentStatus === 'CLOSED' && StatusBadge.closed()}
               </div>
               {selectedTester.isUrgent && (
                 <div className={styles.detailRow}>
@@ -421,7 +447,7 @@ export default function AdminTestersPage() {
             </div>
 
             <div className={styles.modalActions}>
-              {selectedTester.status === 'OPEN' && (
+              {selectedTester.recruitmentStatus === 'OPEN' && (
                 <button 
                   className={styles.closeButton}
                   onClick={() => handleTesterAction(selectedTester.id, 'close')}

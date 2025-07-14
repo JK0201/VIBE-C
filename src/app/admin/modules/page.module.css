@@ -11,6 +11,12 @@
   text-decoration: underline;
 }
 
+.moduleName {
+  color: var(--text-primary);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
 .rating {
   display: flex;
   align-items: center;

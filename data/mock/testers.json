@@ -5,16 +5,23 @@
       "title": "쇼핑몰 앱 베타 테스트",
       "company": "패션플러스",
       "description": "새로운 쇼핑몰 앱의 베타 버전을 테스트해주실 분을 찾습니다. 결제 프로세스, 상품 검색, 장바구니 기능을 중점적으로 테스트합니다.",
-      "testType": ["functional", "ui"],
+      "testType": [
+        "functional",
+        "ui"
+      ],
       "duration": "1week",
       "requiredTesters": 20,
       "reward": 50000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-05T00:00:00Z",
       "createdAt": "2025-07-02T10:00:00Z",
       "applicants": 20,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/F093FB/FFFFFF?text=Shopping+App+Main",
         "https://via.placeholder.com/800x600/F093FB/FFFFFF?text=Product+List",
@@ -27,16 +34,22 @@
       "title": "금융 앱 보안 테스트",
       "company": "페이테크",
       "description": "모바일 송금 앱의 보안 취약점을 찾아주실 전문 테스터를 모집합니다. 침투 테스트 경험이 있으신 분 우대합니다.",
-      "testType": ["security"],
+      "testType": [
+        "security"
+      ],
       "duration": "2weeks",
       "requiredTesters": 5,
       "reward": 150000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-03T12:00:00Z",
       "createdAt": "2025-07-02T08:00:00Z",
       "applicants": 3,
       "isUrgent": true,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/A8EDEA/000000?text=Security+Test+Main",
         "https://via.placeholder.com/800x600/A8EDEA/000000?text=Vulnerability+Report",
@@ -48,16 +61,23 @@
       "title": "웹사이트 크로스 브라우저 테스트",
       "company": "웹솔루션즈",
       "description": "기업 홈페이지의 크로스 브라우저 호환성 테스트가 필요합니다. 다양한 브라우저와 기기에서 테스트 가능하신 분을 찾습니다.",
-      "testType": ["functional", "ui"],
+      "testType": [
+        "functional",
+        "ui"
+      ],
       "duration": "3days",
       "requiredTesters": 10,
       "reward": 30000,
-      "requirements": ["Windows", "macOS"],
+      "requirements": [
+        "Windows",
+        "macOS"
+      ],
       "deadline": "2025-07-04T00:00:00Z",
       "createdAt": "2025-07-01T14:00:00Z",
       "applicants": 8,
       "isUrgent": true,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Browser+Test+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Browser+Test+2",
@@ -70,16 +90,22 @@
       "title": "모바일 게임 성능 테스트",
       "company": "게임스튜디오",
       "description": "새로운 모바일 RPG 게임의 성능 테스트를 진행합니다. 다양한 기기에서 FPS, 발열, 배터리 소모를 측정해주세요.",
-      "testType": ["performance"],
+      "testType": [
+        "performance"
+      ],
       "duration": "1week",
       "requiredTesters": 30,
       "reward": 60000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-10T00:00:00Z",
       "createdAt": "2025-06-25T09:00:00Z",
       "applicants": 25,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Game+Performance+1",
         "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Game+Performance+2",
@@ -91,16 +117,24 @@
       "title": "AI 챗봇 대화 품질 테스트",
       "company": "AI솔루션",
       "description": "고객 상담용 AI 챗봇의 대화 품질을 테스트합니다. 다양한 시나리오에서 자연스러운 대화가 가능한지 평가해주세요.",
-      "testType": ["functional"],
+      "testType": [
+        "functional"
+      ],
       "duration": "1week",
       "requiredTesters": 15,
       "reward": 40000,
-      "requirements": ["Windows", "macOS", "iOS", "Android"],
+      "requirements": [
+        "Windows",
+        "macOS",
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-08T00:00:00Z",
       "createdAt": "2025-07-01T16:00:00Z",
       "applicants": 12,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=AI+Chatbot+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=AI+Chatbot+2",
@@ -112,16 +146,23 @@
       "title": "IoT 스마트홈 앱 테스트",
       "company": "홈오토메이션",
       "description": "스마트홈 제어 앱과 실제 IoT 기기 연동 테스트가 필요합니다. 스마트홈 기기를 보유하신 분만 지원 가능합니다.",
-      "testType": ["functional", "performance"],
+      "testType": [
+        "functional",
+        "performance"
+      ],
       "duration": "2weeks",
       "requiredTesters": 8,
       "reward": 80000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-15T00:00:00Z",
       "createdAt": "2025-06-20T11:00:00Z",
       "applicants": 5,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "pending",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=SmartHome+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=SmartHome+2",
@@ -134,16 +175,22 @@
       "title": "교육 플랫폼 UX 테스트",
       "company": "에듀테크",
       "description": "온라인 학습 플랫폼의 사용성 테스트를 진행합니다. 실제 학습 과정을 체험하며 개선점을 제안해주세요.",
-      "testType": ["ui"],
+      "testType": [
+        "ui"
+      ],
       "duration": "3days",
       "requiredTesters": 12,
       "reward": 35000,
-      "requirements": ["Windows", "macOS"],
+      "requirements": [
+        "Windows",
+        "macOS"
+      ],
       "deadline": "2025-07-06T00:00:00Z",
       "createdAt": "2025-07-02T13:00:00Z",
       "applicants": 10,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "pending",
       "images": [
         "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Education+UX+1",
         "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Education+UX+2",
@@ -155,16 +202,22 @@
       "title": "배달 앱 긴급 테스트",
       "company": "퀵딜리버리",
       "description": "새로운 기능 출시 전 긴급 테스트가 필요합니다. 주문부터 배달 완료까지 전체 프로세스를 테스트해주세요.",
-      "testType": ["functional"],
+      "testType": [
+        "functional"
+      ],
       "duration": "3days",
       "requiredTesters": 25,
       "reward": 45000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-03T00:00:00Z",
       "createdAt": "2025-07-02T15:00:00Z",
       "applicants": 20,
       "isUrgent": true,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Delivery+App+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Delivery+App+2",
@@ -176,16 +229,24 @@
       "title": "영상 스트리밍 앱 성능 테스트",
       "company": "미디어플랫폼",
       "description": "4K 영상 스트리밍 서비스의 성능을 테스트합니다. 다양한 네트워크 환경에서 버퍼링, 화질 변화를 체크해주세요.",
-      "testType": ["performance"],
+      "testType": [
+        "performance"
+      ],
       "duration": "1week",
       "requiredTesters": 10,
       "reward": 55000,
-      "requirements": ["iOS", "Android", "Windows", "macOS"],
+      "requirements": [
+        "iOS",
+        "Android",
+        "Windows",
+        "macOS"
+      ],
       "deadline": "2025-07-12T00:00:00Z",
       "createdAt": "2025-06-28T14:00:00Z",
       "applicants": 7,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "pending",
       "images": [
         "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Streaming+Performance+1",
         "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Streaming+Performance+2",
@@ -198,16 +259,23 @@
       "title": "은행 앱 접근성 테스트",
       "company": "디지털뱅크",
       "description": "시각 장애인을 위한 접근성 기능을 테스트합니다. 스크린 리더 사용 경험이 있으신 분을 찾습니다.",
-      "testType": ["ui", "functional"],
+      "testType": [
+        "ui",
+        "functional"
+      ],
       "duration": "1week",
       "requiredTesters": 5,
       "reward": 70000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-18T00:00:00Z",
       "createdAt": "2025-06-15T10:00:00Z",
       "applicants": 2,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Accessibility+UI+1",
         "https://via.placeholder.com/800x600/8B5CF6/FFFFFF?text=Accessibility+UI+2",
@@ -219,16 +287,23 @@
       "title": "소셜 앱 베타 테스트",
       "company": "소셜네트워크",
       "description": "새로운 소셜 네트워킹 앱의 베타 테스트를 진행합니다. 친구 초대, 게시물 공유, 메시징 기능을 테스트해주세요.",
-      "testType": ["functional", "ui"],
+      "testType": [
+        "functional",
+        "ui"
+      ],
       "duration": "2weeks",
       "requiredTesters": 50,
       "reward": 40000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-20T00:00:00Z",
       "createdAt": "2025-06-10T12:00:00Z",
       "applicants": 35,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Social+App+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Social+App+2",
@@ -241,16 +316,22 @@
       "title": "POS 시스템 통합 테스트",
       "company": "리테일솔루션",
       "description": "매장용 POS 시스템과 모바일 앱 연동 테스트가 필요합니다. 실제 결제 시나리오를 테스트할 수 있는 분을 찾습니다.",
-      "testType": ["functional", "performance"],
+      "testType": [
+        "functional",
+        "performance"
+      ],
       "duration": "1week",
       "requiredTesters": 6,
       "reward": 90000,
-      "requirements": ["Android"],
+      "requirements": [
+        "Android"
+      ],
       "deadline": "2025-07-11T00:00:00Z",
       "createdAt": "2025-07-01T08:00:00Z",
       "applicants": 4,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "rejected",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=POS+System+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=POS+System+2",
@@ -262,16 +343,22 @@
       "title": "VR 게임 플레이 테스트",
       "company": "VR스튜디오",
       "description": "VR 액션 게임의 플레이 테스트를 진행합니다. VR 기기를 보유하고 계신 분만 지원 가능합니다.",
-      "testType": ["functional", "ui"],
+      "testType": [
+        "functional",
+        "ui"
+      ],
       "duration": "1week",
       "requiredTesters": 10,
       "reward": 100000,
-      "requirements": ["Windows"],
+      "requirements": [
+        "Windows"
+      ],
       "deadline": "2025-07-25T00:00:00Z",
       "createdAt": "2025-06-05T15:00:00Z",
       "applicants": 6,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=VR+Game+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=VR+Game+2",
@@ -283,42 +370,28 @@
       "title": "헬스케어 앱 데이터 정확성 테스트",
       "company": "헬스테크",
       "description": "운동 트래킹 앱의 데이터 정확성을 테스트합니다. 실제 운동을 하며 칼로리, 거리, 심박수 측정의 정확도를 평가해주세요.",
-      "testType": ["functional", "performance"],
+      "testType": [
+        "functional",
+        "performance"
+      ],
       "duration": "2weeks",
       "requiredTesters": 20,
       "reward": 65000,
-      "requirements": ["iOS", "Android"],
+      "requirements": [
+        "iOS",
+        "Android"
+      ],
       "deadline": "2025-07-30T00:00:00Z",
       "createdAt": "2025-06-01T09:00:00Z",
       "applicants": 18,
       "isUrgent": false,
-      "status": "OPEN",
+      "recruitmentStatus": "OPEN",
+      "status": "approved",
       "images": [
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Healthcare+App+1",
         "https://via.placeholder.com/800x600/10B981/FFFFFF?text=Healthcare+App+2",
         "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Health+Performance+1",
         "https://via.placeholder.com/800x600/F59E0B/FFFFFF?text=Health+Performance+2"
-      ]
-    },
-    {
-      "id": 15,
-      "title": "블록체인 지갑 보안 테스트",
-      "company": "크립토솔루션",
-      "description": "암호화폐 지갑 앱의 보안 취약점을 찾아주실 전문가를 모집합니다. 블록체인 기술에 대한 이해가 필요합니다.",
-      "testType": ["security"],
-      "duration": "1week",
-      "requiredTesters": 3,
-      "reward": 200000,
-      "requirements": ["iOS", "Android"],
-      "deadline": "2025-07-09T00:00:00Z",
-      "createdAt": "2025-07-02T11:00:00Z",
-      "applicants": 2,
-      "isUrgent": false,
-      "status": "OPEN",
-      "images": [
-        "https://via.placeholder.com/800x600/EF4444/FFFFFF?text=Blockchain+Security+1",
-        "https://via.placeholder.com/800x600/EF4444/FFFFFF?text=Blockchain+Security+2",
-        "https://via.placeholder.com/800x600/EF4444/FFFFFF?text=Wallet+Security+1"
       ]
     }
   ]

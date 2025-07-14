@@ -12,6 +12,12 @@
   text-decoration: underline;
 }
 
+.testerName {
+  color: var(--text-primary);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
 
 .urgentBadge {
   display: inline-flex;

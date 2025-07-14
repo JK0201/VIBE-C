@@ -21,6 +21,9 @@ export async function GET(request: NextRequest) {
 
     // Filter testers
     let filteredTesters = testersData.testers.filter(tester => {
+      // Only show approved testers to public
+      if (tester.status !== 'approved') return false;
+      
       // Search filter
       if (search) {
         const query = search.toLowerCase();

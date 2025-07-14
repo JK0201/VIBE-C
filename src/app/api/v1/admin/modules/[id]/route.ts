@@ -37,7 +37,7 @@ export async function GET(
     const adminModule = {
       ...module,
       status: module.status || 'approved',
-      reports: Math.floor(Math.random() * 5),
+      reports: module.reports || 0,
       lastReviewed: module.lastReviewed || new Date().toISOString(),
       reviewedBy: module.reviewedBy || 'admin'
     };

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
+import '@/styles/admin/admin-common.css';
+import { AdminStatsCard } from '@/components/admin';
 
 interface DashboardStats {
   users: {
@@ -74,48 +76,27 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className={styles.statsGrid}>
-        <div className={styles.statCard}>
-          <div className={styles.statContent}>
-            <h3><span className={styles.inlineIcon}>👥</span> 전체 사용자</h3>
-            <p className={styles.statNumber}>{stats?.users.total || 0}</p>
-            <p className={styles.statChange}>
-              이번 달 신규: {stats?.users.newThisMonth || 0}
-            </p>
-          </div>
-        </div>
-
-        <div className={styles.statCard}>
-          <div className={styles.statContent}>
-            <h3><span className={styles.inlineIcon}>📦</span> 등록 모듈</h3>
-            <p className={styles.statNumber}>{stats?.modules.total || 0}</p>
-            <p className={styles.statChange}>
-              승인 대기: {stats?.modules.pendingApproval || 0}
-            </p>
-          </div>
-        </div>
-
-        <div className={styles.statCard}>
-          <div className={styles.statContent}>
-            <h3><span className={styles.inlineIcon}>📝</span> 개발 요청</h3>
-            <p className={styles.statNumber}>{stats?.requests.total || 0}</p>
-            <p className={styles.statChange}>
-              진행 중: {stats?.requests.open || 0}
-            </p>
-          </div>
-        </div>
-
-        <div className={styles.statCard}>
-          <div className={styles.statContent}>
-            <h3><span className={styles.inlineIcon}>💰</span> 총 수익</h3>
-            <p className={styles.statNumber}>
-              {stats?.revenue.totalRevenue?.toLocaleString() || 0}P
-            </p>
-            <p className={styles.statChange}>
-              이번 달: {stats?.revenue.monthlyRevenue?.toLocaleString() || 0}P
-            </p>
-          </div>
-        </div>
+      <div className="admin-stats-grid">
+        <AdminStatsCard
+          title="전체 사용자"
+          value={stats?.users.total || 0}
+          icon="👥"
+        />
+        <AdminStatsCard
+          title="등록 모듈"
+          value={stats?.modules.total || 0}
+          icon="📦"
+        />
+        <AdminStatsCard
+          title="개발 요청"
+          value={stats?.requests.total || 0}
+          icon="📝"
+        />
+        <AdminStatsCard
+          title="총 수익 (P)"
+          value={stats?.revenue.totalRevenue || 0}
+          icon="💰"
+        />
       </div>
 
       {/* Quick Actions */}

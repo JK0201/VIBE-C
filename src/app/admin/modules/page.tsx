@@ -184,15 +184,22 @@ export default function AdminModulesPage() {
     { 
       key: 'name', 
       header: '모듈명',
-      render: (_, module) => (
-        <Link 
-          href={`/marketplace/${module.id}`}
-          target="_blank"
-          className={styles.moduleLink}
-        >
-          {module.name}
-        </Link>
-      )
+      render: (_, module) => {
+        // Only approved modules should be clickable
+        if (!module.status || module.status === 'approved') {
+          return (
+            <Link 
+              href={`/marketplace/${module.id}`}
+              target="_blank"
+              className={styles.moduleLink}
+            >
+              {module.name}
+            </Link>
+          );
+        }
+        // Pending and rejected modules are not clickable
+        return <span className={styles.moduleName}>{module.name}</span>;
+      }
     },
     { 
       key: 'category', 
@@ -397,12 +404,13 @@ export default function AdminModulesPage() {
                 {selectedModule.status === 'rejected' && StatusBadge.rejected()}
                 {!selectedModule.status && StatusBadge.approved()}
               </div>
-              {selectedModule.reports && selectedModule.reports > 0 && (
-                <div className={styles.detailRow}>
-                  <label>신고 횟수:</label>
-                  <span className={styles.reportCount}>🚨 {selectedModule.reports}건</span>
-                </div>
-              )}
+              <div className={styles.detailRow}>
+                <label>신고 횟수:</label>
+                <span className={selectedModule.reports && selectedModule.reports > 0 ? styles.reportCount : ''}>
+                  {selectedModule.reports && selectedModule.reports > 0 ? '🚨 ' : ''}
+                  {selectedModule.reports || 0}건
+                </span>
+              </div>
             </div>
 
             <div className={styles.modalActions}>

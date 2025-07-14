@@ -25,6 +25,17 @@ export async function GET(
       );
     }
 
+    // Only approved testers can be accessed by users
+    if (testerItem.status !== 'approved') {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Tester recruitment not found',
+        },
+        { status: 404 }
+      );
+    }
+
     // Build the detailed response
     const detailedTester = {
       id: testerItem.id,

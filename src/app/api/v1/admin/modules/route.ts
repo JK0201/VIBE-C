@@ -31,12 +31,12 @@ export async function GET(request: NextRequest) {
     const data = await loadModules();
     let modules = [...data.components];
 
-    // Add status to modules (simulated)
+    // Add default values for modules
     modules = modules.map(module => ({
       ...module,
       status: module.status || 'approved',
       createdAt: module.createdAt || '2024-01-01T00:00:00Z',
-      reports: Math.floor(Math.random() * 5) // Simulated report count
+      reports: module.reports || 0 // Use actual reports from mock data
     }));
 
     // Apply filters
