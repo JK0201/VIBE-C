@@ -2,8 +2,20 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import styles from './page.module.css';
+import '@/styles/admin/admin-common.css';
 import useUIStore from '@/stores/useUIStore';
+import { 
+  AdminStatsCard, 
+  AdminSearchBar, 
+  AdminBadge, 
+  AdminFilter, 
+  AdminPagination,
+  AdminTable,
+  StatusBadge 
+} from '@/components/admin';
+import { TableColumn, FilterOption } from '@/types/admin';
 
 interface User {
   id: number;
@@ -29,20 +41,24 @@ export default function AdminUsersPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [stats, setStats] = useState({
+    total: 0,
+    admins: 0,
+    developers: 0,
+    users: 0
+  });
 
   useEffect(() => {
     fetchUsers();
   }, [currentPage, searchTerm, roleFilter]);
 
+  useEffect(() => {
+    setSearchInput(searchTerm);
+  }, [searchTerm]);
+
   const handleSearch = () => {
     setSearchTerm(searchInput);
     setCurrentPage(1);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
   };
 
   const fetchUsers = async () => {
@@ -63,6 +79,15 @@ export default function AdminUsersPage() {
       const data = await res.json();
       setUsers(data.users);
       setTotalPages(data.pagination.totalPages);
+      
+      // Calculate stats
+      const allUsers = data.users;
+      setStats({
+        total: data.pagination.totalItems || allUsers.length,
+        admins: allUsers.filter((u: User) => u.role === 'admin').length,
+        developers: allUsers.filter((u: User) => u.role === 'developer').length,
+        users: allUsers.filter((u: User) => u.role === 'user').length
+      });
     } catch (error) {
       console.error('Error fetching users:', error);
       showToast('사용자 목록을 불러오는데 실패했습니다', 'error');
@@ -111,183 +136,175 @@ export default function AdminUsersPage() {
     }
   };
 
-  const roleOptions = [
+  const roleOptions: FilterOption[] = [
     { value: '', label: '전체 역할' },
     { value: 'user', label: '일반 사용자' },
     { value: 'developer', label: '개발자' },
     { value: 'admin', label: '관리자' }
   ];
 
+  const columns: TableColumn<User>[] = [
+    { key: 'id', header: 'ID', width: '60px' },
+    { 
+      key: 'profileImage', 
+      header: '프로필',
+      width: '80px',
+      render: (_, user) => (
+        <div className={styles.avatarWrapper}>
+          {user.profileImage ? (
+            <img 
+              src={user.profileImage} 
+              alt={user.nickname}
+              className={styles.avatar}
+            />
+          ) : (
+            <div className={styles.avatarFallback}>
+              <span>{user.nickname?.charAt(0) || user.email?.charAt(0) || 'U'}</span>
+            </div>
+          )}
+        </div>
+      )
+    },
+    { key: 'email', header: '이메일' },
+    { 
+      key: 'nickname', 
+      header: '닉네임',
+      render: (_, user) => (
+        <div className={styles.userInfo}>
+          <span>{user.nickname}</span>
+          {user.githubId && (
+            <a 
+              href={`https://github.com/${user.githubId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.githubLink}
+            >
+              @{user.githubId}
+            </a>
+          )}
+        </div>
+      )
+    },
+    { 
+      key: 'role', 
+      header: '역할',
+      render: (role) => {
+        switch(role) {
+          case 'admin': return StatusBadge.admin();
+          case 'developer': return StatusBadge.developer();
+          case 'user': return StatusBadge.user();
+          default: return <AdminBadge>{role}</AdminBadge>;
+        }
+      }
+    },
+    { 
+      key: 'balance', 
+      header: '잔액',
+      render: (balance) => <AdminBadge variant="info">{balance.toLocaleString()}P</AdminBadge>
+    },
+    { 
+      key: 'createdAt', 
+      header: '가입일',
+      render: (date) => date ? new Date(date).toLocaleDateString('ko-KR') : '-'
+    },
+    { 
+      key: 'actions', 
+      header: '액션',
+      render: (_, user) => (
+        <div className={styles.actions}>
+          <button
+            className={styles.editButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              setEditingUser(user);
+              setShowEditModal(true);
+            }}
+          >
+            수정
+          </button>
+          <button
+            className={styles.deleteButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteUser(user.id);
+            }}
+            disabled={user.role === 'admin'}
+          >
+            삭제
+          </button>
+        </div>
+      )
+    }
+  ];
+
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div className="admin-container">
+      <div className="admin-header">
         <h1>사용자 관리</h1>
-        <p className={styles.subtitle}>
+        <p className="admin-subtitle">
           전체 사용자 목록을 관리하고 권한을 수정할 수 있습니다
         </p>
       </div>
 
+      {/* Stats Cards */}
+      <div className="admin-stats-grid">
+        <AdminStatsCard
+          title="전체 사용자"
+          value={stats.total}
+          icon="👥"
+        />
+        <AdminStatsCard
+          title="관리자"
+          value={stats.admins}
+          icon="👨‍💼"
+        />
+        <AdminStatsCard
+          title="개발자"
+          value={stats.developers}
+          icon="👨‍💻"
+        />
+        <AdminStatsCard
+          title="일반 사용자"
+          value={stats.users}
+          icon="👤"
+        />
+      </div>
+
       {/* Search and Filters */}
-      <div className={styles.controls}>
-        <div className={styles.searchWrapper}>
-          <input
-            type="text"
-            placeholder="이메일, 닉네임, GitHub ID로 검색..."
-            className={styles.searchInput}
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button
-            className={styles.searchButton}
-            onClick={handleSearch}
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-          </button>
-        </div>
+      <div className="admin-controls">
+        <AdminSearchBar
+          placeholder="이메일, 닉네임, GitHub ID로 검색..."
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearch}
+          onRefresh={fetchUsers}
+        />
         
-        <select
-          className={styles.filterSelect}
+        <AdminFilter
+          options={roleOptions}
           value={roleFilter}
-          onChange={(e) => {
-            setRoleFilter(e.target.value);
+          onChange={(value) => {
+            setRoleFilter(value);
             setCurrentPage(1);
           }}
-        >
-          {roleOptions.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-
-        <button 
-          className={styles.refreshButton}
-          onClick={fetchUsers}
-          title="새로고침"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 4v6h6M23 20v-6h-6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+        />
       </div>
 
       {/* Users Table */}
-      {loading ? (
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>사용자 목록을 불러오는 중...</p>
-        </div>
-      ) : (
-        <>
-          <div className={styles.tableContainer}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>프로필</th>
-                  <th>이메일</th>
-                  <th>닉네임</th>
-                  <th>역할</th>
-                  <th>잔액</th>
-                  <th>가입일</th>
-                  <th>액션</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map(user => (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>
-                      <div className={styles.avatarWrapper}>
-                        {user.profileImage ? (
-                          <img 
-                            src={user.profileImage} 
-                            alt={user.nickname}
-                            className={styles.avatar}
-                          />
-                        ) : (
-                          <div className={styles.avatarFallback}>
-                            <span>{user.nickname?.charAt(0) || user.email?.charAt(0) || 'U'}</span>
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td>{user.email}</td>
-                    <td>
-                      <div className={styles.userInfo}>
-                        <span>{user.nickname}</span>
-                        {user.githubId && (
-                          <a 
-                            href={`https://github.com/${user.githubId}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.githubLink}
-                          >
-                            @{user.githubId}
-                          </a>
-                        )}
-                      </div>
-                    </td>
-                    <td>
-                      <span className={`${styles.badge} ${styles[user.role]}`}>
-                        {user.role}
-                      </span>
-                    </td>
-                    <td>{user.balance.toLocaleString()}P</td>
-                    <td>
-                      {new Date(user.createdAt || '').toLocaleDateString('ko-KR')}
-                    </td>
-                    <td>
-                      <div className={styles.actions}>
-                        <button
-                          className={styles.editButton}
-                          onClick={() => {
-                            setEditingUser(user);
-                            setShowEditModal(true);
-                          }}
-                        >
-                          수정
-                        </button>
-                        <button
-                          className={styles.deleteButton}
-                          onClick={() => handleDeleteUser(user.id)}
-                          disabled={user.role === 'admin'}
-                        >
-                          삭제
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <AdminTable
+        columns={columns}
+        data={users}
+        loading={loading}
+        emptyMessage="등록된 사용자가 없습니다"
+      />
 
-          {/* Pagination */}
-          <div className={styles.pagination}>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(p => p - 1)}
-            >
-              이전
-            </button>
-            <span>
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(p => p + 1)}
-            >
-              다음
-            </button>
-          </div>
-        </>
+      {/* Pagination */}
+      {!loading && users.length > 0 && (
+        <AdminPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       )}
 
       {/* Edit Modal */}

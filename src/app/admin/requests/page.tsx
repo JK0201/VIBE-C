@@ -3,8 +3,19 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
+import '@/styles/admin/admin-common.css';
 import useUIStore from '@/stores/useUIStore';
 import { formatDate } from '@/lib/formatDate';
+import { 
+  AdminStatsCard, 
+  AdminSearchBar, 
+  AdminBadge, 
+  AdminFilter, 
+  AdminPagination,
+  AdminTable,
+  StatusBadge 
+} from '@/components/admin';
+import { TableColumn, FilterOption } from '@/types/admin';
 
 interface Bid {
   id: number;
@@ -50,6 +61,12 @@ export default function AdminRequestsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedRequest, setSelectedRequest] = useState<Request | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [stats, setStats] = useState({
+    total: 0,
+    open: 0,
+    urgent: 0,
+    auction: 0
+  });
 
   useEffect(() => {
     fetchRequests();
@@ -78,6 +95,15 @@ export default function AdminRequestsPage() {
       const data = await res.json();
       setRequests(data.requests);
       setTotalPages(data.pagination.totalPages);
+      
+      // Calculate stats
+      const allRequests = data.requests;
+      setStats({
+        total: data.pagination.totalItems || allRequests.length,
+        open: allRequests.filter((r: Request) => r.status === 'OPEN').length,
+        urgent: allRequests.filter((r: Request) => r.isUrgent).length,
+        auction: allRequests.filter((r: Request) => r.type === 'AUCTION').length
+      });
     } catch (error) {
       console.error('Error fetching requests:', error);
       showToast('요청 목록을 불러오는데 실패했습니다', 'error');
@@ -144,209 +170,174 @@ export default function AdminRequestsPage() {
     setCurrentPage(1);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
+  const typeOptions: FilterOption[] = [
+    { value: '', label: '전체 유형' },
+    { value: 'FIXED_PRICE', label: '고정가격' },
+    { value: 'AUCTION', label: '경매' }
+  ];
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'OPEN':
-        return <span className={`${styles.badge} ${styles.open}`}>진행 중</span>;
-      case 'COMPLETED':
-        return <span className={`${styles.badge} ${styles.completed}`}>완료</span>;
-      case 'CLOSED':
-        return <span className={`${styles.badge} ${styles.closed}`}>종료</span>;
-      default:
-        return <span className={`${styles.badge}`}>{status}</span>;
-    }
-  };
+  const statusOptions: FilterOption[] = [
+    { value: '', label: '전체 상태' },
+    { value: 'OPEN', label: '진행 중' },
+    { value: 'COMPLETED', label: '완료' },
+    { value: 'CLOSED', label: '종료' }
+  ];
 
-  const getTypeBadge = (type: string) => {
-    return type === 'FIXED_PRICE' 
-      ? <span className={`${styles.typeBadge} ${styles.fixed}`}>고정가격</span>
-      : <span className={`${styles.typeBadge} ${styles.auction}`}>경매</span>;
-  };
+  const columns: TableColumn<Request>[] = [
+    { key: 'id', header: 'ID', width: '60px' },
+    { 
+      key: 'title', 
+      header: '제목',
+      render: (_, request) => (
+        <Link 
+          href={`/requests/${request.id}`}
+          target="_blank"
+          className={styles.requestLink}
+        >
+          {request.title}
+        </Link>
+      )
+    },
+    { 
+      key: 'userId', 
+      header: '요청자',
+      render: (_, request) => (
+        <div className={styles.userInfo}>
+          <span>{request.userName}</span>
+          <span className={styles.userEmail}>{request.userEmail}</span>
+        </div>
+      )
+    },
+    { 
+      key: 'type', 
+      header: '유형',
+      render: (type) => type === 'FIXED_PRICE' 
+        ? <AdminBadge variant="info">고정가격</AdminBadge>
+        : <AdminBadge variant="warning">경매</AdminBadge>
+    },
+    { 
+      key: 'budget', 
+      header: '예산/입찰',
+      render: (_, request) => request.type === 'FIXED_PRICE' 
+        ? <AdminBadge variant="secondary">{request.budget?.toLocaleString()}P</AdminBadge>
+        : <span>{request.bidCount || 0}개 입찰</span>
+    },
+    { 
+      key: 'status', 
+      header: '상태',
+      render: (status) => {
+        switch(status) {
+          case 'OPEN': return StatusBadge.open();
+          case 'COMPLETED': return StatusBadge.completed();
+          case 'CLOSED': return StatusBadge.closed();
+          default: return <AdminBadge>{status}</AdminBadge>;
+        }
+      }
+    },
+    { 
+      key: 'deadline', 
+      header: '마감일',
+      render: (deadline) => formatDate(deadline)
+    },
+    { 
+      key: 'isUrgent', 
+      header: '긴급',
+      render: (isUrgent) => isUrgent ? <span className={styles.urgentBadge}>🚨 긴급</span> : '-'
+    },
+    { 
+      key: 'actions', 
+      header: '액션',
+      render: (_, request) => (
+        <button
+          className={styles.detailButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            fetchRequestDetail(request.id);
+          }}
+        >
+          상세보기
+        </button>
+      )
+    }
+  ];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div className="admin-container">
+      <div className="admin-header">
         <h1>요청 관리</h1>
-        <p className={styles.subtitle}>
+        <p className="admin-subtitle">
           모든 개발 요청을 관리하고 분쟁을 해결할 수 있습니다
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div className={styles.statsCards}>
-        <div className={styles.statCard}>
-          <h3>전체 요청</h3>
-          <p>{requests.length || 0}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>진행 중</h3>
-          <p>{requests.filter(r => r.status === 'OPEN').length}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>긴급 요청</h3>
-          <p>{requests.filter(r => r.isUrgent).length}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>경매 요청</h3>
-          <p>{requests.filter(r => r.type === 'AUCTION').length}</p>
-        </div>
+      <div className="admin-stats-grid">
+        <AdminStatsCard
+          title="전체 요청"
+          value={stats.total}
+          icon="📋"
+        />
+        <AdminStatsCard
+          title="진행 중"
+          value={stats.open}
+          icon="🔄"
+        />
+        <AdminStatsCard
+          title="긴급 요청"
+          value={stats.urgent}
+          icon="🚨"
+        />
+        <AdminStatsCard
+          title="경매 요청"
+          value={stats.auction}
+          icon="🏷️"
+        />
       </div>
 
       {/* Search and Filters */}
-      <div className={styles.controls}>
-        <div className={styles.searchWrapper}>
-          <input
-            type="text"
-            placeholder="제목, 설명, 사용자명으로 검색..."
-            className={styles.searchInput}
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button
-            className={styles.searchButton}
-            onClick={handleSearch}
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-          </button>
-        </div>
+      <div className="admin-controls">
+        <AdminSearchBar
+          placeholder="제목, 설명, 사용자명으로 검색..."
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearch}
+          onRefresh={fetchRequests}
+        />
         
-        <select
-          className={styles.filterSelect}
+        <AdminFilter
+          options={typeOptions}
           value={typeFilter}
-          onChange={(e) => {
-            setTypeFilter(e.target.value);
+          onChange={(value) => {
+            setTypeFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">전체 유형</option>
-          <option value="FIXED_PRICE">고정가격</option>
-          <option value="AUCTION">경매</option>
-        </select>
-
-        <select
-          className={styles.filterSelect}
+        />
+        
+        <AdminFilter
+          options={statusOptions}
           value={statusFilter}
-          onChange={(e) => {
-            setStatusFilter(e.target.value);
+          onChange={(value) => {
+            setStatusFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">전체 상태</option>
-          <option value="OPEN">진행 중</option>
-          <option value="COMPLETED">완료</option>
-          <option value="CLOSED">종료</option>
-        </select>
-
-        <button 
-          className={styles.refreshButton}
-          onClick={fetchRequests}
-          title="새로고침"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 4v6h6M23 20v-6h-6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+        />
       </div>
 
       {/* Requests Table */}
-      {loading ? (
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>요청 목록을 불러오는 중...</p>
-        </div>
-      ) : (
-        <>
-          <div className={styles.tableContainer}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>제목</th>
-                  <th>요청자</th>
-                  <th>유형</th>
-                  <th>예산/입찰</th>
-                  <th>상태</th>
-                  <th>마감일</th>
-                  <th>긴급</th>
-                  <th>액션</th>
-                </tr>
-              </thead>
-              <tbody>
-                {requests.map(request => (
-                  <tr key={request.id}>
-                    <td>{request.id}</td>
-                    <td>
-                      <Link 
-                        href={`/requests/${request.id}`}
-                        target="_blank"
-                        className={styles.requestLink}
-                      >
-                        {request.title}
-                      </Link>
-                    </td>
-                    <td>
-                      <div className={styles.userInfo}>
-                        <span>{request.userName}</span>
-                        <span className={styles.userEmail}>{request.userEmail}</span>
-                      </div>
-                    </td>
-                    <td>{getTypeBadge(request.type)}</td>
-                    <td>
-                      {request.type === 'FIXED_PRICE' 
-                        ? `${request.budget?.toLocaleString()}P`
-                        : `${request.bidCount || 0}개 입찰`
-                      }
-                    </td>
-                    <td>{getStatusBadge(request.status)}</td>
-                    <td>{formatDate(request.deadline)}</td>
-                    <td>
-                      {request.isUrgent && <span className={styles.urgentBadge}>🚨 긴급</span>}
-                    </td>
-                    <td>
-                      <button
-                        className={styles.detailButton}
-                        onClick={() => fetchRequestDetail(request.id)}
-                      >
-                        상세보기
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <AdminTable
+        columns={columns}
+        data={requests}
+        loading={loading}
+        emptyMessage="등록된 요청이 없습니다"
+      />
 
-          {/* Pagination */}
-          <div className={styles.pagination}>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(p => p - 1)}
-            >
-              이전
-            </button>
-            <span>
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(p => p + 1)}
-            >
-              다음
-            </button>
-          </div>
-        </>
+      {/* Pagination */}
+      {!loading && requests.length > 0 && (
+        <AdminPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       )}
 
       {/* Detail Modal */}
@@ -370,7 +361,10 @@ export default function AdminRequestsPage() {
               </div>
               <div className={styles.detailRow}>
                 <label>유형:</label>
-                {getTypeBadge(selectedRequest.type)}
+                {selectedRequest.type === 'FIXED_PRICE' 
+                  ? <AdminBadge variant="info">고정가격</AdminBadge>
+                  : <AdminBadge variant="warning">경매</AdminBadge>
+                }
               </div>
               <div className={styles.detailRow}>
                 <label>예산:</label>
@@ -383,7 +377,9 @@ export default function AdminRequestsPage() {
               </div>
               <div className={styles.detailRow}>
                 <label>상태:</label>
-                {getStatusBadge(selectedRequest.status)}
+                {selectedRequest.status === 'OPEN' && StatusBadge.open()}
+                {selectedRequest.status === 'COMPLETED' && StatusBadge.completed()}
+                {selectedRequest.status === 'CLOSED' && StatusBadge.closed()}
               </div>
               <div className={styles.detailRow}>
                 <label>마감일:</label>

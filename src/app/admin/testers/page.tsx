@@ -3,8 +3,19 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
+import '@/styles/admin/admin-common.css';
 import useUIStore from '@/stores/useUIStore';
 import { formatDate } from '@/lib/formatDate';
+import { 
+  AdminStatsCard, 
+  AdminSearchBar, 
+  AdminBadge, 
+  AdminFilter, 
+  AdminPagination,
+  AdminTable,
+  StatusBadge 
+} from '@/components/admin';
+import { TableColumn, FilterOption } from '@/types/admin';
 
 interface Tester {
   id: number;
@@ -40,6 +51,12 @@ export default function AdminTestersPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedTester, setSelectedTester] = useState<Tester | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [stats, setStats] = useState({
+    total: 0,
+    open: 0,
+    urgent: 0,
+    security: 0
+  });
 
   useEffect(() => {
     fetchTesters();
@@ -68,6 +85,15 @@ export default function AdminTestersPage() {
       const data = await res.json();
       setTesters(data.testers);
       setTotalPages(data.pagination.totalPages);
+      
+      // Calculate stats
+      const allTesters = data.testers;
+      setStats({
+        total: data.pagination.totalItems || allTesters.length,
+        open: allTesters.filter((t: Tester) => t.status === 'OPEN').length,
+        urgent: allTesters.filter((t: Tester) => t.isUrgent).length,
+        security: allTesters.filter((t: Tester) => t.testType.includes('security')).length
+      });
     } catch (error) {
       console.error('Error fetching testers:', error);
       showToast('테스터 목록을 불러오는데 실패했습니다', 'error');
@@ -134,40 +160,6 @@ export default function AdminTestersPage() {
     setCurrentPage(1);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'OPEN':
-        return <span className={`${styles.badge} ${styles.open}`}>모집 중</span>;
-      case 'COMPLETED':
-        return <span className={`${styles.badge} ${styles.completed}`}>완료</span>;
-      case 'CLOSED':
-        return <span className={`${styles.badge} ${styles.closed}`}>종료</span>;
-      default:
-        return <span className={`${styles.badge}`}>{status}</span>;
-    }
-  };
-
-  const getTestTypeBadge = (types: string[]) => {
-    const typeMap: Record<string, string> = {
-      functional: '기능',
-      ui: 'UI/UX',
-      performance: '성능',
-      security: '보안'
-    };
-
-    return types.map(type => (
-      <span key={type} className={`${styles.typeBadge} ${styles[type]}`}>
-        {typeMap[type] || type}
-      </span>
-    ));
-  };
-
   const getDurationDisplay = (duration: string) => {
     const durationMap: Record<string, string> = {
       '1week': '1주',
@@ -180,180 +172,191 @@ export default function AdminTestersPage() {
     return durationMap[duration] || duration;
   };
 
+  const typeOptions: FilterOption[] = [
+    { value: '', label: '전체 유형' },
+    { value: 'functional', label: '기능 테스트' },
+    { value: 'ui', label: 'UI/UX 테스트' },
+    { value: 'performance', label: '성능 테스트' },
+    { value: 'security', label: '보안 테스트' }
+  ];
+
+  const statusOptions: FilterOption[] = [
+    { value: '', label: '전체 상태' },
+    { value: 'OPEN', label: '모집 중' },
+    { value: 'COMPLETED', label: '완료' },
+    { value: 'CLOSED', label: '종료' }
+  ];
+
+  const getTestTypeBadges = (types: string[]) => {
+    const typeMap: Record<string, { label: string; variant: 'primary' | 'warning' | 'danger' | 'info' }> = {
+      functional: { label: '기능', variant: 'primary' },
+      ui: { label: 'UI/UX', variant: 'warning' },
+      performance: { label: '성능', variant: 'info' },
+      security: { label: '보안', variant: 'danger' }
+    };
+
+    return (
+      <>
+        {types.map(type => {
+          const config = typeMap[type] || { label: type, variant: 'secondary' as const };
+          return <AdminBadge key={type} variant={config.variant}>{config.label}</AdminBadge>;
+        })}
+      </>
+    );
+  };
+
+  const columns: TableColumn<Tester>[] = [
+    { key: 'id', header: 'ID', width: '60px' },
+    { 
+      key: 'title', 
+      header: '제목',
+      render: (_, tester) => (
+        <Link 
+          href={`/testers/${tester.id}`}
+          target="_blank"
+          className={styles.testerLink}
+        >
+          {tester.title}
+        </Link>
+      )
+    },
+    { key: 'company', header: '회사' },
+    { 
+      key: 'testType', 
+      header: '테스트 유형',
+      render: (_, tester) => getTestTypeBadges(tester.testType)
+    },
+    { 
+      key: 'reward', 
+      header: '보상',
+      render: (reward) => <AdminBadge variant="secondary">{reward.toLocaleString()}P</AdminBadge>
+    },
+    { 
+      key: 'requiredTesters', 
+      header: '모집인원',
+      render: (count) => `${count}명`
+    },
+    { 
+      key: 'applicants', 
+      header: '지원자',
+      render: (count) => `${count}명`
+    },
+    { 
+      key: 'duration', 
+      header: '기간',
+      render: (duration) => getDurationDisplay(duration)
+    },
+    { 
+      key: 'status', 
+      header: '상태',
+      render: (status) => {
+        switch(status) {
+          case 'OPEN': return StatusBadge.open();
+          case 'COMPLETED': return StatusBadge.completed();
+          case 'CLOSED': return StatusBadge.closed();
+          default: return <AdminBadge>{status}</AdminBadge>;
+        }
+      }
+    },
+    { 
+      key: 'isUrgent', 
+      header: '긴급',
+      render: (isUrgent) => isUrgent ? <span className={styles.urgentBadge}>🚨 긴급</span> : '-'
+    },
+    { 
+      key: 'actions', 
+      header: '액션',
+      render: (_, tester) => (
+        <button
+          className={styles.detailButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            fetchTesterDetail(tester.id);
+          }}
+        >
+          상세보기
+        </button>
+      )
+    }
+  ];
+
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div className="admin-container">
+      <div className="admin-header">
         <h1>테스터 관리</h1>
-        <p className={styles.subtitle}>
+        <p className="admin-subtitle">
           모든 테스터 모집 공고를 관리하고 모니터링할 수 있습니다
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div className={styles.statsCards}>
-        <div className={styles.statCard}>
-          <h3>전체 모집</h3>
-          <p>{testers.length || 0}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>모집 중</h3>
-          <p>{testers.filter(t => t.status === 'OPEN').length}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>긴급 모집</h3>
-          <p>{testers.filter(t => t.isUrgent).length}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>보안 테스트</h3>
-          <p>{testers.filter(t => t.testType.includes('security')).length}</p>
-        </div>
+      <div className="admin-stats-grid">
+        <AdminStatsCard
+          title="전체 모집"
+          value={stats.total}
+          icon="🧪"
+        />
+        <AdminStatsCard
+          title="모집 중"
+          value={stats.open}
+          icon="👥"
+        />
+        <AdminStatsCard
+          title="긴급 모집"
+          value={stats.urgent}
+          icon="🚨"
+        />
+        <AdminStatsCard
+          title="보안 테스트"
+          value={stats.security}
+          icon="🔒"
+        />
       </div>
 
       {/* Search and Filters */}
-      <div className={styles.controls}>
-        <div className={styles.searchWrapper}>
-          <input
-            type="text"
-            placeholder="제목, 회사명으로 검색..."
-            className={styles.searchInput}
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button
-            className={styles.searchButton}
-            onClick={handleSearch}
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-          </button>
-        </div>
+      <div className="admin-controls">
+        <AdminSearchBar
+          placeholder="제목, 회사명으로 검색..."
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearch}
+          onRefresh={fetchTesters}
+        />
         
-        <select
-          className={styles.filterSelect}
+        <AdminFilter
+          options={typeOptions}
           value={typeFilter}
-          onChange={(e) => {
-            setTypeFilter(e.target.value);
+          onChange={(value) => {
+            setTypeFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">전체 유형</option>
-          <option value="functional">기능 테스트</option>
-          <option value="ui">UI/UX 테스트</option>
-          <option value="performance">성능 테스트</option>
-          <option value="security">보안 테스트</option>
-        </select>
-
-        <select
-          className={styles.filterSelect}
+        />
+        
+        <AdminFilter
+          options={statusOptions}
           value={statusFilter}
-          onChange={(e) => {
-            setStatusFilter(e.target.value);
+          onChange={(value) => {
+            setStatusFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">전체 상태</option>
-          <option value="OPEN">모집 중</option>
-          <option value="COMPLETED">완료</option>
-          <option value="CLOSED">종료</option>
-        </select>
-
-        <button 
-          className={styles.refreshButton}
-          onClick={fetchTesters}
-          title="새로고침"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 4v6h6M23 20v-6h-6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+        />
       </div>
 
       {/* Testers Table */}
-      {loading ? (
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>테스터 목록을 불러오는 중...</p>
-        </div>
-      ) : (
-        <>
-          <div className={styles.tableContainer}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>제목</th>
-                  <th>회사</th>
-                  <th>테스트 유형</th>
-                  <th>보상</th>
-                  <th>모집인원</th>
-                  <th>지원자</th>
-                  <th>기간</th>
-                  <th>상태</th>
-                  <th>긴급</th>
-                  <th>액션</th>
-                </tr>
-              </thead>
-              <tbody>
-                {testers.map(tester => (
-                  <tr key={tester.id}>
-                    <td>{tester.id}</td>
-                    <td>
-                      <Link 
-                        href={`/testers/${tester.id}`}
-                        target="_blank"
-                        className={styles.testerLink}
-                      >
-                        {tester.title}
-                      </Link>
-                    </td>
-                    <td>{tester.company}</td>
-                    <td>{getTestTypeBadge(tester.testType)}</td>
-                    <td>{tester.reward.toLocaleString()}P</td>
-                    <td>{tester.requiredTesters}명</td>
-                    <td>{tester.applicants}명</td>
-                    <td>{getDurationDisplay(tester.duration)}</td>
-                    <td>{getStatusBadge(tester.status)}</td>
-                    <td>
-                      {tester.isUrgent && <span className={styles.urgentBadge}>🚨 긴급</span>}
-                    </td>
-                    <td>
-                      <button
-                        className={styles.detailButton}
-                        onClick={() => fetchTesterDetail(tester.id)}
-                      >
-                        상세보기
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <AdminTable
+        columns={columns}
+        data={testers}
+        loading={loading}
+        emptyMessage="등록된 테스터 모집이 없습니다"
+      />
 
-          {/* Pagination */}
-          <div className={styles.pagination}>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(p => p - 1)}
-            >
-              이전
-            </button>
-            <span>
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(p => p + 1)}
-            >
-              다음
-            </button>
-          </div>
-        </>
+      {/* Pagination */}
+      {!loading && testers.length > 0 && (
+        <AdminPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       )}
 
       {/* Detail Modal */}
@@ -377,7 +380,7 @@ export default function AdminTestersPage() {
               </div>
               <div className={styles.detailRow}>
                 <label>테스트 유형:</label>
-                <div>{getTestTypeBadge(selectedTester.testType)}</div>
+                <div>{getTestTypeBadges(selectedTester.testType)}</div>
               </div>
               <div className={styles.detailRow}>
                 <label>보상:</label>
@@ -405,7 +408,9 @@ export default function AdminTestersPage() {
               </div>
               <div className={styles.detailRow}>
                 <label>상태:</label>
-                {getStatusBadge(selectedTester.status)}
+                {selectedTester.status === 'OPEN' && StatusBadge.open()}
+                {selectedTester.status === 'COMPLETED' && StatusBadge.completed()}
+                {selectedTester.status === 'CLOSED' && StatusBadge.closed()}
               </div>
               {selectedTester.isUrgent && (
                 <div className={styles.detailRow}>

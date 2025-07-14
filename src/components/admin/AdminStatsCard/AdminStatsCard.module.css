@@ -14,8 +14,9 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 0.75rem;
+  min-height: 1.5rem;
 }
 
 .title {
@@ -25,11 +26,15 @@
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  line-height: 1.5rem;
 }
 
 .icon {
   font-size: 1.25rem;
   opacity: 0.8;
+  line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 .value {

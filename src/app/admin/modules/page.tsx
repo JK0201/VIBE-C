@@ -3,7 +3,18 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
+import '@/styles/admin/admin-common.css';
 import useUIStore from '@/stores/useUIStore';
+import { 
+  AdminStatsCard, 
+  AdminSearchBar, 
+  AdminBadge, 
+  AdminFilter, 
+  AdminPagination,
+  AdminTable,
+  StatusBadge 
+} from '@/components/admin';
+import { TableColumn, FilterOption } from '@/types/admin';
 
 interface Module {
   id: number;
@@ -19,7 +30,6 @@ interface Module {
   developerId?: number;
   imageUrl?: string;
   status?: string;
-  featured?: boolean;
   reports?: number;
   createdAt?: string;
 }
@@ -48,6 +58,12 @@ export default function AdminModulesPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [stats, setStats] = useState({
+    total: 0,
+    approved: 0,
+    pending: 0,
+    rejected: 0
+  });
 
   useEffect(() => {
     fetchModules();
@@ -56,6 +72,11 @@ export default function AdminModulesPage() {
   useEffect(() => {
     setSearchInput(searchTerm);
   }, [searchTerm]);
+
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+    setCurrentPage(1);
+  };
 
   const fetchModules = async () => {
     try {
@@ -76,6 +97,15 @@ export default function AdminModulesPage() {
       const data = await res.json();
       setModules(data.modules);
       setTotalPages(data.pagination.totalPages);
+      
+      // Calculate stats
+      const allModules = data.modules;
+      setStats({
+        total: data.pagination.totalItems || allModules.length,
+        approved: allModules.filter((m: Module) => m.status === 'approved').length,
+        pending: allModules.filter((m: Module) => m.status === 'pending').length,
+        rejected: allModules.filter((m: Module) => m.status === 'rejected').length
+      });
     } catch (error) {
       console.error('Error fetching modules:', error);
       showToast('모듈 목록을 불러오는데 실패했습니다', 'error');
@@ -104,8 +134,22 @@ export default function AdminModulesPage() {
     }
   };
 
+  const fetchModuleDetail = async (moduleId: number) => {
+    try {
+      const res = await fetch(`/api/v1/admin/modules/${moduleId}`);
+      if (!res.ok) throw new Error('Failed to fetch module detail');
+      
+      const data = await res.json();
+      setSelectedModule(data);
+      setShowDetailModal(true);
+    } catch (error) {
+      console.error('Error fetching module detail:', error);
+      showToast('모듈 상세 정보를 불러오는데 실패했습니다', 'error');
+    }
+  };
+
   const handleDeleteModule = async (moduleId: number) => {
-    if (!confirm('정말로 이 모듈을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) return;
+    if (!confirm('정말로 이 모듈을 삭제하시겠습니까?')) return;
 
     try {
       const res = await fetch(`/api/v1/admin/modules/${moduleId}`, {
@@ -123,206 +167,178 @@ export default function AdminModulesPage() {
     }
   };
 
-  const handleSearch = () => {
-    setSearchTerm(searchInput);
-    setCurrentPage(1);
-  };
+  const categoryOptions: FilterOption[] = [
+    { value: '', label: '전체 카테고리' },
+    ...Object.entries(categoryMap).map(([value, label]) => ({ value, label }))
+  ];
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
+  const statusOptions: FilterOption[] = [
+    { value: '', label: '전체 상태' },
+    { value: 'approved', label: '승인됨' },
+    { value: 'pending', label: '검토 중' },
+    { value: 'rejected', label: '거부됨' }
+  ];
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'approved':
-        return <span className={`${styles.badge} ${styles.approved}`}>승인됨</span>;
-      case 'pending':
-        return <span className={`${styles.badge} ${styles.pending}`}>검토 중</span>;
-      case 'rejected':
-        return <span className={`${styles.badge} ${styles.rejected}`}>거부됨</span>;
-      default:
-        return <span className={`${styles.badge}`}>{status}</span>;
+  const columns: TableColumn<Module>[] = [
+    { key: 'id', header: 'ID', width: '60px' },
+    { 
+      key: 'name', 
+      header: '모듈명',
+      render: (_, module) => (
+        <Link 
+          href={`/marketplace/${module.id}`}
+          target="_blank"
+          className={styles.moduleLink}
+        >
+          {module.name}
+        </Link>
+      )
+    },
+    { 
+      key: 'category', 
+      header: '카테고리',
+      render: (category) => <AdminBadge variant="info">{categoryMap[category] || category}</AdminBadge>
+    },
+    { 
+      key: 'price', 
+      header: '가격',
+      render: (price) => <AdminBadge variant="secondary">{price.toLocaleString()}P</AdminBadge>
+    },
+    { 
+      key: 'developer', 
+      header: '개발자',
+      render: (developer) => developer || '-'
+    },
+    { 
+      key: 'status', 
+      header: '상태',
+      render: (status) => {
+        switch(status || 'approved') {
+          case 'approved': return StatusBadge.approved();
+          case 'pending': return StatusBadge.pending();
+          case 'rejected': return StatusBadge.rejected();
+          default: return <AdminBadge>{status}</AdminBadge>;
+        }
+      }
+    },
+    { 
+      key: 'rating', 
+      header: '평점',
+      render: (rating) => (
+        <div className={styles.rating}>
+          <span className={styles.star}>⭐</span> {rating.toFixed(1)}
+        </div>
+      )
+    },
+    { 
+      key: 'purchases', 
+      header: '판매',
+      render: (purchases) => purchases.toLocaleString()
+    },
+    { 
+      key: 'reports', 
+      header: '신고',
+      render: (reports, module) => 
+        module.status === 'rejected' ? '-' : (
+          reports && reports > 0 ? (
+            <span className={styles.reportCount}>🚨 {reports}</span>
+          ) : '-'
+        )
+    },
+    { 
+      key: 'actions', 
+      header: '액션',
+      render: (_, module) => (
+        <button
+          className={styles.detailButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            fetchModuleDetail(module.id);
+          }}
+        >
+          상세보기
+        </button>
+      )
     }
-  };
+  ];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div className="admin-container">
+      <div className="admin-header">
         <h1>모듈 관리</h1>
-        <p className={styles.subtitle}>
-          등록된 모듈을 검토하고 관리할 수 있습니다
+        <p className="admin-subtitle">
+          마켓플레이스에 등록된 모든 모듈을 관리할 수 있습니다
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div className={styles.statsCards}>
-        <div className={styles.statCard}>
-          <h3>전체 모듈</h3>
-          <p>{modules.length || 0}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>검토 대기</h3>
-          <p>{modules.filter(m => m.status === 'pending').length}</p>
-        </div>
-        <div className={styles.statCard}>
-          <h3>신고 접수</h3>
-          <p>{modules.reduce((sum, m) => sum + (m.reports || 0), 0)}</p>
-        </div>
+      <div className="admin-stats-grid">
+        <AdminStatsCard
+          title="전체 모듈"
+          value={stats.total}
+          icon="📦"
+        />
+        <AdminStatsCard
+          title="승인됨"
+          value={stats.approved}
+          icon="✅"
+        />
+        <AdminStatsCard
+          title="검토 중"
+          value={stats.pending}
+          icon="⏳"
+        />
+        <AdminStatsCard
+          title="거부됨"
+          value={stats.rejected}
+          icon="❌"
+        />
       </div>
 
       {/* Search and Filters */}
-      <div className={styles.controls}>
-        <div className={styles.searchWrapper}>
-          <input
-            type="text"
-            placeholder="모듈명, 설명, 개발자로 검색..."
-            className={styles.searchInput}
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button
-            className={styles.searchButton}
-            onClick={handleSearch}
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-          </button>
-        </div>
+      <div className="admin-controls">
+        <AdminSearchBar
+          placeholder="모듈명, 개발자명으로 검색..."
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearch}
+          onRefresh={fetchModules}
+        />
         
-        <select
-          className={styles.filterSelect}
+        <AdminFilter
+          options={categoryOptions}
           value={categoryFilter}
-          onChange={(e) => {
-            setCategoryFilter(e.target.value);
+          onChange={(value) => {
+            setCategoryFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">전체 카테고리</option>
-          {Object.entries(categoryMap).map(([value, label]) => (
-            <option key={value} value={value}>{label}</option>
-          ))}
-        </select>
-
-        <select
-          className={styles.filterSelect}
+        />
+        
+        <AdminFilter
+          options={statusOptions}
           value={statusFilter}
-          onChange={(e) => {
-            setStatusFilter(e.target.value);
+          onChange={(value) => {
+            setStatusFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">전체 상태</option>
-          <option value="approved">승인됨</option>
-          <option value="pending">검토 중</option>
-          <option value="rejected">거부됨</option>
-        </select>
-
-        <button 
-          className={styles.refreshButton}
-          onClick={fetchModules}
-          title="새로고침"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 4v6h6M23 20v-6h-6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+        />
       </div>
 
       {/* Modules Table */}
-      {loading ? (
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>모듈 목록을 불러오는 중...</p>
-        </div>
-      ) : (
-        <>
-          <div className={styles.tableContainer}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>모듈명</th>
-                  <th>카테고리</th>
-                  <th>가격</th>
-                  <th>판매량</th>
-                  <th>평점</th>
-                  <th>상태</th>
-                  <th>신고</th>
-                  <th>액션</th>
-                </tr>
-              </thead>
-              <tbody>
-                {modules.map(module => (
-                  <tr key={module.id}>
-                    <td>{module.id}</td>
-                    <td>
-                      <div className={styles.moduleInfo}>
-                        <Link 
-                          href={`/marketplace/${module.id}`}
-                          target="_blank"
-                          className={styles.moduleLink}
-                        >
-                          {module.name}
-                        </Link>
-                      </div>
-                    </td>
-                    <td>{categoryMap[module.category] || module.category}</td>
-                    <td>{module.price.toLocaleString()}P</td>
-                    <td>{module.purchases}</td>
-                    <td>⭐ {module.rating}</td>
-                    <td>{getStatusBadge(module.status || 'approved')}</td>
-                    <td>
-                      {module.status === 'rejected' ? (
-                        '-'
-                      ) : module.reports && module.reports > 0 ? (
-                        <span className={styles.reportCount}>🚨 {module.reports}</span>
-                      ) : (
-                        '-'
-                      )}
-                    </td>
-                    <td>
-                      <button
-                        className={styles.detailButton}
-                        onClick={() => {
-                          setSelectedModule(module);
-                          setShowDetailModal(true);
-                        }}
-                      >
-                        상세보기
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <AdminTable
+        columns={columns}
+        data={modules}
+        loading={loading}
+        emptyMessage="등록된 모듈이 없습니다"
+      />
 
-          {/* Pagination */}
-          <div className={styles.pagination}>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(p => p - 1)}
-            >
-              이전
-            </button>
-            <span>
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(p => p + 1)}
-            >
-              다음
-            </button>
-          </div>
-        </>
+      {/* Pagination */}
+      {!loading && modules.length > 0 && (
+        <AdminPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       )}
 
       {/* Detail Modal */}
@@ -349,12 +365,8 @@ export default function AdminModulesPage() {
                 <span>{selectedModule.price.toLocaleString()}P</span>
               </div>
               <div className={styles.detailRow}>
-                <label>태그:</label>
-                <div className={styles.tags}>
-                  {selectedModule.tags.map((tag, index) => (
-                    <span key={index} className={styles.tag}>{tag}</span>
-                  ))}
-                </div>
+                <label>개발자:</label>
+                <span>{selectedModule.developer || '-'}</span>
               </div>
               <div className={styles.detailRow}>
                 <label>GitHub URL:</label>
@@ -363,31 +375,52 @@ export default function AdminModulesPage() {
                 </a>
               </div>
               <div className={styles.detailRow}>
-                <label>개발자:</label>
-                <span>{selectedModule.developer || `User ${selectedModule.developerId}`}</span>
+                <label>평점:</label>
+                <span>⭐ {selectedModule.rating.toFixed(1)} / 5.0</span>
+              </div>
+              <div className={styles.detailRow}>
+                <label>판매량:</label>
+                <span>{selectedModule.purchases}회</span>
+              </div>
+              <div className={styles.detailRow}>
+                <label>태그:</label>
+                <div className={styles.tags}>
+                  {selectedModule.tags.map(tag => (
+                    <span key={tag} className={styles.tag}>{tag}</span>
+                  ))}
+                </div>
               </div>
               <div className={styles.detailRow}>
                 <label>상태:</label>
-                {getStatusBadge(selectedModule.status || 'approved')}
+                {selectedModule.status === 'approved' && StatusBadge.approved()}
+                {selectedModule.status === 'pending' && StatusBadge.pending()}
+                {selectedModule.status === 'rejected' && StatusBadge.rejected()}
+                {!selectedModule.status && StatusBadge.approved()}
               </div>
+              {selectedModule.reports && selectedModule.reports > 0 && (
+                <div className={styles.detailRow}>
+                  <label>신고 횟수:</label>
+                  <span className={styles.reportCount}>🚨 {selectedModule.reports}건</span>
+                </div>
+              )}
             </div>
 
             <div className={styles.modalActions}>
-              {selectedModule.status === 'pending' && (
-                <>
-                  <button 
-                    className={styles.approveButton}
-                    onClick={() => handleModuleAction(selectedModule.id, 'approve')}
-                  >
-                    ✅ 승인
-                  </button>
-                  <button 
-                    className={styles.rejectButton}
-                    onClick={() => handleModuleAction(selectedModule.id, 'reject')}
-                  >
-                    ❌ 거부
-                  </button>
-                </>
+              {selectedModule.status !== 'approved' && (
+                <button 
+                  className={styles.approveButton}
+                  onClick={() => handleModuleAction(selectedModule.id, 'approve')}
+                >
+                  승인
+                </button>
+              )}
+              {selectedModule.status !== 'rejected' && (
+                <button 
+                  className={styles.rejectButton}
+                  onClick={() => handleModuleAction(selectedModule.id, 'reject')}
+                >
+                  거부
+                </button>
               )}
               <button 
                 className={styles.deleteButton}
@@ -396,7 +429,7 @@ export default function AdminModulesPage() {
                 🗑️ 삭제
               </button>
               <button 
-                className={styles.cancelButton}
+                className={styles.closeModalButton}
                 onClick={() => setShowDetailModal(false)}
               >
                 닫기

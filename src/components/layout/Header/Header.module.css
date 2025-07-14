@@ -194,6 +194,7 @@
   justify-content: center;
   font-weight: 600;
   color: white;
+  text-transform: uppercase;
 }
 
 .userAvatar img {

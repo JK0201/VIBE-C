@@ -2,10 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import styles from './page.module.css';
+import '@/styles/admin/admin-common.css';
 import useUIStore from '@/stores/useUIStore';
 import { formatDate } from '@/lib/formatDate';
 import { AuditLog, AuditAction } from '@/types/audit.types';
 import { getActionDescription } from '@/lib/audit/actionDescriptions';
+import { 
+  AdminSearchBar, 
+  AdminBadge, 
+  AdminFilter, 
+  AdminPagination,
+  AdminTable
+} from '@/components/admin';
+import { TableColumn, FilterOption } from '@/types/admin';
 
 export default function AdminAuditLogsPage() {
   const { showToast } = useUIStore();
@@ -63,18 +72,12 @@ export default function AdminAuditLogsPage() {
     setCurrentPage(1);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
-  const getActionBadgeColor = (action: string): string => {
-    if (action.includes('DELETE')) return styles.danger;
-    if (action.includes('UPDATE') || action.includes('CHANGE')) return styles.warning;
-    if (action.includes('APPROVE') || action.includes('FEATURE')) return styles.success;
-    if (action.includes('REJECT') || action.includes('CANCEL')) return styles.error;
-    return styles.info;
+  const getActionBadgeVariant = (action: string): 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'secondary' => {
+    if (action.includes('DELETE')) return 'danger';
+    if (action.includes('UPDATE') || action.includes('CHANGE')) return 'warning';
+    if (action.includes('APPROVE') || action.includes('FEATURE')) return 'success';
+    if (action.includes('REJECT') || action.includes('CANCEL')) return 'danger';
+    return 'info';
   };
 
   const getEntityIcon = (entity: string): string => {
@@ -88,84 +91,127 @@ export default function AdminAuditLogsPage() {
     }
   };
 
+  const actionOptions: FilterOption[] = [
+    { value: '', label: '모든 액션' },
+    { value: AuditAction.USER_UPDATE, label: '사용자 정보 수정' },
+    { value: AuditAction.USER_DELETE, label: '사용자 삭제' },
+    { value: AuditAction.USER_ROLE_CHANGE, label: '역할 변경' },
+    { value: AuditAction.USER_BALANCE_CHANGE, label: '잔액 변경' },
+    { value: AuditAction.MODULE_APPROVE, label: '모듈 승인' },
+    { value: AuditAction.MODULE_REJECT, label: '모듈 거부' },
+    { value: AuditAction.MODULE_DELETE, label: '모듈 삭제' },
+    { value: AuditAction.MODULE_FEATURE, label: '모듈 추천' },
+    { value: AuditAction.REQUEST_CLOSE, label: '요청 종료' },
+    { value: AuditAction.REQUEST_CANCEL, label: '요청 취소' },
+    { value: AuditAction.REQUEST_DELETE, label: '요청 삭제' },
+    { value: AuditAction.TRANSACTION_REFUND, label: '환불 처리' }
+  ];
+
+  const entityOptions: FilterOption[] = [
+    { value: '', label: '모든 엔티티' },
+    { value: 'user', label: '사용자' },
+    { value: 'module', label: '모듈' },
+    { value: 'request', label: '요청' },
+    { value: 'transaction', label: '거래' },
+    { value: 'system', label: '시스템' }
+  ];
+
+  const columns: TableColumn<AuditLog>[] = [
+    { key: 'id', header: 'ID', width: '60px' },
+    { 
+      key: 'createdAt', 
+      header: '시간',
+      render: (date) => formatDate(date)
+    },
+    { 
+      key: 'adminEmail', 
+      header: '관리자',
+      render: (_, log) => (
+        <div className={styles.adminInfo}>
+          <span>{log.adminEmail}</span>
+          <span className={styles.adminId}>ID: {log.adminId}</span>
+        </div>
+      )
+    },
+    { 
+      key: 'action', 
+      header: '액션',
+      render: (action) => (
+        <AdminBadge variant={getActionBadgeVariant(action)}>
+          {getActionDescription(action)}
+        </AdminBadge>
+      )
+    },
+    { 
+      key: 'entity', 
+      header: '대상',
+      render: (_, log) => (
+        <div className={styles.entityInfo}>
+          <span className={styles.entityIcon}>{getEntityIcon(log.entity)}</span>
+          <span>{log.entity}</span>
+          {log.entityId && <span className={styles.entityId}>{log.entityId}</span>}
+        </div>
+      )
+    },
+    { 
+      key: 'ipAddress', 
+      header: 'IP 주소',
+      render: (ip) => <span className={styles.ipAddress}>{ip || '-'}</span>
+    },
+    { 
+      key: 'actions', 
+      header: '상세',
+      render: (_, log) => (
+        <button
+          className={styles.detailButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedLog(log);
+            setShowDetailModal(true);
+          }}
+        >
+          보기
+        </button>
+      )
+    }
+  ];
+
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div className="admin-container">
+      <div className="admin-header">
         <h1>감사 로그</h1>
-        <p className={styles.subtitle}>
+        <p className="admin-subtitle">
           관리자의 모든 활동 내역을 추적하고 모니터링합니다
         </p>
       </div>
 
       {/* Filters */}
-      <div className={styles.filters}>
-        <div className={styles.searchWrapper}>
-          <input
-            type="text"
-            placeholder="이메일, 액션, 상세 내용으로 검색..."
-            className={styles.searchInput}
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button
-            className={styles.searchButton}
-            onClick={handleSearch}
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-          </button>
-        </div>
-
-        <select
-          className={styles.filterSelect}
+      <div className="admin-controls">
+        <AdminSearchBar
+          placeholder="이메일, 액션, 상세 내용으로 검색..."
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={handleSearch}
+          onRefresh={fetchAuditLogs}
+        />
+        
+        <AdminFilter
+          options={actionOptions}
           value={actionFilter}
-          onChange={(e) => {
-            setActionFilter(e.target.value);
+          onChange={(value) => {
+            setActionFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">모든 액션</option>
-          <optgroup label="사용자 관리">
-            <option value={AuditAction.USER_UPDATE}>사용자 정보 수정</option>
-            <option value={AuditAction.USER_DELETE}>사용자 삭제</option>
-            <option value={AuditAction.USER_ROLE_CHANGE}>역할 변경</option>
-            <option value={AuditAction.USER_BALANCE_CHANGE}>잔액 변경</option>
-          </optgroup>
-          <optgroup label="모듈 관리">
-            <option value={AuditAction.MODULE_APPROVE}>모듈 승인</option>
-            <option value={AuditAction.MODULE_REJECT}>모듈 거부</option>
-            <option value={AuditAction.MODULE_DELETE}>모듈 삭제</option>
-            <option value={AuditAction.MODULE_FEATURE}>모듈 추천</option>
-          </optgroup>
-          <optgroup label="요청 관리">
-            <option value={AuditAction.REQUEST_CLOSE}>요청 종료</option>
-            <option value={AuditAction.REQUEST_CANCEL}>요청 취소</option>
-            <option value={AuditAction.REQUEST_DELETE}>요청 삭제</option>
-          </optgroup>
-          <optgroup label="거래 관리">
-            <option value={AuditAction.TRANSACTION_REFUND}>환불 처리</option>
-          </optgroup>
-        </select>
-
-        <select
-          className={styles.filterSelect}
+        />
+        
+        <AdminFilter
+          options={entityOptions}
           value={entityFilter}
-          onChange={(e) => {
-            setEntityFilter(e.target.value);
+          onChange={(value) => {
+            setEntityFilter(value);
             setCurrentPage(1);
           }}
-        >
-          <option value="">모든 엔티티</option>
-          <option value="user">사용자</option>
-          <option value="module">모듈</option>
-          <option value="request">요청</option>
-          <option value="transaction">거래</option>
-          <option value="system">시스템</option>
-        </select>
+        />
 
         <input
           type="date"
@@ -188,100 +234,23 @@ export default function AdminAuditLogsPage() {
           }}
           placeholder="종료일"
         />
-
-        <button 
-          className={styles.refreshButton}
-          onClick={fetchAuditLogs}
-          title="새로고침"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 4v6h6M23 20v-6h-6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
       </div>
 
       {/* Audit Logs Table */}
-      {loading ? (
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>감사 로그를 불러오는 중...</p>
-        </div>
-      ) : (
-        <>
-          <div className={styles.tableContainer}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>시간</th>
-                  <th>관리자</th>
-                  <th>액션</th>
-                  <th>대상</th>
-                  <th>IP 주소</th>
-                  <th>상세</th>
-                </tr>
-              </thead>
-              <tbody>
-                {logs.map(log => (
-                  <tr key={log.id}>
-                    <td>{log.id}</td>
-                    <td>{formatDate(log.createdAt)}</td>
-                    <td>
-                      <div className={styles.adminInfo}>
-                        <span>{log.adminEmail}</span>
-                        <span className={styles.adminId}>ID: {log.adminId}</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span className={`${styles.actionBadge} ${getActionBadgeColor(log.action)}`}>
-                        {getActionDescription(log.action)}
-                      </span>
-                    </td>
-                    <td>
-                      <div className={styles.entityInfo}>
-                        <span className={styles.entityIcon}>{getEntityIcon(log.entity)}</span>
-                        <span>{log.entity}</span>
-                        {log.entityId && <span className={styles.entityId}>{log.entityId}</span>}
-                      </div>
-                    </td>
-                    <td className={styles.ipAddress}>{log.ipAddress || '-'}</td>
-                    <td>
-                      <button
-                        className={styles.detailButton}
-                        onClick={() => {
-                          setSelectedLog(log);
-                          setShowDetailModal(true);
-                        }}
-                      >
-                        보기
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <AdminTable
+        columns={columns}
+        data={logs}
+        loading={loading}
+        emptyMessage="감사 로그가 없습니다"
+      />
 
-          {/* Pagination */}
-          <div className={styles.pagination}>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(p => p - 1)}
-            >
-              이전
-            </button>
-            <span>
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(p => p + 1)}
-            >
-              다음
-            </button>
-          </div>
-        </>
+      {/* Pagination */}
+      {!loading && logs.length > 0 && (
+        <AdminPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       )}
 
       {/* Detail Modal */}
@@ -305,9 +274,9 @@ export default function AdminAuditLogsPage() {
               </div>
               <div className={styles.detailRow}>
                 <label>액션:</label>
-                <span className={`${styles.actionBadge} ${getActionBadgeColor(selectedLog.action)}`}>
+                <AdminBadge variant={getActionBadgeVariant(selectedLog.action)}>
                   {getActionDescription(selectedLog.action)}
-                </span>
+                </AdminBadge>
               </div>
               <div className={styles.detailRow}>
                 <label>대상:</label>

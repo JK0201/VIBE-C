@@ -5,7 +5,6 @@ interface AdminFilterProps {
   options: FilterOption[];
   value: string;
   onChange: (value: string) => void;
-  placeholder?: string;
   className?: string;
 }
 
@@ -13,7 +12,6 @@ export default function AdminFilter({
   options,
   value,
   onChange,
-  placeholder = "전체",
   className
 }: AdminFilterProps) {
   return (
@@ -22,7 +20,6 @@ export default function AdminFilter({
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >
-      <option value="">{placeholder}</option>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
