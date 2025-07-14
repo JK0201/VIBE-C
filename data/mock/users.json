@@ -373,6 +373,19 @@
       "bio": "",
       "createdAt": "2025-07-14T01:23:48.635Z",
       "updatedAt": "2025-07-14T01:26:16.922Z"
+    },
+    {
+      "id": 35,
+      "email": "admin@gmail.com",
+      "nickname": "admin",
+      "password": "$2b$10$K8bHxea5ogixjQMazYSOc.m3cLJn1hcEVBY7PCeCpY1yPa5j1ppQm",
+      "role": "admin",
+      "githubId": "",
+      "balance": 9999999,
+      "profileImage": "",
+      "bio": "",
+      "createdAt": "2025-07-14T10:16:45.929Z",
+      "updatedAt": "2025-07-14T10:26:27.281Z"
     }
   ]
 }
