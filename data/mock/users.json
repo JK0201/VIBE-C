@@ -277,18 +277,6 @@
       "createdAt": "2024-05-20T09:00:00Z"
     },
     {
-      "id": 24,
-      "email": "tina.blockchain@example.com",
-      "nickname": "TinaBlockchain",
-      "password": "cGFzc3dvcmQxMjM=",
-      "role": "developer",
-      "githubId": "tinablockchain",
-      "balance": 120000,
-      "profileImage": "https://github.com/tinablockchain.png",
-      "bio": "Blockchain developer with DeFi expertise",
-      "createdAt": "2024-05-25T10:00:00Z"
-    },
-    {
       "id": 25,
       "email": "uma.solidity@example.com",
       "nickname": "UmaSolidity",
@@ -349,18 +337,6 @@
       "createdAt": "2024-06-20T15:00:00Z"
     },
     {
-      "id": 30,
-      "email": "zoe.unity@example.com",
-      "nickname": "ZoeUnity",
-      "password": "cGFzc3dvcmQxMjM=",
-      "role": "user",
-      "githubId": "zoeunity",
-      "balance": 95000,
-      "profileImage": "https://github.com/zoeunity.png",
-      "bio": "Unity game developer with mobile expertise",
-      "createdAt": "2024-06-25T09:00:00Z"
-    },
-    {
       "id": 31,
       "email": "alex.recommend@example.com",
       "nickname": "AlexRecommend",
@@ -373,19 +349,6 @@
       "createdAt": "2024-07-01T10:00:00Z"
     },
     {
-      "id": 32,
-      "email": "john.dev@examplee.com",
-      "nickname": "John_Developer",
-      "password": "MTIzNGFhYWE=",
-      "role": "developer",
-      "githubId": "",
-      "balance": 10000,
-      "profileImage": "",
-      "bio": "",
-      "createdAt": "2025-07-07T03:04:23.431Z",
-      "updatedAt": "2025-07-11T07:29:33.674Z"
-    },
-    {
       "id": 33,
       "email": "catwalk@gmail.com",
       "nickname": "catwalk",
@@ -395,7 +358,21 @@
       "balance": 1000,
       "profileImage": "",
       "bio": "",
-      "createdAt": "2025-07-07T07:57:35.691Z"
+      "createdAt": "2025-07-07T07:57:35.691Z",
+      "updatedAt": "2025-07-14T02:23:12.132Z"
+    },
+    {
+      "id": 34,
+      "email": "dev@dev.com",
+      "nickname": "dev",
+      "password": "$2b$10$BKD77RV/DVALRZ0rQtwa0uO9HBvt.1ClkDLZvgri1XgSsuzekPn/q",
+      "role": "developer",
+      "githubId": "JK0201",
+      "balance": 10000,
+      "profileImage": "https://github.com/JK0201.png",
+      "bio": "",
+      "createdAt": "2025-07-14T01:23:48.635Z",
+      "updatedAt": "2025-07-14T01:26:16.922Z"
     }
   ]
 }

@@ -18,7 +18,7 @@ async function saveUsers(data: any) {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -26,7 +26,8 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = parseInt(params.id, 10);
+    const { id } = await params;
+    const userId = parseInt(id, 10);
     const data = await loadUsers();
     const user = data.users.find((u: any) => u.id === userId);
 
@@ -49,7 +50,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -57,7 +58,8 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = parseInt(params.id, 10);
+    const { id } = await params;
+    const userId = parseInt(id, 10);
     const updates = await request.json();
     
     const data = await loadUsers();
@@ -117,7 +119,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -125,7 +127,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = parseInt(params.id, 10);
+    const { id } = await params;
+    const userId = parseInt(id, 10);
     
     // Prevent deleting admin users
     const data = await loadUsers();

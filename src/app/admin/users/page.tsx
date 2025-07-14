@@ -204,11 +204,19 @@ export default function AdminUsersPage() {
                   <tr key={user.id}>
                     <td>{user.id}</td>
                     <td>
-                      <img 
-                        src={user.profileImage || '/default-avatar.png'} 
-                        alt={user.nickname}
-                        className={styles.avatar}
-                      />
+                      <div className={styles.avatarWrapper}>
+                        {user.profileImage ? (
+                          <img 
+                            src={user.profileImage} 
+                            alt={user.nickname}
+                            className={styles.avatar}
+                          />
+                        ) : (
+                          <div className={styles.avatarFallback}>
+                            <span>{user.nickname?.charAt(0) || user.email?.charAt(0) || 'U'}</span>
+                          </div>
+                        )}
+                      </div>
                     </td>
                     <td>{user.email}</td>
                     <td>

@@ -26,6 +26,17 @@ export async function GET(
       );
     }
 
+    // Only approved modules can be accessed by users
+    if (foundModule.status !== 'approved') {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Module not found',
+        },
+        { status: 404 }
+      );
+    }
+
     // Find the author/seller information
     const author = usersData.users.find(u => u.id === foundModule.sellerId);
     

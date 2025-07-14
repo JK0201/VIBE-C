@@ -451,24 +451,14 @@
 }
 
 .rejectButton {
-  background: #ef4444;
-  color: white;
-}
-
-.rejectButton:hover {
-  background: #dc2626;
-}
-
-.featureButton,
-.unfeatureButton {
   background: #f59e0b;
   color: white;
 }
 
-.featureButton:hover,
-.unfeatureButton:hover {
+.rejectButton:hover {
   background: #d97706;
 }
+
 
 .deleteButton {
   background: #dc2626;

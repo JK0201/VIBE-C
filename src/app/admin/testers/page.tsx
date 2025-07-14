@@ -6,41 +6,31 @@ import styles from './page.module.css';
 import useUIStore from '@/stores/useUIStore';
 import { formatDate } from '@/lib/formatDate';
 
-interface Bid {
+interface Tester {
   id: number;
-  developerId: number;
-  amount: number;
-  message: string;
-  createdAt: string;
-  developerName?: string;
-  developerEmail?: string;
-}
-
-interface Request {
-  id: number;
-  userId: number;
   title: string;
+  company: string;
   description: string;
-  type: 'FIXED_PRICE' | 'AUCTION';
-  budget?: number;
+  testType: string[];
+  duration: string;
+  requiredTesters: number;
+  reward: number;
+  requirements: string[];
   deadline: string;
-  status: 'OPEN' | 'COMPLETED' | 'CLOSED';
-  isUrgent: boolean;
-  category: string;
-  technologies: string[];
   createdAt: string;
+  applicants: number;
+  isUrgent: boolean;
+  status: 'OPEN' | 'COMPLETED' | 'CLOSED';
+  images?: string[];
+  userId?: number;
   userName?: string;
   userEmail?: string;
-  bidCount?: number;
-  totalBidAmount?: number;
-  bids?: Bid[];
-  selectedBidId?: number;
 }
 
-export default function AdminRequestsPage() {
+export default function AdminTestersPage() {
   const { showToast } = useUIStore();
   
-  const [requests, setRequests] = useState<Request[]>([]);
+  const [testers, setTesters] = useState<Tester[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchInput, setSearchInput] = useState('');
@@ -48,94 +38,94 @@ export default function AdminRequestsPage() {
   const [statusFilter, setStatusFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [selectedRequest, setSelectedRequest] = useState<Request | null>(null);
+  const [selectedTester, setSelectedTester] = useState<Tester | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
   useEffect(() => {
-    fetchRequests();
+    fetchTesters();
   }, [currentPage, searchTerm, typeFilter, statusFilter]);
 
   useEffect(() => {
     setSearchInput(searchTerm);
   }, [searchTerm]);
 
-  const fetchRequests = async () => {
+  const fetchTesters = async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
         page: currentPage.toString(),
         limit: '10',
         search: searchTerm,
-        type: typeFilter,
+        testType: typeFilter,
         status: statusFilter,
         sortBy: 'id',
         sortOrder: 'desc'
       });
 
-      const res = await fetch(`/api/v1/admin/requests?${params}`);
-      if (!res.ok) throw new Error('Failed to fetch requests');
+      const res = await fetch(`/api/v1/admin/testers?${params}`);
+      if (!res.ok) throw new Error('Failed to fetch testers');
       
       const data = await res.json();
-      setRequests(data.requests);
+      setTesters(data.testers);
       setTotalPages(data.pagination.totalPages);
     } catch (error) {
-      console.error('Error fetching requests:', error);
-      showToast('요청 목록을 불러오는데 실패했습니다', 'error');
+      console.error('Error fetching testers:', error);
+      showToast('테스터 목록을 불러오는데 실패했습니다', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchRequestDetail = async (requestId: number) => {
+  const fetchTesterDetail = async (testerId: number) => {
     try {
-      const res = await fetch(`/api/v1/admin/requests/${requestId}`);
-      if (!res.ok) throw new Error('Failed to fetch request detail');
+      const res = await fetch(`/api/v1/admin/testers/${testerId}`);
+      if (!res.ok) throw new Error('Failed to fetch tester detail');
       
       const data = await res.json();
-      setSelectedRequest(data);
+      setSelectedTester(data);
       setShowDetailModal(true);
     } catch (error) {
-      console.error('Error fetching request detail:', error);
-      showToast('요청 상세 정보를 불러오는데 실패했습니다', 'error');
+      console.error('Error fetching tester detail:', error);
+      showToast('테스터 상세 정보를 불러오는데 실패했습니다', 'error');
     }
   };
 
-  const handleRequestAction = async (requestId: number, action: string, actionData?: any) => {
+  const handleTesterAction = async (testerId: number, action: string) => {
     try {
-      const res = await fetch(`/api/v1/admin/requests/${requestId}`, {
+      const res = await fetch(`/api/v1/admin/testers/${testerId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action, data: actionData })
+        body: JSON.stringify({ action })
       });
 
-      if (!res.ok) throw new Error('Failed to update request');
+      if (!res.ok) throw new Error('Failed to update tester');
       
       const data = await res.json();
       showToast(data.message, 'success');
-      fetchRequests();
+      fetchTesters();
       setShowDetailModal(false);
     } catch (error) {
-      console.error('Error updating request:', error);
-      showToast('요청 업데이트에 실패했습니다', 'error');
+      console.error('Error updating tester:', error);
+      showToast('테스터 업데이트에 실패했습니다', 'error');
     }
   };
 
-  const handleDeleteRequest = async (requestId: number) => {
-    if (!confirm('정말로 이 요청을 삭제하시겠습니까? 관련된 모든 입찰 정보도 삭제됩니다.')) return;
+  const handleDeleteTester = async (testerId: number) => {
+    if (!confirm('정말로 이 테스터 모집을 삭제하시겠습니까?')) return;
 
     try {
-      const res = await fetch(`/api/v1/admin/requests/${requestId}`, {
+      const res = await fetch(`/api/v1/admin/testers/${testerId}`, {
         method: 'DELETE'
       });
 
-      if (!res.ok) throw new Error('Failed to delete request');
+      if (!res.ok) throw new Error('Failed to delete tester');
       
-      showToast('요청이 삭제되었습니다', 'success');
-      fetchRequests();
+      showToast('테스터 모집이 삭제되었습니다', 'success');
+      fetchTesters();
       setShowDetailModal(false);
     } catch (error) {
-      console.error('Error deleting request:', error);
-      showToast('요청 삭제에 실패했습니다', 'error');
+      console.error('Error deleting tester:', error);
+      showToast('테스터 삭제에 실패했습니다', 'error');
     }
   };
 
@@ -153,7 +143,7 @@ export default function AdminRequestsPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'OPEN':
-        return <span className={`${styles.badge} ${styles.open}`}>진행 중</span>;
+        return <span className={`${styles.badge} ${styles.open}`}>모집 중</span>;
       case 'COMPLETED':
         return <span className={`${styles.badge} ${styles.completed}`}>완료</span>;
       case 'CLOSED':
@@ -163,38 +153,59 @@ export default function AdminRequestsPage() {
     }
   };
 
-  const getTypeBadge = (type: string) => {
-    return type === 'FIXED_PRICE' 
-      ? <span className={`${styles.typeBadge} ${styles.fixed}`}>고정가격</span>
-      : <span className={`${styles.typeBadge} ${styles.auction}`}>경매</span>;
+  const getTestTypeBadge = (types: string[]) => {
+    const typeMap: Record<string, string> = {
+      functional: '기능',
+      ui: 'UI/UX',
+      performance: '성능',
+      security: '보안'
+    };
+
+    return types.map(type => (
+      <span key={type} className={`${styles.typeBadge} ${styles[type]}`}>
+        {typeMap[type] || type}
+      </span>
+    ));
+  };
+
+  const getDurationDisplay = (duration: string) => {
+    const durationMap: Record<string, string> = {
+      '1week': '1주',
+      '2weeks': '2주',
+      '3weeks': '3주',
+      '1month': '1개월',
+      '2months': '2개월',
+      '3months': '3개월'
+    };
+    return durationMap[duration] || duration;
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>요청 관리</h1>
+        <h1>테스터 관리</h1>
         <p className={styles.subtitle}>
-          모든 개발 요청을 관리하고 분쟁을 해결할 수 있습니다
+          모든 테스터 모집 공고를 관리하고 모니터링할 수 있습니다
         </p>
       </div>
 
       {/* Stats Cards */}
       <div className={styles.statsCards}>
         <div className={styles.statCard}>
-          <h3>전체 요청</h3>
-          <p>{requests.length || 0}</p>
+          <h3>전체 모집</h3>
+          <p>{testers.length || 0}</p>
         </div>
         <div className={styles.statCard}>
-          <h3>진행 중</h3>
-          <p>{requests.filter(r => r.status === 'OPEN').length}</p>
+          <h3>모집 중</h3>
+          <p>{testers.filter(t => t.status === 'OPEN').length}</p>
         </div>
         <div className={styles.statCard}>
-          <h3>긴급 요청</h3>
-          <p>{requests.filter(r => r.isUrgent).length}</p>
+          <h3>긴급 모집</h3>
+          <p>{testers.filter(t => t.isUrgent).length}</p>
         </div>
         <div className={styles.statCard}>
-          <h3>경매 요청</h3>
-          <p>{requests.filter(r => r.type === 'AUCTION').length}</p>
+          <h3>보안 테스트</h3>
+          <p>{testers.filter(t => t.testType.includes('security')).length}</p>
         </div>
       </div>
 
@@ -203,7 +214,7 @@ export default function AdminRequestsPage() {
         <div className={styles.searchWrapper}>
           <input
             type="text"
-            placeholder="제목, 설명, 사용자명으로 검색..."
+            placeholder="제목, 회사명으로 검색..."
             className={styles.searchInput}
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
@@ -230,8 +241,10 @@ export default function AdminRequestsPage() {
           }}
         >
           <option value="">전체 유형</option>
-          <option value="FIXED_PRICE">고정가격</option>
-          <option value="AUCTION">경매</option>
+          <option value="functional">기능 테스트</option>
+          <option value="ui">UI/UX 테스트</option>
+          <option value="performance">성능 테스트</option>
+          <option value="security">보안 테스트</option>
         </select>
 
         <select
@@ -243,14 +256,14 @@ export default function AdminRequestsPage() {
           }}
         >
           <option value="">전체 상태</option>
-          <option value="OPEN">진행 중</option>
+          <option value="OPEN">모집 중</option>
           <option value="COMPLETED">완료</option>
           <option value="CLOSED">종료</option>
         </select>
 
         <button 
           className={styles.refreshButton}
-          onClick={fetchRequests}
+          onClick={fetchTesters}
           title="새로고침"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
@@ -260,11 +273,11 @@ export default function AdminRequestsPage() {
         </button>
       </div>
 
-      {/* Requests Table */}
+      {/* Testers Table */}
       {loading ? (
         <div className={styles.loading}>
           <div className={styles.spinner}></div>
-          <p>요청 목록을 불러오는 중...</p>
+          <p>테스터 목록을 불러오는 중...</p>
         </div>
       ) : (
         <>
@@ -274,50 +287,44 @@ export default function AdminRequestsPage() {
                 <tr>
                   <th>ID</th>
                   <th>제목</th>
-                  <th>요청자</th>
-                  <th>유형</th>
-                  <th>예산/입찰</th>
+                  <th>회사</th>
+                  <th>테스트 유형</th>
+                  <th>보상</th>
+                  <th>모집인원</th>
+                  <th>지원자</th>
+                  <th>기간</th>
                   <th>상태</th>
-                  <th>마감일</th>
                   <th>긴급</th>
                   <th>액션</th>
                 </tr>
               </thead>
               <tbody>
-                {requests.map(request => (
-                  <tr key={request.id}>
-                    <td>{request.id}</td>
+                {testers.map(tester => (
+                  <tr key={tester.id}>
+                    <td>{tester.id}</td>
                     <td>
                       <Link 
-                        href={`/requests/${request.id}`}
+                        href={`/testers/${tester.id}`}
                         target="_blank"
-                        className={styles.requestLink}
+                        className={styles.testerLink}
                       >
-                        {request.title}
+                        {tester.title}
                       </Link>
                     </td>
+                    <td>{tester.company}</td>
+                    <td>{getTestTypeBadge(tester.testType)}</td>
+                    <td>{tester.reward.toLocaleString()}P</td>
+                    <td>{tester.requiredTesters}명</td>
+                    <td>{tester.applicants}명</td>
+                    <td>{getDurationDisplay(tester.duration)}</td>
+                    <td>{getStatusBadge(tester.status)}</td>
                     <td>
-                      <div className={styles.userInfo}>
-                        <span>{request.userName}</span>
-                        <span className={styles.userEmail}>{request.userEmail}</span>
-                      </div>
-                    </td>
-                    <td>{getTypeBadge(request.type)}</td>
-                    <td>
-                      {request.type === 'FIXED_PRICE' 
-                        ? `${request.budget?.toLocaleString()}P`
-                        : `${request.bidCount || 0}개 입찰`
-                      }
-                    </td>
-                    <td>{getStatusBadge(request.status)}</td>
-                    <td>{formatDate(request.deadline)}</td>
-                    <td>
-                      {request.isUrgent && <span className={styles.urgentBadge}>🚨 긴급</span>}
+                      {tester.isUrgent && <span className={styles.urgentBadge}>🚨 긴급</span>}
                     </td>
                     <td>
                       <button
                         className={styles.detailButton}
-                        onClick={() => fetchRequestDetail(request.id)}
+                        onClick={() => fetchTesterDetail(tester.id)}
                       >
                         상세보기
                       </button>
@@ -350,87 +357,76 @@ export default function AdminRequestsPage() {
       )}
 
       {/* Detail Modal */}
-      {showDetailModal && selectedRequest && (
+      {showDetailModal && selectedTester && (
         <div className={styles.modalOverlay} onClick={() => setShowDetailModal(false)}>
           <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <h2>요청 상세 정보</h2>
+            <h2>테스터 모집 상세 정보</h2>
             
-            <div className={styles.requestDetail}>
+            <div className={styles.testerDetail}>
               <div className={styles.detailRow}>
                 <label>제목:</label>
-                <span>{selectedRequest.title}</span>
+                <span>{selectedTester.title}</span>
+              </div>
+              <div className={styles.detailRow}>
+                <label>회사:</label>
+                <span>{selectedTester.company}</span>
               </div>
               <div className={styles.detailRow}>
                 <label>설명:</label>
-                <p>{selectedRequest.description}</p>
+                <p>{selectedTester.description}</p>
               </div>
               <div className={styles.detailRow}>
-                <label>요청자:</label>
-                <span>{selectedRequest.userName} ({selectedRequest.userEmail})</span>
+                <label>테스트 유형:</label>
+                <div>{getTestTypeBadge(selectedTester.testType)}</div>
               </div>
               <div className={styles.detailRow}>
-                <label>유형:</label>
-                {getTypeBadge(selectedRequest.type)}
+                <label>보상:</label>
+                <span>{selectedTester.reward.toLocaleString()}P</span>
               </div>
               <div className={styles.detailRow}>
-                <label>예산:</label>
-                <span>
-                  {selectedRequest.type === 'FIXED_PRICE' 
-                    ? `${selectedRequest.budget?.toLocaleString()}P`
-                    : '경매 방식'
-                  }
-                </span>
+                <label>모집 인원:</label>
+                <span>{selectedTester.requiredTesters}명</span>
               </div>
               <div className={styles.detailRow}>
-                <label>상태:</label>
-                {getStatusBadge(selectedRequest.status)}
+                <label>현재 지원자:</label>
+                <span>{selectedTester.applicants}명</span>
+              </div>
+              <div className={styles.detailRow}>
+                <label>테스트 기간:</label>
+                <span>{getDurationDisplay(selectedTester.duration)}</span>
+              </div>
+              <div className={styles.detailRow}>
+                <label>요구사항:</label>
+                <span>{selectedTester.requirements.join(', ')}</span>
               </div>
               <div className={styles.detailRow}>
                 <label>마감일:</label>
-                <span>{formatDate(selectedRequest.deadline)}</span>
+                <span>{formatDate(selectedTester.deadline)}</span>
               </div>
-              {selectedRequest.isUrgent && (
+              <div className={styles.detailRow}>
+                <label>상태:</label>
+                {getStatusBadge(selectedTester.status)}
+              </div>
+              {selectedTester.isUrgent && (
                 <div className={styles.detailRow}>
-                  <label>긴급 요청:</label>
+                  <label>긴급 모집:</label>
                   <span className={styles.urgentBadge}>🚨 긴급</span>
                 </div>
               )}
             </div>
 
-            {/* Bids Section (Admin can see all bid amounts) */}
-            {selectedRequest.bids && selectedRequest.bids.length > 0 && (
-              <div className={styles.bidsSection}>
-                <h3>입찰 내역 ({selectedRequest.bids.length}개)</h3>
-                <div className={styles.bidsList}>
-                  {selectedRequest.bids.map(bid => (
-                    <div key={bid.id} className={styles.bidItem}>
-                      <div className={styles.bidInfo}>
-                        <strong>{bid.developerName}</strong>
-                        <span className={styles.bidAmount}>{bid.amount.toLocaleString()}P</span>
-                      </div>
-                      <p className={styles.bidMessage}>{bid.message}</p>
-                      <span className={styles.bidDate}>{formatDate(bid.createdAt)}</span>
-                      {selectedRequest.selectedBidId === bid.id && (
-                        <span className={styles.selectedBadge}>✅ 선정됨</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             <div className={styles.modalActions}>
-              {selectedRequest.status === 'OPEN' && (
+              {selectedTester.status === 'OPEN' && (
                 <button 
                   className={styles.closeButton}
-                  onClick={() => handleRequestAction(selectedRequest.id, 'close')}
+                  onClick={() => handleTesterAction(selectedTester.id, 'close')}
                 >
                   종료
                 </button>
               )}
               <button 
                 className={styles.deleteButton}
-                onClick={() => handleDeleteRequest(selectedRequest.id)}
+                onClick={() => handleDeleteTester(selectedTester.id)}
               >
                 🗑️ 삭제
               </button>

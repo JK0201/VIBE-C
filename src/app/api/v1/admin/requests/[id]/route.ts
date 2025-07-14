@@ -22,7 +22,7 @@ async function loadUsers() {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -30,7 +30,8 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const requestId = parseInt(params.id, 10);
+    const { id } = await params;
+    const requestId = parseInt(id, 10);
     const [requestsData, usersData] = await Promise.all([
       loadRequests(),
       loadUsers()
@@ -74,7 +75,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -82,7 +83,8 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const requestId = parseInt(params.id, 10);
+    const { id } = await params;
+    const requestId = parseInt(id, 10);
     const updates = await request.json();
     
     const data = await loadRequests();
@@ -116,7 +118,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -124,7 +126,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const requestId = parseInt(params.id, 10);
+    const { id } = await params;
+    const requestId = parseInt(id, 10);
     
     const data = await loadRequests();
     const requestItem = data.requests.find((r: any) => r.id === requestId);
@@ -152,7 +155,7 @@ export async function DELETE(
 // Admin actions
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -160,7 +163,8 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const requestId = parseInt(params.id, 10);
+    const { id } = await params;
+    const requestId = parseInt(id, 10);
     const { action, data: actionData } = await request.json();
     
     const requestsData = await loadRequests();

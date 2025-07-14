@@ -39,6 +39,203 @@
       "ipAddress": "::1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
       "createdAt": "2025-07-11T07:29:33.701Z"
+    },
+    {
+      "id": 3,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_UPDATE",
+      "entity": "user",
+      "entityId": 34,
+      "details": {
+        "changes": {
+          "nickname": "dev",
+          "role": "admin",
+          "balance": 10000
+        },
+        "oldValues": {
+          "role": "admin",
+          "balance": 10000,
+          "nickname": "dev"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T01:26:03.397Z"
+    },
+    {
+      "id": 4,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_UPDATE",
+      "entity": "user",
+      "entityId": 34,
+      "details": {
+        "changes": {
+          "nickname": "dev",
+          "role": "developer",
+          "balance": 10000
+        },
+        "oldValues": {
+          "role": "developer",
+          "balance": 10000,
+          "nickname": "dev"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T01:26:16.923Z"
+    },
+    {
+      "id": 5,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_DELETE",
+      "entity": "user",
+      "entityId": 32,
+      "details": {
+        "deletedUser": {
+          "email": "john.dev@examplee.com",
+          "nickname": "John_Developer",
+          "role": "developer"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T01:26:38.743Z"
+    },
+    {
+      "id": 6,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_DELETE",
+      "entity": "user",
+      "entityId": 30,
+      "details": {
+        "deletedUser": {
+          "email": "zoe.unity@example.com",
+          "nickname": "ZoeUnity",
+          "role": "user"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T01:34:25.439Z"
+    },
+    {
+      "id": 7,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_UPDATE",
+      "entity": "user",
+      "entityId": 33,
+      "details": {
+        "changes": {
+          "nickname": "catwalk",
+          "role": "user",
+          "balance": 1000
+        },
+        "oldValues": {
+          "role": "user",
+          "balance": 1000,
+          "nickname": "catwalk"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T02:23:04.995Z"
+    },
+    {
+      "id": 8,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_UPDATE",
+      "entity": "user",
+      "entityId": 33,
+      "details": {
+        "changes": {
+          "nickname": "catwalk",
+          "role": "admin",
+          "balance": 1000
+        },
+        "oldValues": {
+          "role": "admin",
+          "balance": 1000,
+          "nickname": "catwalk"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T02:23:12.133Z"
+    },
+    {
+      "id": 9,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "USER_DELETE",
+      "entity": "user",
+      "entityId": 24,
+      "details": {
+        "deletedUser": {
+          "email": "tina.blockchain@example.com",
+          "nickname": "TinaBlockchain",
+          "role": "developer"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T03:44:09.089Z"
+    },
+    {
+      "id": 10,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "REPORT_GENERATE",
+      "entity": "system",
+      "details": {
+        "reportType": "modules",
+        "dateRange": {
+          "from": "2025-07-01",
+          "to": "2025-07-14"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T04:15:58.642Z"
+    },
+    {
+      "id": 11,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "REPORT_GENERATE",
+      "entity": "system",
+      "details": {
+        "reportType": "modules",
+        "dateRange": {
+          "from": "2025-01-01",
+          "to": "2025-07-14"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T04:22:57.761Z"
+    },
+    {
+      "id": 12,
+      "adminId": 0,
+      "adminEmail": "catwalk@gmail.com",
+      "action": "REPORT_GENERATE",
+      "entity": "system",
+      "details": {
+        "reportType": "modules",
+        "dateRange": {
+          "from": "2025-01-14",
+          "to": "2025-07-14"
+        }
+      },
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "createdAt": "2025-07-14T04:23:50.790Z"
     }
   ]
 }

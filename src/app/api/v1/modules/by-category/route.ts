@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
     // Filter components by category
     const categoryModules = componentsData.components
-      .filter(component => component.category === category)
+      .filter(component => component.status === 'approved' && component.category === category)
       .sort((a, b) => b.purchases - a.purchases) // Sort by popularity within category
       .slice(0, limit)
       .map(component => {

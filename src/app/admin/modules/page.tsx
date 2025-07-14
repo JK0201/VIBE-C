@@ -170,10 +170,6 @@ export default function AdminModulesPage() {
           <h3>신고 접수</h3>
           <p>{modules.reduce((sum, m) => sum + (m.reports || 0), 0)}</p>
         </div>
-        <div className={styles.statCard}>
-          <h3>추천 모듈</h3>
-          <p>{modules.filter(m => m.featured).length}</p>
-        </div>
       </div>
 
       {/* Search and Filters */}
@@ -275,7 +271,6 @@ export default function AdminModulesPage() {
                         >
                           {module.name}
                         </Link>
-                        {module.featured && <span className={styles.featuredBadge}>⭐ 추천</span>}
                       </div>
                     </td>
                     <td>{categoryMap[module.category] || module.category}</td>
@@ -284,7 +279,9 @@ export default function AdminModulesPage() {
                     <td>⭐ {module.rating}</td>
                     <td>{getStatusBadge(module.status || 'approved')}</td>
                     <td>
-                      {module.reports && module.reports > 0 ? (
+                      {module.status === 'rejected' ? (
+                        '-'
+                      ) : module.reports && module.reports > 0 ? (
                         <span className={styles.reportCount}>🚨 {module.reports}</span>
                       ) : (
                         '-'
@@ -391,21 +388,6 @@ export default function AdminModulesPage() {
                     ❌ 거부
                   </button>
                 </>
-              )}
-              {selectedModule.featured ? (
-                <button 
-                  className={styles.unfeatureButton}
-                  onClick={() => handleModuleAction(selectedModule.id, 'unfeature')}
-                >
-                  ⭐ 추천 해제
-                </button>
-              ) : (
-                <button 
-                  className={styles.featureButton}
-                  onClick={() => handleModuleAction(selectedModule.id, 'feature')}
-                >
-                  ⭐ 추천하기
-                </button>
               )}
               <button 
                 className={styles.deleteButton}

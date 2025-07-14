@@ -225,12 +225,32 @@
   background: var(--bg-tertiary);
 }
 
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
+}
+
+.avatarFallback {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
   margin: 0 auto;
 }
 

@@ -567,7 +567,7 @@
       "type": "AUCTION",
       "budget": null,
       "isUrgent": false,
-      "status": "OPEN",
+      "status": "CLOSED",
       "category": "mobile",
       "deadline": "2026-01-15T00:00:00Z",
       "createdAt": "2025-06-02T10:00:00Z",
@@ -580,7 +580,8 @@
           "message": "Unity 게임 개발 5년 경력, 출시 경험 다수.",
           "createdAt": "2025-06-02T11:00:00Z"
         }
-      ]
+      ],
+      "closedAt": "2025-07-14T03:45:54.832Z"
     },
     {
       "id": 19,
@@ -657,7 +658,7 @@
       "type": "AUCTION",
       "budget": null,
       "isUrgent": true,
-      "status": "CANCELLED",
+      "status": "CLOSED",
       "category": "ui-ux",
       "deadline": "2025-07-10T00:00:00Z",
       "createdAt": "2025-07-04T09:00:00Z",
@@ -679,7 +680,7 @@
           "createdAt": "2025-07-04T11:30:00Z"
         }
       ],
-      "cancelledAt": "2025-07-11T07:32:34.710Z"
+      "closedAt": "2025-07-11T07:32:34.710Z"
     },
     {
       "id": 23,
@@ -712,12 +713,12 @@
       "type": "AUCTION",
       "budget": null,
       "isUrgent": false,
-      "status": "CANCELLED",
+      "status": "CLOSED",
       "category": "ui-ux",
       "deadline": "2025-08-15T00:00:00Z",
       "createdAt": "2025-07-06T13:00:00Z",
       "bids": [],
-      "cancelledAt": "2025-07-11T07:32:08.494Z"
+      "closedAt": "2025-07-11T07:32:08.494Z"
     }
   ]
 }

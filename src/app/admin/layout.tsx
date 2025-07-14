@@ -42,6 +42,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { href: '/admin/users', label: '사용자 관리', icon: '👥' },
     { href: '/admin/modules', label: '모듈 관리', icon: '📦' },
     { href: '/admin/requests', label: '요청 관리', icon: '📝' },
+    { href: '/admin/testers', label: '테스터 관리', icon: '🧪' },
     { href: '/admin/transactions', label: '거래 관리', icon: '💰' },
     { href: '/admin/audit-logs', label: '감사 로그', icon: '🔍' },
     { href: '/admin/reports', label: '리포트', icon: '📈' },

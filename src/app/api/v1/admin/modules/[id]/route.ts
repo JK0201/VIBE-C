@@ -16,7 +16,7 @@ async function saveModules(data: any) {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -24,7 +24,8 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const moduleId = parseInt(params.id, 10);
+    const { id } = await params;
+    const moduleId = parseInt(id, 10);
     const data = await loadModules();
     const module = data.components.find((m: any) => m.id === moduleId);
 
@@ -53,7 +54,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -61,7 +62,8 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const moduleId = parseInt(params.id, 10);
+    const { id } = await params;
+    const moduleId = parseInt(id, 10);
     const updates = await request.json();
     
     const data = await loadModules();
@@ -95,7 +97,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -103,7 +105,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const moduleId = parseInt(params.id, 10);
+    const { id } = await params;
+    const moduleId = parseInt(id, 10);
     
     const data = await loadModules();
     const module = data.components.find((m: any) => m.id === moduleId);
@@ -131,7 +134,7 @@ export async function DELETE(
 // Approve module
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -139,7 +142,8 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const moduleId = parseInt(params.id, 10);
+    const { id } = await params;
+    const moduleId = parseInt(id, 10);
     const { action } = await request.json();
     
     const data = await loadModules();
@@ -159,12 +163,6 @@ export async function POST(
         data.components[moduleIndex].status = 'rejected';
         data.components[moduleIndex].rejectedAt = new Date().toISOString();
         break;
-      case 'feature':
-        data.components[moduleIndex].featured = true;
-        break;
-      case 'unfeature':
-        data.components[moduleIndex].featured = false;
-        break;
       default:
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }
@@ -173,7 +171,7 @@ export async function POST(
     
     return NextResponse.json({
       module: data.components[moduleIndex],
-      message: `모듈이 ${action === 'approve' ? '승인' : action === 'reject' ? '거부' : action === 'feature' ? '추천' : '추천 해제'}되었습니다`
+      message: `모듈이 ${action === 'approve' ? '승인' : '거부'}되었습니다`
     });
   } catch (error) {
     console.error('Failed to update module status:', error);

@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
 
     // Sort components by downloads (popularity) and get top N
     const popularModules = [...componentsData.components]
+      .filter(component => component.status === 'approved')
       .sort((a, b) => b.purchases - a.purchases)
       .slice(0, limit)
       .map(component => {

@@ -21,6 +21,9 @@ export async function GET(request: NextRequest) {
 
     // Filter modules
     let filteredModules = componentsData.components.filter(component => {
+      // Only show approved modules
+      if (component.status !== 'approved') return false;
+      
       // Category filter
       if (category !== 'all' && component.category !== category) {
         return false;
