@@ -95,7 +95,7 @@
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 2rem;
-  align-items: start;
+  align-items: flex-start;
 }
 
 /* Items Section */
@@ -112,7 +112,7 @@
   padding: 1.5rem;
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   gap: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;

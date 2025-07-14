@@ -7,8 +7,8 @@ import useUIStore from '@/stores/useUIStore';
 interface ReportData {
   title: string;
   period: string;
-  summary: any;
-  data: any[];
+  summary: Record<string, number | string>;
+  data: Array<Record<string, unknown>>;
 }
 
 export default function AdminReportsPage() {
@@ -169,10 +169,37 @@ export default function AdminReportsPage() {
           <div className={styles.dataSection}>
             <h3>상세 데이터</h3>
             <div className={styles.tableContainer}>
-              {reportType === 'users' && renderUsersTable(reportData.data)}
-              {reportType === 'modules' && renderModulesTable(reportData.data)}
-              {reportType === 'transactions' && renderTransactionsTable(reportData.data)}
-              {reportType === 'revenue' && renderRevenueTable(reportData.data)}
+              {reportType === 'users' && renderUsersTable(reportData.data as Array<{
+                id: number;
+                email: string;
+                nickname: string;
+                balance: number;
+                transactionCount: number;
+              }>)}
+              {reportType === 'modules' && renderModulesTable(reportData.data as Array<{
+                id: number;
+                name: string;
+                category: string;
+                price: number;
+                purchases: number;
+                rating: number;
+                createdAt: string;
+              }>)}
+              {reportType === 'transactions' && renderTransactionsTable(reportData.data as Array<{
+                id: number;
+                type: string;
+                amount: number;
+                fee: number;
+                netAmount: number;
+                status: string;
+                createdAt: string;
+              }>)}
+              {reportType === 'revenue' && renderRevenueTable(reportData.data as Array<{
+                date: string;
+                transactionFees: number;
+                urgentFees: number;
+                total: number;
+              }>)}
             </div>
           </div>
         </div>
@@ -204,7 +231,7 @@ export default function AdminReportsPage() {
     return labels[key] || key;
   }
 
-  function formatSummaryValue(key: string, value: any): string {
+  function formatSummaryValue(key: string, value: number | string | Record<string, number>): string {
     if (typeof value === 'object') {
       return Object.entries(value)
         .map(([k, v]) => `${k}: ${formatNumber(v as number)}`)
@@ -212,15 +239,23 @@ export default function AdminReportsPage() {
     }
     if (key.includes('Balance') || key.includes('Revenue') || key.includes('Volume') || 
         key.includes('Fees') || key.includes('Amount') || key === 'dailyAverage') {
-      return `${formatNumber(value)}P`;
+      return `${formatNumber(value as number)}P`;
     }
     if (key === 'averageRating') {
-      return value.toFixed(1);
+      return (value as number).toFixed(1);
     }
-    return formatNumber(value);
+    return formatNumber(value as number);
   }
 
-  function renderUsersTable(data: any[]) {
+  function renderUsersTable(data: Array<{
+    id: number;
+    email: string;
+    nickname: string;
+    role?: string;
+    balance: number;
+    transactionCount: number;
+    createdAt?: string;
+  }>) {
     return (
       <table className={styles.dataTable}>
         <thead>
@@ -241,7 +276,7 @@ export default function AdminReportsPage() {
               <td>{user.nickname}</td>
               <td>{user.role}</td>
               <td>{formatNumber(user.balance)}P</td>
-              <td>{new Date(user.createdAt).toLocaleDateString('ko-KR')}</td>
+              <td>{user.createdAt ? new Date(user.createdAt).toLocaleDateString('ko-KR') : '-'}</td>
             </tr>
           ))}
         </tbody>
@@ -249,7 +284,15 @@ export default function AdminReportsPage() {
     );
   }
 
-  function renderModulesTable(data: any[]) {
+  function renderModulesTable(data: Array<{
+    id: number;
+    name: string;
+    category: string;
+    price: number;
+    purchases: number;
+    rating: number;
+    createdAt: string;
+  }>) {
     return (
       <table className={styles.dataTable}>
         <thead>
@@ -280,7 +323,15 @@ export default function AdminReportsPage() {
     );
   }
 
-  function renderTransactionsTable(data: any[]) {
+  function renderTransactionsTable(data: Array<{
+    id: number;
+    type: string;
+    amount: number;
+    fee: number;
+    netAmount: number;
+    status: string;
+    createdAt: string;
+  }>) {
     return (
       <table className={styles.dataTable}>
         <thead>
@@ -311,7 +362,17 @@ export default function AdminReportsPage() {
     );
   }
 
-  function renderRevenueTable(data: any[]) {
+  function renderRevenueTable(data: Array<{
+    date: string;
+    transactionFees?: number;
+    urgentFees?: number;
+    total?: number;
+    moduleSales?: number;
+    requestPayments?: number;
+    fees?: number;
+    refunds?: number;
+    net?: number;
+  }>) {
     return (
       <table className={styles.dataTable}>
         <thead>
@@ -328,12 +389,12 @@ export default function AdminReportsPage() {
           {data.map((row, index) => (
             <tr key={index}>
               <td>{row.date}</td>
-              <td>{formatNumber(row.moduleSales)}P</td>
-              <td>{formatNumber(row.requestPayments)}P</td>
-              <td>{formatNumber(row.fees)}P</td>
-              <td>-{formatNumber(row.refunds)}P</td>
+              <td>{formatNumber(row.moduleSales || 0)}P</td>
+              <td>{formatNumber(row.requestPayments || 0)}P</td>
+              <td>{formatNumber(row.fees || 0)}P</td>
+              <td>-{formatNumber(row.refunds || 0)}P</td>
               <td className={styles.netRevenue}>
-                {formatNumber(row.fees - row.refunds)}P
+                {formatNumber((row.fees || 0) - (row.refunds || 0))}P
               </td>
             </tr>
           ))}

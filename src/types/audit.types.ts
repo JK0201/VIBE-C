@@ -5,7 +5,7 @@ export interface AuditLog {
   action: string;
   entity: string;
   entityId?: number;
-  details: any;
+  details: Record<string, unknown>;
   ipAddress?: string;
   userAgent?: string;
   createdAt: string;

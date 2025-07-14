@@ -41,9 +41,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Sort
-    filteredTesters.sort((a, b) => {
-      let aValue: any = a[sortBy as keyof typeof a];
-      let bValue: any = b[sortBy as keyof typeof b];
+    filteredTesters.sort((a: any, b: any) => {
+      let aValue: string | number | undefined = a[sortBy] as string | number | undefined;
+      let bValue: string | number | undefined = b[sortBy] as string | number | undefined;
 
       if (sortBy === 'reward' || sortBy === 'requiredTesters' || sortBy === 'applicants' || sortBy === 'id') {
         aValue = Number(aValue);
@@ -51,15 +51,15 @@ export async function GET(request: NextRequest) {
       }
 
       if (sortOrder === 'asc') {
-        return aValue > bValue ? 1 : -1;
+        return (aValue ?? 0) > (bValue ?? 0) ? 1 : -1;
       } else {
-        return aValue < bValue ? 1 : -1;
+        return (aValue ?? 0) < (bValue ?? 0) ? 1 : -1;
       }
     });
 
     // Add user information for admin view (if userId exists)
-    const enrichedTesters = filteredTesters.map(tester => {
-      const user = tester.userId ? usersData.users.find(u => u.id === tester.userId) : null;
+    const enrichedTesters = filteredTesters.map((tester: any) => {
+      const user = tester.userId ? usersData.users.find((u: any) => u.id === tester.userId) : null;
       return {
         ...tester,
         userName: user?.nickname || 'Unknown',

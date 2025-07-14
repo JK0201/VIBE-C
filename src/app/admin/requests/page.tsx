@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 import '@/styles/admin/admin-common.css';
@@ -76,7 +76,7 @@ export default function AdminRequestsPage() {
     setSearchInput(searchTerm);
   }, [searchTerm]);
 
-  const fetchRequests = async () => {
+  const fetchRequests = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -110,7 +110,7 @@ export default function AdminRequestsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, typeFilter, statusFilter, showToast]);
 
   const fetchRequestDetail = async (requestId: number) => {
     try {
@@ -126,7 +126,7 @@ export default function AdminRequestsPage() {
     }
   };
 
-  const handleRequestAction = async (requestId: number, action: string, actionData?: any) => {
+  const handleRequestAction = async (requestId: number, action: string, actionData?: unknown) => {
     try {
       const res = await fetch(`/api/v1/admin/requests/${requestId}`, {
         method: 'POST',
@@ -230,14 +230,14 @@ export default function AdminRequestsPage() {
           case 'OPEN': return StatusBadge.open();
           case 'COMPLETED': return StatusBadge.completed();
           case 'CLOSED': return StatusBadge.closed();
-          default: return <AdminBadge>{status}</AdminBadge>;
+          default: return <AdminBadge>{String(status)}</AdminBadge>;
         }
       }
     },
     { 
       key: 'deadline', 
       header: '마감일',
-      render: (deadline) => formatDate(deadline)
+      render: (deadline) => formatDate(deadline as string)
     },
     { 
       key: 'isUrgent', 

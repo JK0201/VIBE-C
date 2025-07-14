@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -19,7 +20,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -27,19 +28,19 @@ export async function GET(
     const { id } = await params;
     const moduleId = parseInt(id, 10);
     const data = await loadModules();
-    const module = data.components.find((m: any) => m.id === moduleId);
+    const moduleItem = data.components.find((m: any) => m.id === moduleId);
 
-    if (!module) {
+    if (!moduleItem) {
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });
     }
 
     // Add additional admin info
     const adminModule = {
-      ...module,
-      status: module.status || 'approved',
-      reports: module.reports || 0,
-      lastReviewed: module.lastReviewed || new Date().toISOString(),
-      reviewedBy: module.reviewedBy || 'admin'
+      ...moduleItem,
+      status: moduleItem.status || 'approved',
+      reports: moduleItem.reports || 0,
+      lastReviewed: moduleItem.lastReviewed || new Date().toISOString(),
+      reviewedBy: moduleItem.reviewedBy || 'admin'
     };
 
     return NextResponse.json(adminModule);
@@ -57,7 +58,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -100,7 +101,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -109,9 +110,9 @@ export async function DELETE(
     const moduleId = parseInt(id, 10);
     
     const data = await loadModules();
-    const module = data.components.find((m: any) => m.id === moduleId);
+    const moduleItem = data.components.find((m: any) => m.id === moduleId);
     
-    if (!module) {
+    if (!moduleItem) {
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });
     }
 
@@ -137,7 +138,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

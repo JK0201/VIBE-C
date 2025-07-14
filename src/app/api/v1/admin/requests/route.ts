@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { User, Bid } from '@/types/api.types';
 
 async function loadRequests() {
   const filePath = path.join(process.cwd(), 'data/mock/requests.json');
@@ -18,7 +20,7 @@ async function loadUsers() {
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -43,13 +45,13 @@ export async function GET(request: NextRequest) {
 
     // Enhance requests with user info
     requests = requests.map(request => {
-      const user = usersData.users.find((u: any) => u.id === request.userId);
+      const user = usersData.users.find((u: User) => u.id === request.userId);
       return {
         ...request,
         userName: user?.nickname || 'Unknown User',
         userEmail: user?.email || '',
         bidCount: request.bids?.length || 0,
-        totalBidAmount: request.bids?.reduce((sum: number, bid: any) => sum + (bid.amount || 0), 0) || 0
+        totalBidAmount: request.bids?.reduce((sum: number, bid: Bid) => sum + (bid.amount || 0), 0) || 0
       };
     });
 

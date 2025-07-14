@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 
 // Mock transaction data generator
 function generateTransactions() {
@@ -58,7 +57,7 @@ function getTransactionDescription(type: string): string {
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -108,9 +107,9 @@ export async function GET(request: NextRequest) {
       }
       
       if (sortOrder === 'asc') {
-        return aValue > bValue ? 1 : -1;
+        return (aValue ?? 0) > (bValue ?? 0) ? 1 : -1;
       } else {
-        return aValue < bValue ? 1 : -1;
+        return (aValue ?? 0) < (bValue ?? 0) ? 1 : -1;
       }
     });
 
@@ -155,7 +154,7 @@ export async function GET(request: NextRequest) {
 // Process refund
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './page.module.css';
 import '@/styles/admin/admin-common.css';
 import useUIStore from '@/stores/useUIStore';
@@ -40,7 +40,7 @@ export default function AdminAuditLogsPage() {
     setSearchInput(searchTerm);
   }, [searchTerm]);
 
-  const fetchAuditLogs = async () => {
+  const fetchAuditLogs = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -65,7 +65,7 @@ export default function AdminAuditLogsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, actionFilter, entityFilter, dateFrom, dateTo, showToast]);
 
   const handleSearch = () => {
     setSearchTerm(searchInput);
@@ -121,7 +121,7 @@ export default function AdminAuditLogsPage() {
     { 
       key: 'createdAt', 
       header: '시간',
-      render: (date) => formatDate(date)
+      render: (date) => formatDate(date as string)
     },
     { 
       key: 'adminEmail', 
@@ -137,8 +137,8 @@ export default function AdminAuditLogsPage() {
       key: 'action', 
       header: '액션',
       render: (action) => (
-        <AdminBadge variant={getActionBadgeVariant(action)}>
-          {getActionDescription(action)}
+        <AdminBadge variant={getActionBadgeVariant(action as string)}>
+          {getActionDescription(action as string)}
         </AdminBadge>
       )
     },
@@ -156,7 +156,7 @@ export default function AdminAuditLogsPage() {
     { 
       key: 'ipAddress', 
       header: 'IP 주소',
-      render: (ip) => <span className={styles.ipAddress}>{ip || '-'}</span>
+      render: (ip) => <span className={styles.ipAddress}>{String(ip || '-')}</span>
     },
     { 
       key: 'actions', 

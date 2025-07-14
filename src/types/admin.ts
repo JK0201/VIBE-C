@@ -10,12 +10,12 @@ export interface StatCard {
   };
 }
 
-export interface TableColumn<T = any> {
+export interface TableColumn<T = Record<string, unknown>> {
   key: string;
   header: string;
   width?: string;
   align?: 'left' | 'center' | 'right';
-  render?: (value: any, row: T) => React.ReactNode;
+  render?: (value: unknown, row: T) => React.ReactNode;
 }
 
 export interface FilterOption {
@@ -40,7 +40,7 @@ export interface SearchBarProps {
   onSearch: () => void;
 }
 
-export interface AdminTableProps<T = any> {
+export interface AdminTableProps<T = Record<string, unknown>> {
   columns: TableColumn<T>[];
   data: T[];
   loading?: boolean;

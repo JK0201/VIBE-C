@@ -1,8 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './page.module.css';
 import '@/styles/admin/admin-common.css';
 import useUIStore from '@/stores/useUIStore';
@@ -29,7 +27,6 @@ interface User {
 }
 
 export default function AdminUsersPage() {
-  const router = useRouter();
   const { showToast } = useUIStore();
   
   const [users, setUsers] = useState<User[]>([]);
@@ -61,7 +58,7 @@ export default function AdminUsersPage() {
     setCurrentPage(1);
   };
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -94,7 +91,7 @@ export default function AdminUsersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, roleFilter, showToast]);
 
   const handleUpdateUser = async (userId: number, updates: Partial<User>) => {
     try {
@@ -130,9 +127,9 @@ export default function AdminUsersPage() {
       
       showToast('사용자가 삭제되었습니다', 'success');
       fetchUsers();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error deleting user:', error);
-      showToast(error.message || '사용자 삭제에 실패했습니다', 'error');
+      showToast((error as Error).message || '사용자 삭제에 실패했습니다', 'error');
     }
   };
 
@@ -193,19 +190,19 @@ export default function AdminUsersPage() {
           case 'admin': return StatusBadge.admin();
           case 'developer': return StatusBadge.developer();
           case 'user': return StatusBadge.user();
-          default: return <AdminBadge>{role}</AdminBadge>;
+          default: return <AdminBadge>{String(role)}</AdminBadge>;
         }
       }
     },
     { 
       key: 'balance', 
       header: '잔액',
-      render: (balance) => <AdminBadge variant="info">{balance.toLocaleString()}P</AdminBadge>
+      render: (balance) => <AdminBadge variant="info">{(balance as number).toLocaleString()}P</AdminBadge>
     },
     { 
       key: 'createdAt', 
       header: '가입일',
-      render: (date) => date ? new Date(date).toLocaleDateString('ko-KR') : '-'
+      render: (date) => date ? new Date(date as string).toLocaleDateString('ko-KR') : '-'
     },
     { 
       key: 'actions', 

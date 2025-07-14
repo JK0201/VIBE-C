@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { logAdminAction } from '@/lib/audit/auditLogger';
@@ -174,7 +175,7 @@ async function generateReport(type: string, dateFrom: string, dateTo: string) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -193,8 +194,8 @@ export async function POST(request: NextRequest) {
 
     // Log the action
     await logAdminAction({
-      adminId: parseInt(session.user?.id || '0'),
-      adminEmail: session.user?.email || '',
+      adminId: parseInt((session as any).user?.id || '0'),
+      adminEmail: (session as any).user?.email || '',
       action: AuditAction.REPORT_GENERATE,
       entity: 'system',
       details: {

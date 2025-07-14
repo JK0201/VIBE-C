@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -12,7 +13,7 @@ async function loadUsers() {
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -72,6 +73,7 @@ export async function GET(request: NextRequest) {
     // Remove sensitive data
     const sanitizedUsers = paginatedUsers.map(user => {
       const { password, ...userWithoutPassword } = user;
+      void password; // Intentionally unused
       return userWithoutPassword;
     });
 

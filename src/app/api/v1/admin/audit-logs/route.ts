@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { getAuditLogs, logAdminAction } from '@/lib/audit/auditLogger';
 
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -50,7 +51,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -59,8 +60,8 @@ export async function POST(request: NextRequest) {
 
     // Log the admin action
     const log = await logAdminAction({
-      adminId: parseInt(session.user?.id || '0'),
-      adminEmail: session.user?.email || '',
+      adminId: parseInt((session as any).user?.id || '0'),
+      adminEmail: (session as any).user?.email || '',
       action,
       entity,
       entityId,

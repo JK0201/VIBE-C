@@ -3,6 +3,7 @@ import testersData from '@data/mock/testers.json';
 import usersData from '@data/mock/users.json';
 import fs from 'fs/promises';
 import path from 'path';
+import { Tester } from '@/types/api.types';
 
 const TESTERS_FILE_PATH = path.join(process.cwd(), 'data', 'mock', 'testers.json');
 
@@ -30,7 +31,7 @@ export async function GET(
     }
 
     // Add user information if userId exists
-    const user = tester.userId ? usersData.users.find(u => u.id === tester.userId) : null;
+    const user = (tester as any).userId ? usersData.users.find((u: any) => u.id === (tester as any).userId) : null;
     const enrichedTester = {
       ...tester,
       userName: user?.nickname || 'Unknown',
@@ -67,7 +68,7 @@ export async function POST(
     const fileContent = await fs.readFile(TESTERS_FILE_PATH, 'utf-8');
     const data = JSON.parse(fileContent);
     
-    const testerIndex = data.testers.findIndex((t: any) => t.id === testerId);
+    const testerIndex = data.testers.findIndex((t: Tester) => t.id === testerId);
     
     if (testerIndex === -1) {
       return NextResponse.json(
@@ -140,7 +141,7 @@ export async function DELETE(
     const fileContent = await fs.readFile(TESTERS_FILE_PATH, 'utf-8');
     const data = JSON.parse(fileContent);
     
-    const testerIndex = data.testers.findIndex((t: any) => t.id === testerId);
+    const testerIndex = data.testers.findIndex((t: Tester) => t.id === testerId);
     
     if (testerIndex === -1) {
       return NextResponse.json(

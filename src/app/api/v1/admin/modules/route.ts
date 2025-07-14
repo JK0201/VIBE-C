@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -12,7 +13,7 @@ async function loadModules() {
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -32,7 +33,7 @@ export async function GET(request: NextRequest) {
     let modules = [...data.components];
 
     // Add default values for modules
-    modules = modules.map(module => ({
+    modules = modules.map((module: any) => ({
       ...module,
       status: module.status || 'approved',
       createdAt: module.createdAt || '2024-01-01T00:00:00Z',
@@ -41,7 +42,7 @@ export async function GET(request: NextRequest) {
 
     // Apply filters
     if (search) {
-      modules = modules.filter(module => 
+      modules = modules.filter((module: any) => 
         module.name.toLowerCase().includes(search.toLowerCase()) ||
         module.description?.toLowerCase().includes(search.toLowerCase()) ||
         module.developer?.toLowerCase().includes(search.toLowerCase())
@@ -49,15 +50,15 @@ export async function GET(request: NextRequest) {
     }
 
     if (category) {
-      modules = modules.filter(module => module.category === category);
+      modules = modules.filter((module: any) => module.category === category);
     }
 
     if (status) {
-      modules = modules.filter(module => module.status === status);
+      modules = modules.filter((module: any) => module.status === status);
     }
 
     // Sort modules
-    modules.sort((a, b) => {
+    modules.sort((a: any, b: any) => {
       let aValue = a[sortBy];
       let bValue = b[sortBy];
       

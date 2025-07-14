@@ -43,7 +43,7 @@ export async function logAdminAction({
   action: AuditAction | string;
   entity: string;
   entityId?: number;
-  details?: any;
+  details?: Record<string, unknown>;
   ipAddress?: string;
   userAgent?: string;
 }) {
@@ -136,8 +136,8 @@ export async function getAuditLogs({
   
   // Sort logs
   logs.sort((a, b) => {
-    let aValue: any = a[sortBy as keyof typeof a];
-    let bValue: any = b[sortBy as keyof typeof b];
+    let aValue: string | number | undefined = a[sortBy as keyof typeof a] as string | number | undefined;
+    let bValue: string | number | undefined = b[sortBy as keyof typeof b] as string | number | undefined;
     
     if (sortBy === 'createdAt') {
       aValue = new Date(aValue as string).getTime();
@@ -145,9 +145,9 @@ export async function getAuditLogs({
     }
     
     if (sortOrder === 'asc') {
-      return aValue > bValue ? 1 : -1;
+      return (aValue ?? 0) > (bValue ?? 0) ? 1 : -1;
     } else {
-      return aValue < bValue ? 1 : -1;
+      return (aValue ?? 0) < (bValue ?? 0) ? 1 : -1;
     }
   });
   

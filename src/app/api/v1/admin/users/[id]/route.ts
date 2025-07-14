@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { logAdminAction } from '@/lib/audit/auditLogger';
 import { AuditAction } from '@/types/audit.types';
+import { User } from '@/types/api.types';
 
 async function loadUsers() {
   const filePath = path.join(process.cwd(), 'data/mock/users.json');
@@ -21,7 +23,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -29,7 +31,7 @@ export async function GET(
     const { id } = await params;
     const userId = parseInt(id, 10);
     const data = await loadUsers();
-    const user = data.users.find((u: any) => u.id === userId);
+    const user = data.users.find((u: User) => u.id === userId);
 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -37,6 +39,7 @@ export async function GET(
 
     // Remove password before sending
     const { password, ...userWithoutPassword } = user;
+    void password; // Intentionally unused
 
     return NextResponse.json(userWithoutPassword);
   } catch (error) {
@@ -53,7 +56,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -63,7 +66,7 @@ export async function PUT(
     const updates = await request.json();
     
     const data = await loadUsers();
-    const userIndex = data.users.findIndex((u: any) => u.id === userId);
+    const userIndex = data.users.findIndex((u: User) => u.id === userId);
 
     if (userIndex === -1) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -71,6 +74,7 @@ export async function PUT(
 
     // Update user data (except password)
     const { password, ...safeUpdates } = updates;
+    void password; // Intentionally unused
     data.users[userIndex] = {
       ...data.users[userIndex],
       ...safeUpdates,
@@ -82,8 +86,8 @@ export async function PUT(
     // Log the action
     const oldUser = { ...data.users[userIndex], ...updates };
     await logAdminAction({
-      adminId: parseInt(session.user?.id || '0'),
-      adminEmail: session.user?.email || '',
+      adminId: parseInt((session as any).user?.id || '0'),
+      adminEmail: (session as any).user?.email || '',
       action: oldUser.role !== safeUpdates.role ? AuditAction.USER_ROLE_CHANGE : 
               oldUser.balance !== safeUpdates.balance ? AuditAction.USER_BALANCE_CHANGE :
               AuditAction.USER_UPDATE,
@@ -102,7 +106,8 @@ export async function PUT(
     });
 
     // Return updated user without password
-    const { password: _, ...updatedUser } = data.users[userIndex];
+    const { password: pwd, ...updatedUser } = data.users[userIndex];
+    void pwd; // Intentionally unused
     
     return NextResponse.json({
       user: updatedUser,
@@ -122,7 +127,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -132,7 +137,7 @@ export async function DELETE(
     
     // Prevent deleting admin users
     const data = await loadUsers();
-    const user = data.users.find((u: any) => u.id === userId);
+    const user = data.users.find((u: User) => u.id === userId);
     
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -151,8 +156,8 @@ export async function DELETE(
 
     // Log the action
     await logAdminAction({
-      adminId: parseInt(session.user?.id || '0'),
-      adminEmail: session.user?.email || '',
+      adminId: parseInt((session as any).user?.id || '0'),
+      adminEmail: (session as any).user?.email || '',
       action: AuditAction.USER_DELETE,
       entity: 'user',
       entityId: userId,

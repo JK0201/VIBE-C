@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './page.module.css';
 import useUIStore from '@/stores/useUIStore';
 import { formatDate } from '@/lib/formatDate';
@@ -31,7 +30,6 @@ interface TransactionStats {
 }
 
 export default function AdminTransactionsPage() {
-  const router = useRouter();
   const { showToast } = useUIStore();
   
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -50,7 +48,7 @@ export default function AdminTransactionsPage() {
     fetchTransactions();
   }, [currentPage, typeFilter, statusFilter, dateFrom, dateTo]);
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -75,7 +73,7 @@ export default function AdminTransactionsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, typeFilter, statusFilter, dateFrom, dateTo, showToast]);
 
   const handleRefund = async (transactionId: number) => {
     const reason = prompt('환불 사유를 입력해주세요:');

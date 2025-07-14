@@ -1,5 +1,5 @@
 import styles from './AdminTable.module.css';
-import { AdminTableProps, TableColumn } from '@/types/admin';
+import { AdminTableProps } from '@/types/admin';
 
 interface ExtendedAdminTableProps<T> extends AdminTableProps<T> {
   className?: string;

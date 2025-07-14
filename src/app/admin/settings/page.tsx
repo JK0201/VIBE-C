@@ -79,7 +79,7 @@ export default function AdminSettingsPage() {
     }
   };
 
-  const handleSettingChange = (key: keyof Settings, value: any) => {
+  const handleSettingChange = (key: keyof Settings, value: string | number | boolean) => {
     setSettings(prev => ({ ...prev, [key]: value }));
   };
 
@@ -93,7 +93,7 @@ export default function AdminSettingsPage() {
       // In real app, would send test email
       showToast(`${testEmail}로 테스트 이메일을 전송했습니다`, 'success');
       setTestEmail('');
-    } catch (error) {
+    } catch {
       showToast('테스트 이메일 전송에 실패했습니다', 'error');
     }
   };

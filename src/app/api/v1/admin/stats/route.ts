@@ -1,7 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { User, Module, Request } from '@/types/api.types';
 
 // Helper to load JSON data
 async function loadJsonData(filename: string) {
@@ -10,10 +12,10 @@ async function loadJsonData(filename: string) {
   return JSON.parse(fileContent);
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Check authentication - middleware should have already verified admin role
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -30,31 +32,31 @@ export async function GET(request: NextRequest) {
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
     // User stats
-    const newUsersThisMonth = users.users.filter((user: any) => {
+    const newUsersThisMonth = users.users.filter((user: User) => {
       const createdAt = new Date(user.createdAt || '2024-01-01');
       return createdAt >= startOfMonth;
     }).length;
 
     // Module stats
-    const totalModuleSales = modules.components.reduce((sum: number, module: any) => {
+    const totalModuleSales = modules.components.reduce((sum: number, module: Module) => {
       return sum + (module.purchases || 0);
     }, 0);
 
-    const pendingModules = modules.components.filter((module: any) => 
+    const pendingModules = modules.components.filter((module: Module) => 
       module.status === 'pending'
     ).length;
 
     // Request stats
-    const openRequests = requests.requests.filter((req: any) => 
+    const openRequests = requests.requests.filter((req: Request) => 
       req.status === 'OPEN'
     ).length;
 
-    const urgentRequests = requests.requests.filter((req: any) => 
+    const urgentRequests = requests.requests.filter((req: Request) => 
       req.isUrgent === true
     ).length;
 
     // Revenue calculations (simulated)
-    const totalRevenue = modules.components.reduce((sum: number, module: any) => {
+    const totalRevenue = modules.components.reduce((sum: number, module: Module) => {
       const sales = module.purchases || 0;
       const price = module.price || 0;
       const platformFee = 0.05; // 5% platform fee

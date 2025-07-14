@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 import '@/styles/admin/admin-common.css';
@@ -67,7 +67,7 @@ export default function AdminTestersPage() {
     setSearchInput(searchTerm);
   }, [searchTerm]);
 
-  const fetchTesters = async () => {
+  const fetchTesters = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -101,7 +101,7 @@ export default function AdminTestersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, typeFilter, statusFilter, showToast]);
 
   const fetchTesterDetail = async (testerId: number) => {
     try {
@@ -242,7 +242,7 @@ export default function AdminTestersPage() {
           case 'OPEN': return StatusBadge.open();
           case 'COMPLETED': return StatusBadge.completed();
           case 'CLOSED': return StatusBadge.closed();
-          default: return <AdminBadge>{status}</AdminBadge>;
+          default: return <AdminBadge>{String(status)}</AdminBadge>;
         }
       }
     },
@@ -259,12 +259,12 @@ export default function AdminTestersPage() {
     { 
       key: 'reward', 
       header: '보상',
-      render: (reward) => <AdminBadge variant="secondary">{reward.toLocaleString()}P</AdminBadge>
+      render: (reward) => <AdminBadge variant="secondary">{(reward as number).toLocaleString()}P</AdminBadge>
     },
     { 
       key: 'duration', 
       header: '기간',
-      render: (duration) => getDurationDisplay(duration)
+      render: (duration) => getDurationDisplay(duration as string)
     },
     { 
       key: 'status', 
@@ -274,7 +274,7 @@ export default function AdminTestersPage() {
           case 'approved': return StatusBadge.approved();
           case 'pending': return StatusBadge.pending();
           case 'rejected': return StatusBadge.rejected();
-          default: return <AdminBadge>{status}</AdminBadge>;
+          default: return <AdminBadge>{String(status)}</AdminBadge>;
         }
       }
     },

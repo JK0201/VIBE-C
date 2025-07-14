@@ -31,7 +31,13 @@ interface DashboardStats {
 export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<{
+    id: number;
+    type: string;
+    description: string;
+    timestamp: string;
+    icon?: string;
+  }[]>([]);
 
   useEffect(() => {
     fetchDashboardData();

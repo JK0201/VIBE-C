@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 import '@/styles/admin/admin-common.css';
@@ -78,7 +78,7 @@ export default function AdminModulesPage() {
     setCurrentPage(1);
   };
 
-  const fetchModules = async () => {
+  const fetchModules = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -112,7 +112,7 @@ export default function AdminModulesPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, categoryFilter, statusFilter, showToast]);
 
   const handleModuleAction = async (moduleId: number, action: string) => {
     try {
@@ -204,17 +204,17 @@ export default function AdminModulesPage() {
     { 
       key: 'category', 
       header: '카테고리',
-      render: (category) => <AdminBadge variant="info">{categoryMap[category] || category}</AdminBadge>
+      render: (category) => <AdminBadge variant="info">{categoryMap[category as string] || String(category)}</AdminBadge>
     },
     { 
       key: 'price', 
       header: '가격',
-      render: (price) => <AdminBadge variant="secondary">{price.toLocaleString()}P</AdminBadge>
+      render: (price) => <AdminBadge variant="secondary">{(price as number).toLocaleString()}P</AdminBadge>
     },
     { 
       key: 'developer', 
       header: '개발자',
-      render: (developer) => developer || '-'
+      render: (developer) => <>{developer || '-'}</>
     },
     { 
       key: 'status', 
@@ -224,7 +224,7 @@ export default function AdminModulesPage() {
           case 'approved': return StatusBadge.approved();
           case 'pending': return StatusBadge.pending();
           case 'rejected': return StatusBadge.rejected();
-          default: return <AdminBadge>{status}</AdminBadge>;
+          default: return <AdminBadge>{String(status)}</AdminBadge>;
         }
       }
     },
@@ -233,22 +233,22 @@ export default function AdminModulesPage() {
       header: '평점',
       render: (rating) => (
         <div className={styles.rating}>
-          <span className={styles.star}>⭐</span> {rating.toFixed(1)}
+          <span className={styles.star}>⭐</span> {(rating as number).toFixed(1)}
         </div>
       )
     },
     { 
       key: 'purchases', 
       header: '판매',
-      render: (purchases) => purchases.toLocaleString()
+      render: (purchases) => (purchases as number).toLocaleString()
     },
     { 
       key: 'reports', 
       header: '신고',
       render: (reports, module) => 
         module.status === 'rejected' ? '-' : (
-          reports && reports > 0 ? (
-            <span className={styles.reportCount}>🚨 {reports}</span>
+          reports && (reports as number) > 0 ? (
+            <span className={styles.reportCount}>🚨 {String(reports)}</span>
           ) : '-'
         )
     },
