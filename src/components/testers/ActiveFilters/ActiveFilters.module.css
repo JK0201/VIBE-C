@@ -1,0 +1,89 @@
+.activeFilters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+}
+
+.filterTags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.filterTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background: #ede9fe;
+  border: 1px solid #ddd6fe;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #5b21b6;
+}
+
+.tagLabel {
+  font-weight: 500;
+}
+
+.removeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #7c3aed;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.removeBtn:hover {
+  background: #c4b5fd;
+  color: #5b21b6;
+}
+
+.clearAllBtn {
+  padding: 0.375rem 1rem;
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.clearAllBtn:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .activeFilters {
+    padding: 0.5rem 0 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .filterTag {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .clearAllBtn {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}

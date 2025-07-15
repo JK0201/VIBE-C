@@ -9,6 +9,7 @@ import CategoryFilter from '@/components/marketplace/CategoryFilter/CategoryFilt
 import TestersFilter from '@/components/testers/TestersFilter/TestersFilter';
 import TestersSearchControls from '@/components/testers/TestersSearchControls/TestersSearchControls';
 import TestersList from '@/components/testers/TestersList/TestersList';
+import ActiveFilters from '@/components/testers/ActiveFilters/ActiveFilters';
 import styles from './testers.module.css';
 
 const ITEMS_PER_PAGE = 12;
@@ -49,6 +50,7 @@ export default function TestersPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Fetch testers from API
   useEffect(() => {
@@ -124,6 +126,25 @@ export default function TestersPage() {
     }
   }, [testerFilters.category, setTesterFilters]);
 
+  // Calculate active filter count
+  const activeFilterCount = 
+    (testerFilters.rewardRange?.length || 0) +
+    (testerFilters.testType?.length || 0) +
+    (testerFilters.isUrgent ? 1 : 0) +
+    (testerFilters.requirements?.length || 0) +
+    (testerFilters.status?.length || 0);
+
+  // Handle removing individual filters
+  const handleRemoveFilter = (type: keyof typeof testerFilters, value?: string | boolean) => {
+    if (type === 'isUrgent') {
+      setTesterFilters({ isUrgent: null });
+    } else if (type === 'rewardRange' || type === 'testType' || type === 'requirements' || type === 'status') {
+      const currentValues = testerFilters[type] || [];
+      const newValues = currentValues.filter(v => v !== value);
+      setTesterFilters({ [type]: newValues });
+    }
+  };
+
   return (
     <div className={styles.page}>
       <Header />
@@ -160,8 +181,26 @@ export default function TestersPage() {
               sortBy={testerFilters.sortBy || 'latest'}
               onSortChange={(sort) => setTesterFilters({ sortBy: sort as 'latest' | 'reward' | 'deadline' | 'applicants' })}
               totalCount={totalTesters}
-              displayedCount={testers.length}
+              activeFilterCount={activeFilterCount}
+              onFilterClick={() => setIsFilterOpen(true)}
             />
+            
+            {activeFilterCount > 0 && (
+              <ActiveFilters
+                filters={{
+                  rewardRange: testerFilters.rewardRange || [],
+                  testType: testerFilters.testType || [],
+                  isUrgent: testerFilters.isUrgent || null,
+                  requirements: testerFilters.requirements || [],
+                  status: testerFilters.status || []
+                }}
+                onRemoveFilter={handleRemoveFilter}
+                onClearAll={() => {
+                  const { resetTesterFilters } = useFilterStore.getState();
+                  resetTesterFilters();
+                }}
+              />
+            )}
             
             {isLoading && currentPage === 1 ? (
               <div className={styles.loadingState}>
@@ -212,6 +251,20 @@ export default function TestersPage() {
           </main>
         </div>
       </div>
+      
+      {/* Mobile Filter Modal */}
+      <TestersFilter 
+        filters={{
+          rewardRange: testerFilters.rewardRange || [],
+          testType: testerFilters.testType || [],
+          isUrgent: testerFilters.isUrgent || null,
+          requirements: testerFilters.requirements || [],
+          status: testerFilters.status || []
+        }}
+        onFiltersChange={(newFilters) => setTesterFilters(newFilters)}
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+      />
       
       <Footer />
     </div>

@@ -11,6 +11,7 @@ import CategoryFilter from '@/components/marketplace/CategoryFilter/CategoryFilt
 import FilterSidebar from '@/components/marketplace/FilterSidebar/FilterSidebar';
 import SearchControls from '@/components/marketplace/SearchControls/SearchControls';
 import ModuleGrid from '@/components/marketplace/ModuleGrid/ModuleGrid';
+import ActiveFilters from '@/components/marketplace/ActiveFilters/ActiveFilters';
 import styles from './marketplace.module.css';
 
 const ITEMS_PER_PAGE = 12;
@@ -30,6 +31,7 @@ function MarketplaceContent() {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Set category from URL parameter on mount and when URL changes
   useEffect(() => {
@@ -98,6 +100,23 @@ function MarketplaceContent() {
     setCurrentPage(1);
   }, [marketplaceFilters]);
 
+  // Calculate active filter count
+  const activeFilterCount = 
+    (marketplaceFilters.priceRange?.length || 0) +
+    (marketplaceFilters.language?.length || 0) +
+    (marketplaceFilters.rating ? 1 : 0);
+
+  // Handle removing individual filters
+  const handleRemoveFilter = (type: keyof typeof marketplaceFilters, value?: string | number) => {
+    if (type === 'rating') {
+      setMarketplaceFilters({ rating: null });
+    } else if (type === 'priceRange' || type === 'language') {
+      const currentValues = marketplaceFilters[type] || [];
+      const newValues = currentValues.filter(v => v !== value);
+      setMarketplaceFilters({ [type]: newValues });
+    }
+  };
+
   return (
     <div className={styles.page}>
       <Header />
@@ -130,8 +149,24 @@ function MarketplaceContent() {
               sortBy={marketplaceFilters.sortBy || 'latest'}
               onSortChange={(sort) => setMarketplaceFilters({ sortBy: sort as 'latest' | 'popular' | 'rating' | 'price' | 'priceDesc' })}
               totalCount={totalModules}
-              displayedCount={modules.length}
+              activeFilterCount={activeFilterCount}
+              onFilterClick={() => setIsFilterOpen(true)}
             />
+            
+            {activeFilterCount > 0 && (
+              <ActiveFilters
+                filters={{
+                  priceRange: marketplaceFilters.priceRange || [],
+                  language: marketplaceFilters.language || [],
+                  rating: marketplaceFilters.rating || null
+                }}
+                onRemoveFilter={handleRemoveFilter}
+                onClearAll={() => {
+                  const { resetMarketplaceFilters } = useFilterStore.getState();
+                  resetMarketplaceFilters();
+                }}
+              />
+            )}
             
             {isLoading && currentPage === 1 ? (
               <div className={styles.loadingState}>
@@ -182,6 +217,18 @@ function MarketplaceContent() {
           </main>
         </div>
       </div>
+      
+      {/* Mobile Filter Modal */}
+      <FilterSidebar 
+        filters={{
+          priceRange: marketplaceFilters.priceRange || [],
+          language: marketplaceFilters.language || [],
+          rating: marketplaceFilters.rating || null
+        }}
+        onFiltersChange={(newFilters) => setMarketplaceFilters(newFilters)}
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+      />
       
       <Footer />
     </div>

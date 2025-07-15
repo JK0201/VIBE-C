@@ -9,6 +9,8 @@ interface FiltersState {
 interface FilterSidebarProps {
   filters: FiltersState;
   onFiltersChange: (filters: FiltersState) => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 const priceRanges = [
@@ -30,7 +32,7 @@ const languages = [
   { id: 'csharp', label: 'C#' },
 ];
 
-export default function FilterSidebar({ filters, onFiltersChange }: FilterSidebarProps) {
+export default function FilterSidebar({ filters, onFiltersChange, isOpen, onClose }: FilterSidebarProps) {
   const handlePriceChange = (value: string, checked: boolean) => {
     const newPriceRange = checked
       ? [...filters.priceRange, value]
@@ -69,6 +71,43 @@ export default function FilterSidebar({ filters, onFiltersChange }: FilterSideba
     filters.language.length > 0 ||
     filters.rating !== null;
 
+  // 모바일 모달로 표시
+  if (isOpen !== undefined) {
+    return (
+      <>
+        <div className={`${styles.modalOverlay} ${isOpen ? styles.open : ''}`} onClick={onClose} />
+        <aside className={`${styles.filterSidebar} ${styles.filterModal} ${isOpen ? styles.open : ''}`}>
+          <div className={styles.modalHeader}>
+            <h3 className={styles.filterTitle}>필터</h3>
+            <div className={styles.headerActions}>
+              <button 
+                className={styles.resetBtn}
+                onClick={resetFilters}
+                disabled={!hasActiveFilters}
+              >
+                초기화
+              </button>
+              <button className={styles.closeBtn} onClick={onClose}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div className={styles.modalContent}>
+            {renderFilterContent()}
+          </div>
+          <div className={styles.modalFooter}>
+            <button className={styles.applyBtn} onClick={onClose}>
+              필터 적용
+            </button>
+          </div>
+        </aside>
+      </>
+    );
+  }
+
+  // 데스크톱 사이드바로 표시
   return (
     <aside className={styles.filterSidebar}>
       <div className={styles.filterHeader}>
@@ -81,6 +120,13 @@ export default function FilterSidebar({ filters, onFiltersChange }: FilterSideba
           초기화
         </button>
       </div>
+      {renderFilterContent()}
+    </aside>
+  );
+
+  function renderFilterContent() {
+    return (
+      <>
 
       <div className={styles.filterSection}>
         <h4 className={styles.sectionTitle}>가격대</h4>
@@ -152,7 +198,7 @@ export default function FilterSidebar({ filters, onFiltersChange }: FilterSideba
           ))}
         </div>
       </div>
-
-    </aside>
-  );
+      </>
+    );
+  }
 }

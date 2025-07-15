@@ -220,3 +220,57 @@
     margin-bottom: 0.5rem;
   }
 }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .hero {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .heroTitle {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .searchWrapper {
+    gap: 0.5rem;
+  }
+
+  .searchBox {
+    width: 100%;
+    flex: none;
+  }
+
+  .searchButton {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+  }
+
+  .searchInput {
+    padding: 0.875rem 2.5rem 0.875rem 3rem !important;
+    font-size: 0.9375rem;
+  }
+
+  .searchIcon {
+    left: 1rem;
+  }
+
+  .clearBtn {
+    right: 0.75rem;
+  }
+
+  .popularTags {
+    margin-top: 1rem;
+  }
+
+  .popularTag {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}

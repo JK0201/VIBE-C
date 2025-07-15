@@ -4,7 +4,8 @@ interface SearchControlsProps {
   sortBy: string;
   onSortChange: (sort: string) => void;
   totalCount: number;
-  displayedCount: number;
+  activeFilterCount?: number;
+  onFilterClick?: () => void;
 }
 
 const sortOptions = [
@@ -18,21 +19,18 @@ const sortOptions = [
 export default function SearchControls({ 
   sortBy, 
   onSortChange, 
-  totalCount, 
-  displayedCount 
+  totalCount,
+  activeFilterCount = 0,
+  onFilterClick
 }: SearchControlsProps) {
   return (
     <div className={styles.searchControls}>
       <div className={styles.resultInfo}>
         <span className={styles.totalCount}>전체 {totalCount}개</span>
-        {displayedCount < totalCount && (
-          <span className={styles.displayedCount}>
-            ({displayedCount}개 표시 중)
-          </span>
-        )}
       </div>
       
-      <div className={styles.sortOptions}>
+      <div className={styles.controlsRight}>
+        <div className={styles.sortOptions}>
         <span className={styles.sortLabel}>정렬:</span>
         <div className={styles.sortButtons}>
           {sortOptions.map((option) => (
@@ -60,6 +58,20 @@ export default function SearchControls({
             </option>
           ))}
         </select>
+        </div>
+        
+        {/* Mobile Filter Button */}
+        {onFilterClick && (
+          <button className={styles.filterBtn} onClick={onFilterClick}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span>필터</span>
+            {activeFilterCount > 0 && (
+              <span className={styles.filterBadge}>{activeFilterCount}</span>
+            )}
+          </button>
+        )}
       </div>
     </div>
   );
