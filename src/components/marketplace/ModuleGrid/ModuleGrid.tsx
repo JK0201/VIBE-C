@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import styles from './ModuleGrid.module.css';
-import carouselStyles from '@/components/common/ModuleCarousel/ModuleCarousel.module.css';
 import { formatRelativeTime } from '@/lib/formatDate';
 
 interface Component {
@@ -94,42 +93,42 @@ export default function ModuleGrid({ components }: ModuleGridProps) {
               </svg>
             </button>
 
-            <div className={`${carouselStyles.componentCard} ${styles.componentCard}`}>
-              <div className={carouselStyles.componentImage}>
-                <div className={carouselStyles.imagePlaceholder} style={{background: categoryInfo.gradient}}>
-                  <span className={carouselStyles.imageIcon}>{categoryInfo.icon}</span>
+            <div className={styles.componentCard}>
+              <div className={styles.componentImage}>
+                <div className={styles.imagePlaceholder} style={{background: categoryInfo.gradient}}>
+                  <span className={styles.imageIcon}>{categoryInfo.icon}</span>
                 </div>
-                <div className={carouselStyles.componentCategory}>{categoryInfo.name}</div>
+                <div className={styles.componentCategory}>{categoryInfo.name}</div>
               </div>
               
-              <div className={carouselStyles.componentContent}>
-                <h3 className={carouselStyles.componentTitle}>{component.name}</h3>
+              <div className={styles.componentContent}>
+                <h3 className={styles.componentTitle}>{component.name}</h3>
                 <div className={styles.createdDate}>
                   {formatRelativeTime(component.createdAt)} · 💬 {component.comments}
                 </div>
-                <p className={carouselStyles.componentDesc}>{component.description}</p>
+                <p className={styles.componentDesc}>{component.description}</p>
                 
-                <div className={carouselStyles.componentTags}>
+                <div className={styles.componentTags}>
                   {component.tags.slice(0, 2).map((tag, index) => (
-                    <span key={index} className={carouselStyles.tag}>{tag}</span>
+                    <span key={index} className={styles.tag}>{tag}</span>
                   ))}
                   {component.tags.length > 2 && (
-                    <span className={carouselStyles.moreTag}>+{component.tags.length - 2}</span>
+                    <span className={styles.moreTag}>+{component.tags.length - 2}</span>
                   )}
                 </div>
                 
-                <div className={carouselStyles.componentFooter}>
-                  <div className={carouselStyles.componentPrice}>
-                    <span className={carouselStyles.priceAmount}>{component.price.toLocaleString()}</span>
-                    <span className={carouselStyles.priceUnit}>P</span>
+                <div className={styles.componentFooter}>
+                  <div className={styles.componentPrice}>
+                    <span className={styles.priceAmount}>{component.price.toLocaleString()}</span>
+                    <span className={styles.priceUnit}>P</span>
                   </div>
-                  <div className={carouselStyles.componentStats}>
-                    <span className={carouselStyles.stat}>
-                      <span className={carouselStyles.statIcon}>⭐</span>
+                  <div className={styles.componentStats}>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>⭐</span>
                       {component.rating}
                     </span>
-                    <span className={carouselStyles.stat}>
-                      <span className={carouselStyles.statIcon}>💾</span>
+                    <span className={styles.stat}>
+                      <span className={styles.statIcon}>💾</span>
                       {component.purchases}
                     </span>
                   </div>
