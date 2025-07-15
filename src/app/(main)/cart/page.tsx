@@ -47,6 +47,11 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className={styles.container}>
+        <div className={styles.breadcrumb}>
+          <Link href="/">홈</Link>
+          <span>/</span>
+          <span>장바구니</span>
+        </div>
         <div className={styles.emptyCart}>
           <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="9" cy="21" r="1" />
@@ -65,6 +70,11 @@ export default function CartPage() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.breadcrumb}>
+        <Link href="/">홈</Link>
+        <span>/</span>
+        <span>장바구니</span>
+      </div>
       <div className={styles.header}>
         <h1>장바구니</h1>
         <button 

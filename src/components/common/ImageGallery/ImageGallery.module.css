@@ -76,22 +76,12 @@
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: #CBD5E0 #f1f1f1;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 .thumbnailsContainer::-webkit-scrollbar {
-  height: 6px;
-}
-
-.thumbnailsContainer::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.thumbnailsContainer::-webkit-scrollbar-thumb {
-  background: #CBD5E0;
-  border-radius: 3px;
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .thumbnails {
