@@ -93,6 +93,28 @@
   --layout-content-max-width: 1024px;
   --header-height: 64px;
   --sidebar-width: 280px;
+  
+  /* Breakpoints */
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1280px;
+  
+  /* Mobile Spacing */
+  --spacing-mobile-xs: 0.125rem;
+  --spacing-mobile-sm: 0.25rem;
+  --spacing-mobile-md: 0.75rem;
+  --spacing-mobile-lg: 1rem;
+  --spacing-mobile-xl: 1.5rem;
+  
+  /* Mobile Typography */
+  --font-size-mobile-xs: 0.625rem;
+  --font-size-mobile-sm: 0.75rem;
+  --font-size-mobile-base: 0.875rem;
+  --font-size-mobile-lg: 1rem;
+  --font-size-mobile-xl: 1.125rem;
+  --font-size-mobile-2xl: 1.25rem;
+  --font-size-mobile-3xl: 1.5rem;
+  --font-size-mobile-4xl: 2rem;
 }
 
 /* Dark mode variables - disabled for now */

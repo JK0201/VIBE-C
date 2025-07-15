@@ -27,16 +27,39 @@ interface ModuleCarouselProps {
 export default function ModuleCarousel({ 
   modules, 
   showCategory = true,
-  itemsPerPage = 4 
+  itemsPerPage: defaultItemsPerPage = 4 
 }: ModuleCarouselProps) {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(defaultItemsPerPage);
+  
+  // Update items per page based on viewport width
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const width = window.innerWidth;
+      if (width <= 640) {
+        setItemsPerPage(1);
+      } else if (width <= 768) {
+        setItemsPerPage(2);
+      } else if (width <= 1024) {
+        setItemsPerPage(3);
+      } else {
+        setItemsPerPage(defaultItemsPerPage);
+      }
+    };
+    
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, [defaultItemsPerPage]);
+  
   const totalPages = Math.ceil(modules.length / itemsPerPage);
   
-  // Reset slide position when modules change
+  // Reset slide position when modules or itemsPerPage change
   useEffect(() => {
     setCurrentSlide(0);
-  }, [modules]);
+  }, [modules, itemsPerPage]);
   
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalPages);

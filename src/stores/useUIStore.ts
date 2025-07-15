@@ -30,6 +30,9 @@ interface UIState {
   // Modal state
   modal: Modal;
   
+  // Mobile menu state
+  isMobileMenuOpen: boolean;
+  
   // Actions
   setPageLoading: (loading: boolean, message?: string) => void;
   
@@ -41,6 +44,10 @@ interface UIState {
   // Modal actions
   showModal: (options: Omit<Modal, 'isOpen'>) => void;
   hideModal: () => void;
+  
+  // Mobile menu actions
+  toggleMobileMenu: () => void;
+  closeMobileMenu: () => void;
   
   // Convenience methods
   showSuccessToast: (message: string) => void;
@@ -57,6 +64,7 @@ const useUIStore = create<UIState>((set, get) => ({
     isOpen: false,
     type: null,
   },
+  isMobileMenuOpen: false,
   
   // Loading actions
   setPageLoading: (loading, message) => 
@@ -100,6 +108,13 @@ const useUIStore = create<UIState>((set, get) => ({
         customContent: undefined
       } 
     }),
+  
+  // Mobile menu actions
+  toggleMobileMenu: () =>
+    set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
+  
+  closeMobileMenu: () =>
+    set({ isMobileMenuOpen: false }),
   
   // Convenience methods
   showSuccessToast: (message) => 

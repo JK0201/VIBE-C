@@ -80,3 +80,99 @@
 .categoryNavItem:hover .categoryNavName {
   color: #667EEA;
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .categoryNavGrid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .categoryNav {
+    padding: 2rem 1rem;
+  }
+
+  .categoryTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .categoryNavGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .categoryNavItem {
+    padding: 0.75rem 0.25rem;
+  }
+
+  .categoryNavIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .iconEmoji {
+    font-size: 1.25rem;
+  }
+
+  .categoryNavName {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .categoryNav {
+    padding: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  .categoryTitle {
+    font-size: 1.25rem;
+    padding: 0 1rem;
+  }
+
+  .categoryNavGrid {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .categoryNavGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .categoryNavItem {
+    flex: 0 0 auto;
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+  }
+
+  .categoryNavItem:first-child {
+    margin-left: 1rem;
+  }
+
+  .categoryNavItem:last-child {
+    margin-right: 1rem;
+  }
+
+  .categoryNavIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .iconEmoji {
+    font-size: 1.125rem;
+  }
+
+  .categoryNavName {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+}
