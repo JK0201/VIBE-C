@@ -10,6 +10,7 @@ import CategoryFilter from '@/components/marketplace/CategoryFilter/CategoryFilt
 import RequestsFilter from '@/components/requests/RequestsFilter/RequestsFilter';
 import RequestsSearchControls from '@/components/requests/RequestsSearchControls/RequestsSearchControls';
 import RequestsList from '@/components/requests/RequestsList/RequestsList';
+import ActiveFilters from '@/components/requests/ActiveFilters/ActiveFilters';
 import styles from './requests.module.css';
 
 const ITEMS_PER_PAGE = 12;
@@ -53,6 +54,7 @@ function RequestsContent() {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Set category from URL parameter on mount
   useEffect(() => {
@@ -123,6 +125,24 @@ function RequestsContent() {
     setCurrentPage(1);
   }, [requestFilters]);
 
+  // Calculate active filter count
+  const activeFilterCount = 
+    (requestFilters.budgetRange?.length || 0) +
+    (requestFilters.requestType?.length || 0) +
+    (requestFilters.isUrgent ? 1 : 0) +
+    (requestFilters.status?.length || 0);
+
+  // Handle removing individual filters
+  const handleRemoveFilter = (type: keyof typeof requestFilters, value?: string) => {
+    if (type === 'isUrgent') {
+      setRequestFilters({ isUrgent: null });
+    } else if (type === 'budgetRange' || type === 'requestType' || type === 'status') {
+      const currentValues = requestFilters[type] || [];
+      const newValues = currentValues.filter(v => v !== value);
+      setRequestFilters({ [type]: newValues });
+    }
+  };
+
   return (
     <div className={styles.page}>
       <Header />
@@ -157,8 +177,25 @@ function RequestsContent() {
               sortBy={requestFilters.sortBy || 'latest'}
               onSortChange={(sort) => setRequestFilters({ sortBy: sort as 'latest' | 'budget' | 'bidCount' | 'deadline' })}
               totalCount={totalRequests}
-              displayedCount={requests.length}
+              activeFilterCount={activeFilterCount}
+              onFilterClick={() => setIsFilterOpen(true)}
             />
+            
+            {activeFilterCount > 0 && (
+              <ActiveFilters
+                filters={{
+                  budgetRange: requestFilters.budgetRange || [],
+                  requestType: requestFilters.requestType || [],
+                  isUrgent: requestFilters.isUrgent || null,
+                  status: requestFilters.status || []
+                }}
+                onRemoveFilter={handleRemoveFilter}
+                onClearAll={() => {
+                  const { resetRequestFilters } = useFilterStore.getState();
+                  resetRequestFilters();
+                }}
+              />
+            )}
             
             {isLoading && currentPage === 1 ? (
               <div className={styles.loadingState}>
@@ -187,7 +224,7 @@ function RequestsContent() {
                   )}
                 </button>
                 <p className={styles.countInfo}>
-                  전체 {totalRequests}개 중 {requests.length}개 표시 (페이지 {currentPage}/{totalPages})
+                  페이지 {currentPage} / {totalPages}
                 </p>
               </div>
             )}
@@ -209,6 +246,20 @@ function RequestsContent() {
           </main>
         </div>
       </div>
+      
+      {/* Mobile Filter Modal */}
+      <RequestsFilter 
+        filters={{
+          budgetRange: requestFilters.budgetRange || [],
+          requestType: requestFilters.requestType || [],
+          isUrgent: requestFilters.isUrgent || null,
+          status: requestFilters.status || []
+        }}
+        onFiltersChange={(newFilters) => setRequestFilters(newFilters)}
+        totalCount={totalRequests}
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+      />
       
       <Footer />
     </div>

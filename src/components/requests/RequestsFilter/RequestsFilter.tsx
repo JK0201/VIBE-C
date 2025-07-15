@@ -11,6 +11,8 @@ interface RequestsFilterProps {
   filters: FiltersState;
   onFiltersChange: (filters: FiltersState) => void;
   totalCount?: number;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 const budgetRanges = [
@@ -31,7 +33,7 @@ const statuses = [
 ];
 
 
-export default function RequestsFilter({ filters, onFiltersChange }: RequestsFilterProps) {
+export default function RequestsFilter({ filters, onFiltersChange, isOpen, onClose }: RequestsFilterProps) {
   const handleBudgetChange = (value: string, checked: boolean) => {
     const newBudgetRange = checked
       ? [...filters.budgetRange, value]
@@ -80,6 +82,43 @@ export default function RequestsFilter({ filters, onFiltersChange }: RequestsFil
     filters.isUrgent !== null ||
     filters.status.length > 0;
 
+  // 모바일 모달로 표시
+  if (isOpen !== undefined) {
+    return (
+      <>
+        <div className={`${styles.modalOverlay} ${isOpen ? styles.open : ''}`} onClick={onClose} />
+        <aside className={`${styles.filterSidebar} ${styles.filterModal} ${isOpen ? styles.open : ''}`}>
+          <div className={styles.modalHeader}>
+            <h3 className={styles.filterTitle}>필터</h3>
+            <div className={styles.headerActions}>
+              <button 
+                className={styles.resetBtn}
+                onClick={resetFilters}
+                disabled={!hasActiveFilters}
+              >
+                초기화
+              </button>
+              <button className={styles.closeBtn} onClick={onClose}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div className={styles.modalContent}>
+            {renderFilterContent()}
+          </div>
+          <div className={styles.modalFooter}>
+            <button className={styles.applyBtn} onClick={onClose}>
+              필터 적용
+            </button>
+          </div>
+        </aside>
+      </>
+    );
+  }
+
+  // 데스크톱 사이드바로 표시
   return (
     <aside className={styles.filterSidebar}>
       <div className={styles.filterHeader}>
@@ -92,6 +131,13 @@ export default function RequestsFilter({ filters, onFiltersChange }: RequestsFil
           초기화
         </button>
       </div>
+      {renderFilterContent()}
+    </aside>
+  );
+
+  function renderFilterContent() {
+    return (
+      <>
 
       <div className={styles.urgentSection}>
         <label className={styles.urgentLabel}>
@@ -186,7 +232,7 @@ export default function RequestsFilter({ filters, onFiltersChange }: RequestsFil
           ))}
         </div>
       </div>
-
-    </aside>
-  );
+      </>
+    );
+  }
 }

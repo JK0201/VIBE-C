@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   padding: 1rem 0;
   border-bottom: 1px solid var(--color-border);
 }
@@ -19,9 +19,50 @@
   color: #111827;
 }
 
-.displayedCount {
+.controlsRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filterBtn {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   font-size: 0.875rem;
-  color: #6b7280;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.filterBtn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.filterBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.filterBadge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  min-width: 18px;
+  text-align: center;
 }
 
 .sortOptions {
@@ -86,6 +127,10 @@
   .searchControls {
     flex-wrap: wrap;
     gap: 1rem;
+  }
+  
+  .filterBtn {
+    display: flex;
   }
 }
 
