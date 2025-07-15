@@ -34,6 +34,7 @@ export default function ModuleCarousel({
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(1);
+  const [dragStartScrollLeft, setDragStartScrollLeft] = useState(0);
 
   // Calculate items per page based on viewport
   useEffect(() => {
@@ -96,7 +97,9 @@ export default function ModuleCarousel({
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
     setStartX(e.pageX - (scrollContainerRef.current?.offsetLeft || 0));
-    setScrollLeft(scrollContainerRef.current?.scrollLeft || 0);
+    const currentScrollLeft = scrollContainerRef.current?.scrollLeft || 0;
+    setScrollLeft(currentScrollLeft);
+    setDragStartScrollLeft(currentScrollLeft);
   };
 
   const handleMouseLeave = () => {
@@ -113,11 +116,26 @@ export default function ModuleCarousel({
       
       const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
       const gap = 16;
-      const scrollLeft = scrollContainer.scrollLeft;
-      const firstVisibleIndex = Math.round(scrollLeft / (itemWidth + gap));
-      const targetPage = Math.round(firstVisibleIndex / itemsPerPage);
-      const targetIndex = targetPage * itemsPerPage;
+      const currentScrollLeft = scrollContainer.scrollLeft;
+      const dragDistance = currentScrollLeft - dragStartScrollLeft;
+      const threshold = (itemWidth + gap) * 0.2; // 20% threshold
       
+      // Calculate current page
+      const currentPage = Math.round(dragStartScrollLeft / ((itemWidth + gap) * itemsPerPage));
+      let targetPage = currentPage;
+      
+      // Determine target page based on drag direction and distance
+      if (Math.abs(dragDistance) > threshold) {
+        if (dragDistance > 0) {
+          // Dragged left (scrolled right)
+          targetPage = Math.min(currentPage + 1, Math.ceil(modules.length / itemsPerPage) - 1);
+        } else {
+          // Dragged right (scrolled left)
+          targetPage = Math.max(currentPage - 1, 0);
+        }
+      }
+      
+      const targetIndex = targetPage * itemsPerPage;
       scrollContainer.scrollTo({
         left: targetIndex * (itemWidth + gap),
         behavior: 'smooth'
@@ -207,11 +225,10 @@ export default function ModuleCarousel({
         return totalPages > 1 ? (
           <div className={styles.dotsContainer}>
             {Array.from({ length: totalPages }, (_, index) => (
-              <button
+              <div
                 key={index}
                 className={`${styles.dot} ${currentIndex === index ? styles.activeDot : ''}`}
-                onClick={() => scrollToPage(index)}
-                aria-label={`${index + 1}페이지로 이동`}
+                aria-label={`현재 ${totalPages}페이지 중 ${index + 1}페이지`}
               />
             ))}
           </div>
