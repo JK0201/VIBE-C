@@ -44,3 +44,78 @@
 .trustDesc {
   color: #718096;
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .trust {
+    padding: 3rem 1.5rem;
+  }
+  
+  .trustGrid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .trust {
+    padding: 2.5rem 1rem;
+  }
+  
+  .trustGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  
+  .trustItem {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .trustIcon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .trustTitle {
+    font-size: 1.125rem;
+  }
+  
+  .trustDesc {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .trust {
+    padding: 2rem 0;
+  }
+  
+  .trustContent {
+    padding: 0 1rem;
+  }
+  
+  .trustGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .trustItem {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+  
+  .trustIcon {
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .trustTitle {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .trustDesc {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+}

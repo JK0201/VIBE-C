@@ -171,3 +171,140 @@
   font-size: 0.875rem;
   font-weight: 600;
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .cta {
+    padding: 3rem 1.5rem;
+  }
+  
+  .ctaCard {
+    padding: 3.5rem;
+  }
+  
+  .ctaTitle {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cta {
+    padding: 2.5rem 1rem;
+  }
+  
+  .ctaCard {
+    padding: 3rem 2rem;
+    border-radius: 24px;
+  }
+  
+  .ctaTitle {
+    font-size: 2rem;
+  }
+  
+  .ctaDesc {
+    font-size: 1.125rem;
+  }
+  
+  .ctaStats {
+    gap: 2rem;
+  }
+  
+  .statNumber {
+    font-size: 2.25rem;
+  }
+  
+  .statLabel {
+    font-size: 0.85rem;
+  }
+  
+  .ctaPrimary {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .ctaSecondary {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .cta {
+    padding: 2rem 0;
+  }
+  
+  .ctaContent {
+    padding: 0 1rem;
+  }
+  
+  .ctaCard {
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .ctaTitle {
+    font-size: clamp(1.5rem, 4vw + 0.5rem, 2rem);
+    margin-bottom: 0.75rem;
+  }
+  
+  .ctaDesc {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .ctaDesc strong {
+    padding: 0.15rem 0.6rem;
+    font-size: 0.95rem;
+  }
+  
+  .ctaHeader {
+    margin-bottom: 2rem;
+  }
+  
+  .ctaStats {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .statNumber {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .statLabel {
+    font-size: 0.8rem;
+  }
+  
+  .ctaActions {
+    gap: 0.75rem;
+  }
+  
+  .ctaPrimary {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .ctaArrow {
+    font-size: 1.2rem;
+  }
+  
+  .ctaSecondary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .ctaNote {
+    font-size: 0.8rem;
+  }
+  
+  .ctaBadges {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
