@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './ModuleCarousel.module.css';
 
@@ -21,56 +21,89 @@ interface Module {
 interface ModuleCarouselProps {
   modules: Module[];
   showCategory?: boolean;
-  itemsPerPage?: number;
 }
 
 export default function ModuleCarousel({ 
   modules, 
-  showCategory = true,
-  itemsPerPage: defaultItemsPerPage = 4 
+  showCategory = true
 }: ModuleCarouselProps) {
   const router = useRouter();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(defaultItemsPerPage);
-  
-  // Update items per page based on viewport width
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  // Update current index on scroll
   useEffect(() => {
-    const updateItemsPerPage = () => {
-      const width = window.innerWidth;
-      if (width <= 640) {
-        setItemsPerPage(1);
-      } else if (width <= 768) {
-        setItemsPerPage(2);
-      } else if (width <= 1024) {
-        setItemsPerPage(3);
-      } else {
-        setItemsPerPage(defaultItemsPerPage);
-      }
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      const scrollLeft = scrollContainer.scrollLeft;
+      const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
+      const gap = 16; // 1rem gap
+      const index = Math.round(scrollLeft / (itemWidth + gap));
+      setCurrentIndex(index);
     };
+
+    scrollContainer.addEventListener('scroll', handleScroll);
+    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index: number) => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
     
-    updateItemsPerPage();
-    window.addEventListener('resize', updateItemsPerPage);
-    
-    return () => window.removeEventListener('resize', updateItemsPerPage);
-  }, [defaultItemsPerPage]);
-  
-  const totalPages = Math.ceil(modules.length / itemsPerPage);
-  
-  // Reset slide position when modules or itemsPerPage change
-  useEffect(() => {
-    setCurrentSlide(0);
-  }, [modules, itemsPerPage]);
-  
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalPages);
-  };
-  
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
+    const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
+    const gap = 16; // 1rem gap
+    scrollContainer.scrollTo({
+      left: index * (itemWidth + gap),
+      behavior: 'smooth'
+    });
   };
 
   const handleModuleClick = (moduleId: number) => {
+    // Don't navigate if we were dragging
+    if (isDragging) return;
     router.push(`/marketplace/${moduleId}`);
+  };
+
+  // Mouse drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollContainerRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollContainerRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    
+    // Snap to nearest card after drag
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+    
+    const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
+    const gap = 16;
+    const scrollLeft = scrollContainer.scrollLeft;
+    const targetIndex = Math.round(scrollLeft / (itemWidth + gap));
+    
+    scrollContainer.scrollTo({
+      left: targetIndex * (itemWidth + gap),
+      behavior: 'smooth'
+    });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1; // Natural scroll speed
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
   };
 
   if (modules.length === 0) {
@@ -82,96 +115,78 @@ export default function ModuleCarousel({
   }
 
   return (
-    <>
-      <div className={styles.carouselWrapper}>
-        {modules.length > itemsPerPage && (
-          <button 
-            className={styles.carouselBtn} 
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-        )}
-        
-        <div className={styles.componentCarousel}>
+    <div className={styles.carouselContainer}>
+      {/* Scroll Container */}
+      <div 
+        ref={scrollContainerRef}
+        className={`${styles.scrollContainer} ${isDragging ? styles.dragging : ''}`}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+      >
+        {modules.map((module) => (
           <div 
-            className={styles.componentSlider}
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            key={module.id} 
+            className={styles.moduleCard}
+            onClick={() => handleModuleClick(module.id)}
           >
-            {modules.map((module) => (
-              <div 
-                key={module.id} 
-                className={styles.componentCard}
-                onClick={() => handleModuleClick(module.id)}
-              >
-                <div className={styles.componentImage}>
-                  <div className={styles.imagePlaceholder} style={{background: module.gradient}}>
-                    <span className={styles.imageIcon}>{module.icon}</span>
-                  </div>
-                  {showCategory && module.category && (
-                    <div className={styles.componentCategory}>{module.category}</div>
-                  )}
+            <div className={styles.moduleImage}>
+              <div className={styles.imagePlaceholder} style={{background: module.gradient}}>
+                <span className={styles.imageIcon}>{module.icon}</span>
+              </div>
+              {showCategory && module.category && (
+                <div className={styles.moduleCategory}>{module.category}</div>
+              )}
+            </div>
+            
+            <div className={styles.moduleContent}>
+              <h3 className={styles.moduleTitle}>{module.title}</h3>
+              <p className={styles.moduleDesc}>{module.description}</p>
+              
+              <div className={styles.moduleTags}>
+                {module.tags.slice(0, 2).map((tag, index) => (
+                  <span key={index} className={styles.tag}>{tag}</span>
+                ))}
+                {module.tags.length > 2 && (
+                  <span className={styles.moreTag}>+{module.tags.length - 2}</span>
+                )}
+              </div>
+              
+              <div className={styles.moduleFooter}>
+                <div className={styles.modulePrice}>
+                  <span className={styles.priceAmount}>{module.price.toLocaleString()}</span>
+                  <span className={styles.priceUnit}>P</span>
                 </div>
-                <div className={styles.componentContent}>
-                  <h3 className={styles.componentTitle}>{module.title}</h3>
-                  <p className={styles.componentDesc}>{module.description}</p>
-                  <div className={styles.componentTags}>
-                    {module.tags.slice(0, 2).map((tag, index) => (
-                      <span key={index} className={styles.tag}>{tag}</span>
-                    ))}
-                    {module.tags.length > 2 && (
-                      <span className={styles.moreTag}>+{module.tags.length - 2}</span>
-                    )}
-                  </div>
-                  <div className={styles.componentFooter}>
-                    <div className={styles.componentPrice}>
-                      <span className={styles.priceAmount}>{module.price.toLocaleString()}</span>
-                      <span className={styles.priceUnit}>P</span>
-                    </div>
-                    <div className={styles.componentStats}>
-                      <span className={styles.stat}>
-                        <span className={styles.statIcon}>⭐</span>
-                        {module.rating}
-                      </span>
-                      <span className={styles.stat}>
-                        <span className={styles.statIcon}>💾</span>
-                        {module.downloads || module.purchases || 0}
-                      </span>
-                    </div>
-                  </div>
+                <div className={styles.moduleStats}>
+                  <span className={styles.stat}>
+                    <span className={styles.statIcon}>⭐</span>
+                    {module.rating}
+                  </span>
+                  <span className={styles.stat}>
+                    <span className={styles.statIcon}>💾</span>
+                    {module.downloads || module.purchases || 0}
+                  </span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-        
-        {modules.length > itemsPerPage && (
-          <button 
-            className={styles.carouselBtn} 
-            onClick={nextSlide}
-            disabled={currentSlide === totalPages - 1}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-        )}
+        ))}
       </div>
       
-      {modules.length > itemsPerPage && (
-        <div className={styles.carouselDots}>
-          {[...Array(totalPages)].map((_, index) => (
+      {/* Dots Indicator */}
+      {modules.length > 1 && (
+        <div className={styles.dotsContainer}>
+          {modules.map((_, index) => (
             <button
               key={index}
-              className={`${styles.dot} ${currentSlide === index ? styles.activeDot : ''}`}
-              onClick={() => setCurrentSlide(index)}
+              className={`${styles.dot} ${currentIndex === index ? styles.activeDot : ''}`}
+              onClick={() => scrollToIndex(index)}
+              aria-label={`${index + 1}번째 슬라이드로 이동`}
             />
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }

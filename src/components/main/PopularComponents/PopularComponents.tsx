@@ -211,7 +211,6 @@ export default function PopularComponents() {
         <ModuleCarousel 
           modules={modules}
           showCategory={true}
-          itemsPerPage={4}
         />
       </div>
     </section>

@@ -337,7 +337,6 @@ export default function CategoryModules() {
           <ModuleCarousel 
             modules={modules}
             showCategory={true}
-            itemsPerPage={4}
           />
         )}
         
