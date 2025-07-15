@@ -446,6 +446,10 @@
     display: none;
   }
 
+  .navActions {
+    display: none;
+  }
+
   .mobileMenuButton {
     display: block;
   }
@@ -463,10 +467,6 @@
 
   .logoText {
     font-size: 1.25rem;
-  }
-
-  .navActions {
-    display: none;
   }
 }
 

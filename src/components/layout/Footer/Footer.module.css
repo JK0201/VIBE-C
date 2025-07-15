@@ -134,7 +134,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 963px) {
   .footerTop {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -153,5 +153,31 @@
   .legalLinks {
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 3rem 0 2rem;
+  }
+  
+  .footerContent {
+    padding: 0 1rem;
+  }
+  
+  .footerLinks {
+    gap: 1.5rem;
+  }
+  
+  .linkTitle {
+    font-size: 0.95rem;
+  }
+  
+  .linkList li {
+    margin-bottom: 0.7rem;
+  }
+  
+  .linkList a {
+    font-size: 0.85rem;
   }
 }

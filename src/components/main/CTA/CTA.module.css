@@ -120,14 +120,9 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-.ctaPrimary:hover .ctaArrow {
-  transform: translateX(4px);
-}
-
 .ctaArrow {
   display: inline-block;
   margin-left: 0.5rem;
-  transition: transform 0.3s;
   font-size: 1.3rem;
 }
 
@@ -210,7 +205,7 @@
   }
   
   .statNumber {
-    font-size: 2.25rem;
+    font-size: 2.1rem;
   }
   
   .statLabel {
@@ -261,17 +256,17 @@
   }
   
   .ctaStats {
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin-bottom: 2rem;
   }
   
   .statNumber {
-    font-size: 2rem;
-    margin-bottom: 0.3rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
   }
   
   .statLabel {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
   
   .ctaActions {
