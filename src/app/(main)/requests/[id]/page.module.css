@@ -509,7 +509,7 @@
   }
 
   .sidebar {
-    order: -1;
+    order: 1;
     position: static;
   }
 }
@@ -517,6 +517,10 @@
 @media (max-width: 640px) {
   .container {
     padding: 1rem;
+  }
+  
+  .content {
+    gap: 1rem;
   }
 
   .header {
@@ -536,5 +540,25 @@
   .applications,
   .bids {
     padding: 1.5rem;
+  }
+  
+  .budgetCard,
+  .requesterCard,
+  .statusCard {
+    padding: 1.5rem;
+  }
+  
+  .budgetHeader h3,
+  .requesterCard h3,
+  .statusCard h3 {
+    font-size: 1.125rem;
+  }
+  
+  .budget {
+    padding: 1.5rem 0;
+  }
+  
+  .budgetAmount {
+    font-size: 1.75rem;
   }
 }
