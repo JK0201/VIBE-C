@@ -83,8 +83,6 @@ export default function ComponentDetailPage() {
         <Link href="/">홈</Link>
         <span>/</span>
         <Link href="/marketplace">마켓플레이스</Link>
-        <span>/</span>
-        <span>{component.name}</span>
       </div>
 
       <div className={styles.content}>

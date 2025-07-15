@@ -89,8 +89,6 @@ export default function RequestDetailPage() {
         <Link href="/">홈</Link>
         <span>/</span>
         <Link href="/requests">개발 요청</Link>
-        <span>/</span>
-        <span>{request.title}</span>
       </div>
 
       <div className={styles.content}>

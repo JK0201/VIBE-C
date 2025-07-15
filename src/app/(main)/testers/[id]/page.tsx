@@ -115,8 +115,6 @@ export default function TesterDetailPage() {
         <Link href="/">홈</Link>
         <span>/</span>
         <Link href="/testers">테스터 모집</Link>
-        <span>/</span>
-        <span>{tester.title}</span>
       </div>
 
       <div className={styles.content}>
