@@ -33,8 +33,29 @@ export default function ModuleCarousel({
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(1);
 
-  // Update current index on scroll
+  // Calculate items per page based on viewport
+  useEffect(() => {
+    const calculateItemsPerPage = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setItemsPerPage(4);
+      } else if (width >= 768) {
+        setItemsPerPage(3);
+      } else if (width >= 480) {
+        setItemsPerPage(2);
+      } else {
+        setItemsPerPage(1);
+      }
+    };
+
+    calculateItemsPerPage();
+    window.addEventListener('resize', calculateItemsPerPage);
+    return () => window.removeEventListener('resize', calculateItemsPerPage);
+  }, []);
+
+  // Update current page on scroll
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
@@ -43,22 +64,24 @@ export default function ModuleCarousel({
       const scrollLeft = scrollContainer.scrollLeft;
       const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
       const gap = 16; // 1rem gap
-      const index = Math.round(scrollLeft / (itemWidth + gap));
-      setCurrentIndex(index);
+      const firstVisibleIndex = Math.round(scrollLeft / (itemWidth + gap));
+      const currentPage = Math.floor(firstVisibleIndex / itemsPerPage);
+      setCurrentIndex(currentPage);
     };
 
     scrollContainer.addEventListener('scroll', handleScroll);
     return () => scrollContainer.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [itemsPerPage]);
 
-  const scrollToIndex = (index: number) => {
+  const scrollToPage = (pageIndex: number) => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
     
     const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
     const gap = 16; // 1rem gap
+    const targetIndex = pageIndex * itemsPerPage;
     scrollContainer.scrollTo({
-      left: index * (itemWidth + gap),
+      left: targetIndex * (itemWidth + gap),
       behavior: 'smooth'
     });
   };
@@ -83,19 +106,23 @@ export default function ModuleCarousel({
   const handleMouseUp = () => {
     setIsDragging(false);
     
-    // Snap to nearest card after drag
-    const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer) return;
-    
-    const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
-    const gap = 16;
-    const scrollLeft = scrollContainer.scrollLeft;
-    const targetIndex = Math.round(scrollLeft / (itemWidth + gap));
-    
-    scrollContainer.scrollTo({
-      left: targetIndex * (itemWidth + gap),
-      behavior: 'smooth'
-    });
+    // Snap to nearest page after drag for desktop
+    if (window.innerWidth >= 768) {
+      const scrollContainer = scrollContainerRef.current;
+      if (!scrollContainer) return;
+      
+      const itemWidth = scrollContainer.firstElementChild?.clientWidth || 0;
+      const gap = 16;
+      const scrollLeft = scrollContainer.scrollLeft;
+      const firstVisibleIndex = Math.round(scrollLeft / (itemWidth + gap));
+      const targetPage = Math.round(firstVisibleIndex / itemsPerPage);
+      const targetIndex = targetPage * itemsPerPage;
+      
+      scrollContainer.scrollTo({
+        left: targetIndex * (itemWidth + gap),
+        behavior: 'smooth'
+      });
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -175,18 +202,21 @@ export default function ModuleCarousel({
       </div>
       
       {/* Dots Indicator */}
-      {modules.length > 1 && (
-        <div className={styles.dotsContainer}>
-          {modules.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.dot} ${currentIndex === index ? styles.activeDot : ''}`}
-              onClick={() => scrollToIndex(index)}
-              aria-label={`${index + 1}번째 슬라이드로 이동`}
-            />
-          ))}
-        </div>
-      )}
+      {(() => {
+        const totalPages = Math.ceil(modules.length / itemsPerPage);
+        return totalPages > 1 ? (
+          <div className={styles.dotsContainer}>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                className={`${styles.dot} ${currentIndex === index ? styles.activeDot : ''}`}
+                onClick={() => scrollToPage(index)}
+                aria-label={`${index + 1}페이지로 이동`}
+              />
+            ))}
+          </div>
+        ) : null;
+      })()}
     </div>
   );
 }
