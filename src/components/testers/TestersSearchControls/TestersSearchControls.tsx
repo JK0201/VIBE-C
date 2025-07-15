@@ -63,7 +63,7 @@ export default function TestersSearchControls({
               <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <span>필터</span>
-            {activeFilterCount > 0 && (
+            {activeFilterCount && activeFilterCount > 0 && (
               <span className={styles.filterBadge}>{activeFilterCount}</span>
             )}
           </button>
